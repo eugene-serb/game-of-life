@@ -1,0 +1,71 @@
+/* ------------ */
+/* GAME OF LIFE */
+/* ------------ */
+
+@charset 'UTF-8';
+
+/* --------- */
+/* INTERFACE */
+/* --------- */
+
+.game-of-life {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.game-of-life__header {
+    text-align: center;
+}
+
+.game-of-life__map-wrapper {
+    width: 500px;
+    height: 500px;
+    margin-block-end: 32px;
+}
+
+.game-of-life__dialog {
+    display: block;
+    text-align: center;
+    font-size: 32px;
+    margin-block-end: 16px;
+}
+
+.game-of-life__banner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-size: 24px;
+    margin-block-end: 16px;
+}
+
+.game-of-life__rules {
+    text-align: center;
+    font-size: 16px;
+}
+
+/* ---- */
+/* GAME */
+/* ---- */
+
+.map {
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--color-d);
+    outline: 2px dashed var(--color-border);
+    border-radius: 4px;
+}
+
+.cell {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #FFFFFF;
+}
+
+.live {
+    background-color: var(--color-a-monocromatic-a);
+}
+
