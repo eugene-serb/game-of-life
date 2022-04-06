@@ -9,7 +9,7 @@ class Configurations {
     constructor() {
         this.MAP_WIDTH = 50;
         this.MAP_HEIGHT = 50;
-        this.SPEED_GAME = 500;
+        this.SPEED_RATE = 100;
 
         this.MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
         this.SCORE_WRAPPER = document.querySelector('.game-of-life__score');
@@ -47,6 +47,39 @@ class Map {
     };
 };
 
+class Figures {
+
+    constructor() {
+
+        this.gliders = [
+            [[1, 0, 0],
+            [1, 0, 1],
+            [1, 1, 0]],
+
+            [[0, 1, 0, 1],
+            [1, 0, 0, 0],
+            [1, 0, 0, 0],
+            [1, 0, 0, 1],
+            [1, 1, 1, 0]],
+
+            [[0, 1, 0, 1],
+            [1, 0, 0, 0],
+            [1, 0, 0, 0],
+            [1, 0, 0, 0],
+            [1, 0, 0, 1],
+            [1, 1, 1, 0]],
+
+            [[0, 1, 0, 1],
+            [1, 0, 0, 0],
+            [1, 0, 0, 0],
+            [1, 0, 0, 0],
+            [1, 0, 0, 0],
+            [1, 0, 0, 1],
+            [1, 1, 1, 0]]
+        ];
+    };
+};
+
 /* ---- */
 /* GAME */
 /* ---- */
@@ -59,13 +92,18 @@ class Game {
 
     _init = () => {
         this.configurations = new Configurations();
-        this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
+        this.figures = new Figures();
 
+        this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
         this.cells = this._generateMatrix(50, 50);
-        this._pasteFigure();
+
+        this._paste(20, 10, this.figures.gliders[0]);
+        this._paste(20, 20, this.figures.gliders[1]);
+        this._paste(20, 30, this.figures.gliders[2]);
+        this._paste(20, 40, this.figures.gliders[3]);
         this._draw();
 
-        this.interval = setInterval(this._gameloop, 100);
+        this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
     };
 
     _gameloop = () => {
@@ -154,17 +192,14 @@ class Game {
         return matrix;
     };
 
-    _pasteFigure = () => {
-        let figure = [[1, 0, 0],
-                      [1, 0, 1],
-                      [1, 1, 0]];
-
-        for (let x = 0; x < 3; x++) {
-            for (let y = 0; y < 3; y++) {
-                this.cells[x][y] = figure[x][y];
+    _paste = (positionX, positionY, figure) => {
+        for (let i = 0; i < figure.length; i++) {
+            for (let j = 0; j < figure[i].length; j++) {
+                this.cells[positionX + i][positionY + j] = figure[i][j];
             };
         };
     };
+
 };
 
 /* -------------- */
