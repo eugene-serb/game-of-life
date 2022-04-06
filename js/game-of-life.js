@@ -59,26 +59,10 @@ class Game {
 
     _init = () => {
         this.configurations = new Configurations();
-
         this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
 
-/*        this.cells = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
-                      [0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];*/
-
         this.cells = this._generateMatrix(50, 50);
-
-        console.log(this.cells);
-
         this._pasteFigure();
-
         this._draw();
 
         this.interval = setInterval(this._gameloop, 100);
@@ -90,34 +74,18 @@ class Game {
     };
 
     _update = () => {
-
-        /*let newMatrix = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];*/
-
         let newMatrix = this._generateMatrix(50, 50);
 
-        /**/
-
         const fixCollision = (n) => {
-
             if (n < 0) {
                 return 49;
             } else if (n > 49) {
                 return 0;
             };
-
             return n;
         };
 
-        const countNeighbour = (x, y) => {
+        const countMooreNeighbours = (x, y) => {
             let neigbours = 0;
 
             neigbours += (this.cells[fixCollision(x - 1)][fixCollision(y - 1)] === 1) ? 1 : 0;
@@ -135,11 +103,9 @@ class Game {
         };
 
         const handle = () => {
-
             for (let x = 0; x < 50; x++) {
                 for (let y = 0; y < 50; y++) {
-
-                    let neigbours = countNeighbour(x, y);
+                    let neigbours = countMooreNeighbours(x, y);
 
                     if (neigbours < 2 || neigbours > 3) {
                         newMatrix[x][y] = 0;
@@ -152,13 +118,9 @@ class Game {
                     };
 
                     newMatrix[x][y] = this.cells[x][y];
-
                 };
             };
-
         };
-
-        /**/
 
         handle();
 
@@ -167,7 +129,6 @@ class Game {
                 this.cells[x][y] = newMatrix[x][y];
             };
         };
-
     };
 
     _draw = () => {
