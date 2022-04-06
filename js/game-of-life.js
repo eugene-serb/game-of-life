@@ -107,15 +107,12 @@ class Game {
 
         this._controls();
 
+        this.generation = 0;
         this.cells = this._generateMatrix(50, 50);
-        this.cells = this._randomizeMatrix(this.cells, 0, 2);
+        this._paste(20, 20, this.figures.gliders[0]);
         this._draw();
 
-        /*this._paste(20, 10, this.figures.gliders[0]);
-        this._paste(20, 20, this.figures.gliders[1]);
-        this._paste(20, 30, this.figures.gliders[2]);
-        this._paste(20, 40, this.figures.gliders[3]);
-        */
+        this._start();
     };
 
     _start = () => {
@@ -123,6 +120,8 @@ class Game {
     };
 
     _gameloop = () => {
+        this.generation++;
+
         this._update();
         this._draw();
     };
@@ -195,6 +194,8 @@ class Game {
                 };
             };
         };
+
+        this.configurations.GENERATION_WRAPPER.innerText = `Generation: ${this.generation}`;
     };
 
     _generateMatrix = (width, height) => {
@@ -237,11 +238,14 @@ class Game {
 
         this.configurations.CLEAN_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
-            this.cells = this._generateMatrix(this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT)
+            this.cells = this._generateMatrix(this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
+            this.generation = 0;
+            this._draw();
         });
 
         this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
             this.cells = this._randomizeMatrix(this.cells, 0, 2);
+            this.generation = 0;
             this._draw();
         });
     };
