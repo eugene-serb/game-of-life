@@ -95,24 +95,18 @@
 
     <main class="page container">
         <h1 class="visually-hidden">Eugene Serb – Game of Life</h1>
-
         <section class="game-of-life">
             <h2 class="game-of-life__header">Game of Life</h2>
-
             <div class="game-of-life__map-wrapper"></div>
-
-            <span class="game-of-life__dialog hidden">Life is life</span>
-
-            <div class="game-of-life__banner hidden">
-                <span class="game-of-life__score">Generation: 0</span>
-                <span class="game-of-life__timer">Time: 00:00</span>
+            <div class="game-of-life__banner">
+                <span class="game-of-life__generation">Generation: 0</span>
             </div>
-
-            <div class="game-of-life__rules hidden">
-                <span>Control – Keyboard WASD and Arrows, Gamepad Arrows, Swipes.</span><br />
-                <span>Restart – Keyboard R and Gamepad Y.</span><br />
-                <span>Pause – Keyboard P and Gamepad X.</span>
-            </div>
+            <fieldset class="game-of-life__fieldset">
+                <button class="game-of-life__start">Start</button>
+                <button class="game-of-life__stop">Stop</button>
+                <button class="game-of-life__clean">Clean</button>
+                <button class="game-of-life__randomize">Randomize</button>
+            </fieldset>
         </section>
     </main>
 

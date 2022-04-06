@@ -23,20 +23,19 @@
     margin-block-end: 32px;
 }
 
-.game-of-life__dialog {
-    display: block;
-    text-align: center;
-    font-size: 32px;
-    margin-block-end: 16px;
-}
-
 .game-of-life__banner {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     font-size: 24px;
-    margin-block-end: 16px;
+    margin-block-end: 32px;
+}
+
+.game-of-life__fieldset {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .game-of-life__rules {

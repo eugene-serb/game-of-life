@@ -4,17 +4,26 @@
 
 'use strict'
 
+class Support {
+    getRandomInteger = (min, max) => {
+        return Math.floor(Math.random() * (max - min) + min);
+    };
+};
+
 class Configurations {
 
     constructor() {
         this.MAP_WIDTH = 50;
         this.MAP_HEIGHT = 50;
-        this.SPEED_RATE = 100;
+        this.SPEED_RATE = 50;
 
         this.MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
-        this.SCORE_WRAPPER = document.querySelector('.game-of-life__score');
-        this.TIMER_WRAPPER = document.querySelector('.game-of-life__timer');
-        this.DIALOG_WRAPPER = document.querySelector('.game-of-life__dialog');
+        this.GENERATION_WRAPPER = document.querySelector('.game-of-life__generation');
+
+        this.START_BUTTON = document.querySelector('.game-of-life__start');
+        this.STOP_BUTTON = document.querySelector('.game-of-life__stop');
+        this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
+        this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
     };
 };
 
@@ -92,17 +101,24 @@ class Game {
 
     _init = () => {
         this.configurations = new Configurations();
+        this.support = new Support();
         this.figures = new Figures();
-
         this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
-        this.cells = this._generateMatrix(50, 50);
 
-        this._paste(20, 10, this.figures.gliders[0]);
+        this._controls();
+
+        this.cells = this._generateMatrix(50, 50);
+        this.cells = this._randomizeMatrix(this.cells, 0, 2);
+        this._draw();
+
+        /*this._paste(20, 10, this.figures.gliders[0]);
         this._paste(20, 20, this.figures.gliders[1]);
         this._paste(20, 30, this.figures.gliders[2]);
         this._paste(20, 40, this.figures.gliders[3]);
-        this._draw();
+        */
+    };
 
+    _start = () => {
         this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
     };
 
@@ -192,6 +208,15 @@ class Game {
         return matrix;
     };
 
+    _randomizeMatrix = (cells, min, max) => {
+        for (let i = 0; i < cells.length; i++) {
+            for (let j = 0; j < cells[i].length; j++) {
+                cells[i][j] = this.support.getRandomInteger(min, max);
+            };
+        };
+        return cells;
+    };
+
     _paste = (positionX, positionY, figure) => {
         for (let i = 0; i < figure.length; i++) {
             for (let j = 0; j < figure[i].length; j++) {
@@ -200,6 +225,26 @@ class Game {
         };
     };
 
+    _controls = () => {
+        this.configurations.START_BUTTON.addEventListener('click', () => {
+            clearInterval(this.interval);
+            this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
+        });
+
+        this.configurations.STOP_BUTTON.addEventListener('click', () => {
+            clearInterval(this.interval);
+        });
+
+        this.configurations.CLEAN_BUTTON.addEventListener('click', () => {
+            clearInterval(this.interval);
+            this.cells = this._generateMatrix(this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT)
+        });
+
+        this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
+            this.cells = this._randomizeMatrix(this.cells, 0, 2);
+            this._draw();
+        });
+    };
 };
 
 /* -------------- */
