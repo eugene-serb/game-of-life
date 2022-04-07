@@ -15,7 +15,7 @@ class Configurations {
     constructor() {
         this.MAP_WIDTH = 50;
         this.MAP_HEIGHT = 50;
-        this.SPEED_RATE = 50;
+        this.SPEED_RATE = 100;
 
         this.MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
         this.GENERATION_WRAPPER = document.querySelector('.game-of-life__generation');
@@ -24,6 +24,7 @@ class Configurations {
         this.STOP_BUTTON = document.querySelector('.game-of-life__stop');
         this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
+        this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
     };
 };
 
@@ -106,13 +107,11 @@ class Game {
         this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
 
         this._controls();
-
+        
         this.generation = 0;
         this.cells = this._generateMatrix(50, 50);
-        this._paste(20, 20, this.figures.gliders[0]);
+        this.cells = this._randomizeMatrix(this.cells, 0, 2);
         this._draw();
-
-        this._start();
     };
 
     _start = () => {
@@ -244,9 +243,16 @@ class Game {
         });
 
         this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
+            clearInterval(this.interval);
             this.cells = this._randomizeMatrix(this.cells, 0, 2);
             this.generation = 0;
             this._draw();
+        });
+
+        this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
+            clearInterval(this.interval);
+            this.configurations.SPEED_RATE = this.configurations.SPEED_SELECTOR.value;
+            this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
         });
     };
 };
