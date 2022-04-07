@@ -35,7 +35,20 @@ class Map {
         this.width = width;
         this.height = height;
 
+        this.matrix = this.generateMatrix(this.width, this.height);
+
         this.draw();
+    };
+
+    generateMatrix = (width, height) => {
+        let matrix = new Array();
+        for (let x = 0; x < width; x++) {
+            matrix[x] = new Array();
+            for (let y = 0; y < height; y++) {
+                matrix[x][y] = 0;
+            };
+        };
+        return matrix;
     };
 
     draw = () => {
@@ -52,8 +65,29 @@ class Map {
                 cell.setAttribute('x', x);
                 cell.setAttribute('y', y);
                 map.appendChild(cell);
+
+                this._addEventListeners(cell);
             };
         };
+    };
+
+    _addEventListeners = (item) => {
+        item.addEventListener('click', () => {
+            let x = item.getAttribute('x');
+            let y = item.getAttribute('y');
+
+            if (this.matrix[x][y] === 0) {
+                this.matrix[x][y] = 1;
+            } else {
+                this.matrix[x][y] = 0;
+            };
+
+            if (document.querySelector(`[x = "${x}"][y = "${y}"]`).classList.contains('live')) {
+                document.querySelector(`[x = "${x}"][y = "${y}"]`).classList.remove('live');
+            } else {
+                document.querySelector(`[x = "${x}"][y = "${y}"]`).classList.add('live');
+            };
+        });
     };
 };
 
@@ -225,16 +259,16 @@ class Game {
         this.figures = new Figures();
         this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
 
-        this._controls();
-
         this.interval = 0;
         this.generation = 0;
-        this.cells = this._generateMatrix(50, 50);
+        this.cells = this.map.matrix;
 
         this._paste(5, 5, this.figures.oscillators[3]);
         this._paste(5, 25, this.figures.guns[0]);
 
         this._draw();
+
+        this._controls();
     };
 
     _start = () => {
@@ -249,7 +283,7 @@ class Game {
     };
 
     _update = () => {
-        let newMatrix = this._generateMatrix(50, 50);
+        let newMatrix = this.map.generateMatrix(this.map.width, this.map.height);
 
         const fixCollision = (n) => {
             if (n < 0) {
@@ -318,17 +352,6 @@ class Game {
         };
 
         this.configurations.GENERATION_WRAPPER.innerText = `Generation: ${this.generation}`;
-    };
-
-    _generateMatrix = (width, height) => {
-        let matrix = new Array();
-        for (let x = 0; x < width; x++) {
-            matrix[x] = new Array();
-            for (let y = 0; y < height; y++) {
-                matrix[x][y] = 0;
-            };
-        };
-        return matrix;
     };
 
     _randomizeMatrix = (cells, min, max) => {
