@@ -261,8 +261,11 @@ class Game {
 
             let status = (this.interval !== 0) ? 1 : 0;
 
+            console.log(this.interval);
+
             if (status === 1) {
                 clearInterval(this.interval);
+                this.interval = 0;
             };
             
             this.configurations.SPEED_RATE = this.configurations.SPEED_SELECTOR.value;
