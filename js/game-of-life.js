@@ -258,10 +258,7 @@ class Game {
         });
 
         this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
-
             let status = (this.interval !== 0) ? 1 : 0;
-
-            console.log(this.interval);
 
             if (status === 1) {
                 clearInterval(this.interval);
