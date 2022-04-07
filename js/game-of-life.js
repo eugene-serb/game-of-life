@@ -107,7 +107,8 @@ class Game {
         this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
 
         this._controls();
-        
+
+        this.interval = 0;
         this.generation = 0;
         this.cells = this._generateMatrix(50, 50);
         this.cells = this._randomizeMatrix(this.cells, 0, 2);
@@ -228,15 +229,20 @@ class Game {
     _controls = () => {
         this.configurations.START_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
+            this.interval = 0;
+
             this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
         });
 
         this.configurations.STOP_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
+            this.interval = 0;
         });
 
         this.configurations.CLEAN_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
+            this.interval = 0;
+
             this.cells = this._generateMatrix(this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
             this.generation = 0;
             this._draw();
@@ -244,15 +250,26 @@ class Game {
 
         this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
+            this.interval = 0;
+
             this.cells = this._randomizeMatrix(this.cells, 0, 2);
             this.generation = 0;
             this._draw();
         });
 
         this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
-            clearInterval(this.interval);
+
+            let status = (this.interval !== 0) ? 1 : 0;
+
+            if (status === 1) {
+                clearInterval(this.interval);
+            };
+            
             this.configurations.SPEED_RATE = this.configurations.SPEED_SELECTOR.value;
-            this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
+
+            if (status === 1) {
+                this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
+            };
         });
     };
 };
