@@ -21,6 +21,8 @@
     width: 500px;
     height: 500px;
     margin-block-end: 32px;
+    outline: 2px dashed var(--color-border);
+    border-radius: 4px;
 }
 
 .game-of-life__banner {
@@ -42,29 +44,5 @@
 .game-of-life__rules {
     text-align: center;
     font-size: 16px;
-}
-
-/* ---- */
-/* GAME */
-/* ---- */
-
-.map {
-    width: 500px;
-    height: 500px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: var(--color-d);
-    outline: 2px dashed var(--color-border);
-    border-radius: 4px;
-}
-
-.cell {
-    width: 10px;
-    height: 10px;
-}
-
-.live {
-    background-color: var(--color-a-monocromatic-a);
 }
 

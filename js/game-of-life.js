@@ -35,9 +35,36 @@ class Map {
         this.width = width;
         this.height = height;
 
+        this._init();
         this.matrix = this.generateMatrix(this.width, this.height);
-
         this.draw();
+    };
+
+    _init = () => {
+        this.canvas = document.createElement('canvas');
+        this.context = this.canvas.getContext('2d');
+
+        this.canvas.width = 500;
+        this.canvas.height = 500;
+
+        this.container.appendChild(this.canvas);
+    };
+
+    draw = () => {
+        this.context.clearRect(0, 0, 500, 500);
+        this.context.fillStyle = '#F5F5F5';
+        this.context.fillRect(0, 0, 500, 500);
+        this.context.fillStyle = '#0DC4D9';
+
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+
+                if (this.matrix[x][y] !== 0) {
+                    this.context.fillRect(x * 10, y * 10, 10, 10);
+                };
+
+            };
+        };
     };
 
     generateMatrix = (width, height) => {
@@ -49,45 +76,6 @@ class Map {
             };
         };
         return matrix;
-    };
-
-    draw = () => {
-        this.container.innerHTML = '';
-
-        let map = document.createElement('div');
-        map.classList.add('map');
-        this.container.appendChild(map);
-
-        for (let y = this.height - 1; y >= 0; y--) {
-            for (let x = 0; x <= this.width - 1; x++) {
-                let cell = document.createElement('div');
-                cell.classList.add('cell');
-                cell.setAttribute('x', x);
-                cell.setAttribute('y', y);
-                map.appendChild(cell);
-
-                this._addEventListeners(cell);
-            };
-        };
-    };
-
-    _addEventListeners = (item) => {
-        item.addEventListener('click', () => {
-            let x = item.getAttribute('x');
-            let y = item.getAttribute('y');
-
-            if (this.matrix[x][y] === 0) {
-                this.matrix[x][y] = 1;
-            } else {
-                this.matrix[x][y] = 0;
-            };
-
-            if (document.querySelector(`[x = "${x}"][y = "${y}"]`).classList.contains('live')) {
-                document.querySelector(`[x = "${x}"][y = "${y}"]`).classList.remove('live');
-            } else {
-                document.querySelector(`[x = "${x}"][y = "${y}"]`).classList.add('live');
-            };
-        });
     };
 };
 
@@ -267,12 +255,7 @@ class Game {
         this._paste(5, 25, this.figures.guns[0]);
 
         this._draw();
-
         this._controls();
-    };
-
-    _start = () => {
-        this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
     };
 
     _gameloop = () => {
@@ -342,15 +325,6 @@ class Game {
 
     _draw = () => {
         this.map.draw();
-
-        for (let x = 0; x < 50; x++) {
-            for (let y = 0; y < 50; y++) {
-                if (this.cells[x][y] !== 0) {
-                    document.querySelector(`[x = "${x}"][y = "${y}"]`).classList.add('live');
-                };
-            };
-        };
-
         this.configurations.GENERATION_WRAPPER.innerText = `Generation: ${this.generation}`;
     };
 
