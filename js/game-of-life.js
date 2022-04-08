@@ -392,6 +392,19 @@ class Game {
                 this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
             };
         });
+
+        this.configurations.MAP_WRAPPER.addEventListener('click', (event) => {
+            let x = Math.floor(event.offsetX / 10);
+            let y = Math.floor(event.offsetY / 10);
+
+            if (this.cells[x][y] === 0) {
+                this.cells[x][y] = 1;
+            } else {
+                this.cells[x][y] = 0;
+            };
+
+            this._draw();
+        });
     };
 };
 
