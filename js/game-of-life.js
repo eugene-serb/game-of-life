@@ -362,7 +362,7 @@ class Game {
             clearInterval(this.interval);
             this.interval = 0;
 
-            this.cells = this._generateMatrix(this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
+            this.cells = this.generateMatrix(this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
             this.generation = 0;
             this._draw();
         });
