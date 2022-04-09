@@ -41,6 +41,12 @@
     margin-block-end: 8px;
 }
 
+.game-of-life__figure-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
 .game-of-life__rules {
     text-align: center;
     font-size: 16px;

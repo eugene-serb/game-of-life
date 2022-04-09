@@ -27,6 +27,11 @@ class Configurations {
         this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
         this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
+
+        this.MENU_STILLS = document.querySelector('game-of-life__still-menu');
+        this.MENU_SPACESHIPS = document.querySelector('game-of-life__still-menu');
+        this.MENU_OSCILLATORS = document.querySelector('game-of-life__still-menu');
+        this.MENU_GUNS = document.querySelector('game-of-life__still-menu');
     };
 };
 
@@ -253,9 +258,6 @@ class Game {
         this.generation = 0;
         this.cells = this.map.matrix;
 
-        this._paste(5, 5, this.figures.oscillators[3]);
-        this._paste(5, 25, this.figures.guns[0]);
-
         this._draw();
         this._controls();
     };
@@ -268,7 +270,7 @@ class Game {
     };
 
     _update = () => {
-        let newMatrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+        let nextMatrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
 
         const fixCollision = (n) => {
             if (n < 0) {
@@ -302,16 +304,16 @@ class Game {
                     let neigbours = countMooreNeighbours(x, y);
 
                     if (neigbours < 2 || neigbours > 3) {
-                        newMatrix[x][y] = 0;
+                        nextMatrix[x][y] = 0;
                         continue;
                     };
 
                     if (this.cells[x][y] === 0 && neigbours === 3) {
-                        newMatrix[x][y] = 1;
+                        nextMatrix[x][y] = 1;
                         continue;
                     };
 
-                    newMatrix[x][y] = this.cells[x][y];
+                    nextMatrix[x][y] = this.cells[x][y];
                 };
             };
         };
@@ -320,7 +322,7 @@ class Game {
 
         for (let x = 0; x < 50; x++) {
             for (let y = 0; y < 50; y++) {
-                this.cells[x][y] = newMatrix[x][y];
+                this.cells[x][y] = nextMatrix[x][y];
             };
         };
     };
@@ -364,7 +366,7 @@ class Game {
             clearInterval(this.interval);
             this.interval = 0;
 
-            this.map.matrix = this.map.generateMatrix(this.map.width, this.map.height);
+            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
             this.cells = this.map.matrix;
 
             this.generation = 0;
