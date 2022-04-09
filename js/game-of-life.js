@@ -13,8 +13,10 @@ class Support {
 class Configurations {
 
     constructor() {
-        this.MAP_WIDTH = 50;
-        this.MAP_HEIGHT = 50;
+        this.CANVAS_WIDTH = 500;
+        this.CANVAS_HEIGHT = 500;
+        this.MATRIX_WIDTH = 50;
+        this.MATRIX_HEIGHT = 50;
         this.SPEED_RATE = 100;
 
         this.MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
@@ -30,13 +32,17 @@ class Configurations {
 
 class Map {
 
-    constructor(wrapper, width, height) {
+    constructor(wrapper, canvas_width, canvas_height, matrix_width, matrix_height) {
         this.container = wrapper;
-        this.width = width;
-        this.height = height;
+        this.canvas_width = canvas_width;
+        this.canvas_height = canvas_height;
+        this.matrix_width = matrix_width;
+        this.matrix_height = matrix_height;
+        this.cell_width = this.canvas_width / this.matrix_width;
+        this.cell_height = this.canvas_height / this.matrix_height;
 
         this._init();
-        this.matrix = this.generateMatrix(this.width, this.height);
+        this.matrix = this.generateMatrix(this.matrix_width, this.matrix_height);
         this.draw();
     };
 
@@ -44,34 +50,32 @@ class Map {
         this.canvas = document.createElement('canvas');
         this.context = this.canvas.getContext('2d');
 
-        this.canvas.width = 500;
-        this.canvas.height = 500;
+        this.canvas.width = this.canvas_width;
+        this.canvas.height = this.canvas_height;
 
         this.container.appendChild(this.canvas);
     };
 
     draw = () => {
-        this.context.clearRect(0, 0, 500, 500);
+        this.context.clearRect(0, 0, this.canvas_width, this.canvas_height);
         this.context.fillStyle = '#F5F5F5';
-        this.context.fillRect(0, 0, 500, 500);
+        this.context.fillRect(0, 0, this.canvas_width, this.canvas_height);
         this.context.fillStyle = '#0DC4D9';
 
-        for (let x = 0; x < this.width; x++) {
-            for (let y = 0; y < this.height; y++) {
-
+        for (let x = 0; x < this.matrix_width; x++) {
+            for (let y = 0; y < this.matrix_height; y++) {
                 if (this.matrix[x][y] !== 0) {
-                    this.context.fillRect(x * 10, y * 10, 10, 10);
+                    this.context.fillRect(x * this.cell_width, y * this.cell_height, this.cell_width, this.cell_height);
                 };
-
             };
         };
     };
 
-    generateMatrix = (width, height) => {
+    generateMatrix = (matrix_width, matrix_height) => {
         let matrix = new Array();
-        for (let x = 0; x < width; x++) {
+        for (let x = 0; x < matrix_width; x++) {
             matrix[x] = new Array();
-            for (let y = 0; y < height; y++) {
+            for (let y = 0; y < matrix_height; y++) {
                 matrix[x][y] = 0;
             };
         };
@@ -231,10 +235,6 @@ class Figures {
     };
 };
 
-/* ---- */
-/* GAME */
-/* ---- */
-
 class Game {
 
     constructor() {
@@ -245,7 +245,9 @@ class Game {
         this.configurations = new Configurations();
         this.support = new Support();
         this.figures = new Figures();
-        this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MAP_WIDTH, this.configurations.MAP_HEIGHT);
+        this.map = new Map(this.configurations.MAP_WRAPPER,
+                           this.configurations.CANVAS_WIDTH, this.configurations.CANVAS_HEIGHT,
+                           this.configurations.MATRIX_WIDTH, this.configurations.MATRIX_HEIGHT);
 
         this.interval = 0;
         this.generation = 0;
@@ -266,7 +268,7 @@ class Game {
     };
 
     _update = () => {
-        let newMatrix = this.map.generateMatrix(this.map.width, this.map.height);
+        let newMatrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
 
         const fixCollision = (n) => {
             if (n < 0) {
