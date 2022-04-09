@@ -28,10 +28,10 @@ class Configurations {
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
         this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
 
-        this.MENU_STILLS = document.querySelector('game-of-life__still-menu');
-        this.MENU_SPACESHIPS = document.querySelector('game-of-life__still-menu');
-        this.MENU_OSCILLATORS = document.querySelector('game-of-life__still-menu');
-        this.MENU_GUNS = document.querySelector('game-of-life__still-menu');
+        this.MENU_STILLS = document.querySelector('.game-of-life__still-menu');
+        this.MENU_SPACESHIPS = document.querySelector('.game-of-life__spaceships-menu');
+        this.MENU_OSCILLATORS = document.querySelector('.game-of-life__oscillator-menu');
+        this.MENU_GUNS = document.querySelector('.game-of-life__guns-menu');
     };
 };
 
@@ -100,67 +100,67 @@ class Figures {
 
             /* Bee-hive */
             [[0, 1, 0],
-            [1, 0, 1],
-            [1, 0, 1],
-            [0, 1, 0]],
+             [1, 0, 1],
+             [1, 0, 1],
+             [0, 1, 0]],
 
             /* Loaf */
             [[0, 0, 1, 0],
-            [0, 1, 0, 1],
-            [1, 0, 0, 1],
-            [0, 1, 1, 0]],
+             [0, 1, 0, 1],
+             [1, 0, 0, 1],
+             [0, 1, 1, 0]],
 
             /* Boat */
             [[0, 1, 1],
-            [1, 0, 1],
-            [0, 1, 0]],
+             [1, 0, 1],
+             [0, 1, 0]],
 
             /* Tub */
             [[0, 1, 0],
-            [1, 0, 1],
-            [0, 1, 0]]
+             [1, 0, 1],
+             [0, 1, 0]]
         ];
 
         this.oscillators = [
 
             /* Blinker – period 2 */
             [[1],
-            [1],
-            [1]],
+             [1],
+             [1]],
 
             /* Toad – period 2 */
             [[1, 0],
-            [1, 1],
-            [1, 1],
-            [0, 1]],
+             [1, 1],
+             [1, 1],
+             [0, 1]],
 
             /* Beacon – period 2 */
             [[0, 0, 1, 1],
-            [0, 0, 1, 1],
-            [1, 1, 0, 0],
-            [1, 1, 0, 0]],
+             [0, 0, 1, 1],
+             [1, 1, 0, 0],
+             [1, 1, 0, 0]],
 
             /* Pulsar – period 3 */
             [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
-            [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-            [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-            [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-            [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
+             [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+             [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+             [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]],
 
             /* Penta decanthlon – period 15 */
             [[1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1],
-            [1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1],
-            [1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1]]
+             [1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1],
+             [1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1]]
         ];
 
         this.spaceships = [
@@ -260,6 +260,7 @@ class Game {
 
         this._draw();
         this._controls();
+        this._menuControls();
     };
 
     _gameloop = () => {
@@ -341,10 +342,19 @@ class Game {
         return cells;
     };
 
-    _paste = (positionX, positionY, figure) => {
-        for (let i = 0; i < figure.length; i++) {
-            for (let j = 0; j < figure[i].length; j++) {
-                this.cells[positionX + i][positionY + j] = figure[i][j];
+    _paste = (matrix, figure) => {
+
+        if (matrix.length < figure.length ||
+            matrix[0].length < figure[0].length) {
+            return;
+        };
+
+        let startX = Math.floor(matrix.length / 2) - Math.floor(figure.length / 2);
+        let startY = Math.floor(matrix[0].length / 2) - Math.floor(figure[0].length / 2);
+
+        for (let x = 0; x < figure.length; x++) {
+            for (let y = 0; y < figure[x].length; y++) {
+                this.cells[startX + x][startY + y] = figure[x][y];
             };
         };
     };
@@ -407,6 +417,64 @@ class Game {
                 this.cells[x][y] = 0;
             };
 
+            this._draw();
+        });
+    };
+
+    _menuControls = () => {
+        this.configurations.MENU_STILLS.addEventListener('change', () => {
+            if (this.configurations.MENU_STILLS.value === '-1') {
+                return;
+            };
+
+            clearInterval(this.interval);
+            this.interval = 0;
+            this.generation = 0;
+            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+            this.cells = this.map.matrix;
+            this._paste(this.cells, this.figures.standing[this.configurations.MENU_STILLS.value])
+            this._draw();
+        });
+
+        this.configurations.MENU_SPACESHIPS.addEventListener('change', () => {
+            if (this.configurations.MENU_SPACESHIPS.value === '-1') {
+                return;
+            };
+
+            clearInterval(this.interval);
+            this.interval = 0;
+            this.generation = 0;
+            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+            this.cells = this.map.matrix;
+            this._paste(this.cells, this.figures.spaceships[this.configurations.MENU_SPACESHIPS.value])
+            this._draw();
+        });
+
+        this.configurations.MENU_OSCILLATORS.addEventListener('change', () => {
+            if (this.configurations.MENU_OSCILLATORS.value === '-1') {
+                return;
+            };
+
+            clearInterval(this.interval);
+            this.interval = 0;
+            this.generation = 0;
+            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+            this.cells = this.map.matrix;
+            this._paste(this.cells, this.figures.oscillators[this.configurations.MENU_OSCILLATORS.value])
+            this._draw();
+        });
+
+        this.configurations.MENU_GUNS.addEventListener('change', () => {
+            if (this.configurations.MENU_GUNS.value === '-1') {
+                return;
+            };
+
+            clearInterval(this.interval);
+            this.interval = 0;
+            this.generation = 0;
+            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+            this.cells = this.map.matrix;
+            this._paste(this.cells, this.figures.guns[this.configurations.MENU_GUNS.value])
             this._draw();
         });
     };
