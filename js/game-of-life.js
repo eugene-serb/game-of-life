@@ -263,6 +263,13 @@ class Game {
         this._menuControls();
     };
 
+    _start = () => {
+        this.interval = 0;
+        this.generation = 0;
+        this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+        this.cells = this.map.matrix;
+    };
+
     _gameloop = () => {
         this.generation++;
 
@@ -363,7 +370,6 @@ class Game {
         this.configurations.START_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
             this.interval = 0;
-
             this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
         });
 
@@ -374,21 +380,14 @@ class Game {
 
         this.configurations.CLEAN_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
-            this.interval = 0;
-
-            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
-            this.cells = this.map.matrix;
-
-            this.generation = 0;
+            this._start();
             this._draw();
         });
 
         this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
-            this.interval = 0;
-
+            this._start();
             this.cells = this._randomizeMatrix(this.cells, 0, 2);
-            this.generation = 0;
             this._draw();
         });
 
@@ -428,10 +427,7 @@ class Game {
             };
 
             clearInterval(this.interval);
-            this.interval = 0;
-            this.generation = 0;
-            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
-            this.cells = this.map.matrix;
+            this._start();
             this._paste(this.cells, this.figures.standing[this.configurations.MENU_STILLS.value])
             this._draw();
         });
@@ -442,10 +438,7 @@ class Game {
             };
 
             clearInterval(this.interval);
-            this.interval = 0;
-            this.generation = 0;
-            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
-            this.cells = this.map.matrix;
+            this._start();
             this._paste(this.cells, this.figures.spaceships[this.configurations.MENU_SPACESHIPS.value])
             this._draw();
         });
@@ -456,10 +449,7 @@ class Game {
             };
 
             clearInterval(this.interval);
-            this.interval = 0;
-            this.generation = 0;
-            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
-            this.cells = this.map.matrix;
+            this._start();
             this._paste(this.cells, this.figures.oscillators[this.configurations.MENU_OSCILLATORS.value])
             this._draw();
         });
@@ -470,10 +460,7 @@ class Game {
             };
 
             clearInterval(this.interval);
-            this.interval = 0;
-            this.generation = 0;
-            this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
-            this.cells = this.map.matrix;
+            this._start();
             this._paste(this.cells, this.figures.guns[this.configurations.MENU_GUNS.value])
             this._draw();
         });
