@@ -11,7 +11,6 @@ class Support {
 };
 
 class Configurations {
-
     constructor() {
         this.CANVAS_WIDTH = 500;
         this.CANVAS_HEIGHT = 500;
@@ -28,10 +27,10 @@ class Configurations {
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
         this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
 
-        this.MENU_STILLS = document.querySelector('.game-of-life__still-menu');
-        this.MENU_SPACESHIPS = document.querySelector('.game-of-life__spaceships-menu');
-        this.MENU_OSCILLATORS = document.querySelector('.game-of-life__oscillator-menu');
-        this.MENU_GUNS = document.querySelector('.game-of-life__guns-menu');
+        this.STILLS_SELECTOR = document.querySelector('.game-of-life__still-menu');
+        this.SPACESHIPS_SELECTOR = document.querySelector('.game-of-life__spaceships-menu');
+        this.OSCILLATORS_SELECTOR = document.querySelector('.game-of-life__oscillator-menu');
+        this.GUNS_SELECTOR = document.querySelector('.game-of-life__guns-menu');
     };
 };
 
@@ -260,7 +259,6 @@ class Game {
 
         this._draw();
         this._controls();
-        this._menuControls();
     };
 
     _start = () => {
@@ -382,6 +380,11 @@ class Game {
             clearInterval(this.interval);
             this._start();
             this._draw();
+
+            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
         });
 
         this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
@@ -389,6 +392,11 @@ class Game {
             this._start();
             this.cells = this._randomizeMatrix(this.cells, 0, 2);
             this._draw();
+
+            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
         });
 
         this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
@@ -418,51 +426,65 @@ class Game {
 
             this._draw();
         });
-    };
 
-    _menuControls = () => {
-        this.configurations.MENU_STILLS.addEventListener('change', () => {
-            if (this.configurations.MENU_STILLS.value === '-1') {
+        this.configurations.STILLS_SELECTOR.addEventListener('change', () => {
+            if (this.configurations.STILLS_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
             this._start();
-            this._paste(this.cells, this.figures.standing[this.configurations.MENU_STILLS.value])
+            this._paste(this.cells, this.figures.standing[this.configurations.STILLS_SELECTOR.value])
             this._draw();
+
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
         });
 
-        this.configurations.MENU_SPACESHIPS.addEventListener('change', () => {
-            if (this.configurations.MENU_SPACESHIPS.value === '-1') {
+        this.configurations.SPACESHIPS_SELECTOR.addEventListener('change', () => {
+            if (this.configurations.SPACESHIPS_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
             this._start();
-            this._paste(this.cells, this.figures.spaceships[this.configurations.MENU_SPACESHIPS.value])
+            this._paste(this.cells, this.figures.spaceships[this.configurations.SPACESHIPS_SELECTOR.value])
             this._draw();
+
+            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
         });
 
-        this.configurations.MENU_OSCILLATORS.addEventListener('change', () => {
-            if (this.configurations.MENU_OSCILLATORS.value === '-1') {
+        this.configurations.OSCILLATORS_SELECTOR.addEventListener('change', () => {
+            if (this.configurations.OSCILLATORS_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
             this._start();
-            this._paste(this.cells, this.figures.oscillators[this.configurations.MENU_OSCILLATORS.value])
+            this._paste(this.cells, this.figures.oscillators[this.configurations.OSCILLATORS_SELECTOR.value])
             this._draw();
+
+            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
         });
 
-        this.configurations.MENU_GUNS.addEventListener('change', () => {
-            if (this.configurations.MENU_GUNS.value === '-1') {
+        this.configurations.GUNS_SELECTOR.addEventListener('change', () => {
+            if (this.configurations.GUNS_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
             this._start();
-            this._paste(this.cells, this.figures.guns[this.configurations.MENU_GUNS.value])
+            this._paste(this.cells, this.figures.guns[this.configurations.GUNS_SELECTOR.value])
             this._draw();
+
+            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
         });
     };
 };
