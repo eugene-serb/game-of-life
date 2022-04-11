@@ -23,6 +23,7 @@ class Configurations {
 
         this.START_BUTTON = document.querySelector('.game-of-life__start');
         this.STOP_BUTTON = document.querySelector('.game-of-life__stop');
+        this.NEXT_BUTTON = document.querySelector('.game-of-life__next');
         this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
         this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
@@ -138,6 +139,12 @@ class Figures {
              [0, 0, 1, 1],
              [1, 1, 0, 0],
              [1, 1, 0, 0]],
+
+            /* Clock – period 2 */
+            [[0, 1, 0, 0],
+             [0, 1, 0, 1],
+             [1, 0, 1, 0],
+             [0, 0, 1, 0]],
 
             /* Pulsar – period 3 */
             [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
@@ -278,10 +285,10 @@ class Game {
     _update = () => {
         let nextMatrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
 
-        const fixCollision = (n) => {
+        const fixCollision = (n, length) => {
             if (n < 0) {
-                return 49;
-            } else if (n > 49) {
+                return length - 1;
+            } else if (n > length - 1) {
                 return 0;
             };
             return n;
@@ -290,22 +297,22 @@ class Game {
         const countMooreNeighbours = (x, y) => {
             let neigbours = 0;
 
-            neigbours += (this.cells[fixCollision(x - 1)][fixCollision(y - 1)] === 1) ? 1 : 0;
-            neigbours += (this.cells[fixCollision(x - 1)][fixCollision(y)] === 1) ? 1 : 0;
-            neigbours += (this.cells[fixCollision(x - 1)][fixCollision(y + 1)] === 1) ? 1 : 0;
+            neigbours += (this.cells[fixCollision(x - 1, this.map.matrix_width)][fixCollision(y - 1, this.map.matrix_height)] === 1) ? 1 : 0;
+            neigbours += (this.cells[fixCollision(x - 1, this.map.matrix_width)][fixCollision(y, this.map.matrix_height)] === 1) ? 1 : 0;
+            neigbours += (this.cells[fixCollision(x - 1, this.map.matrix_width)][fixCollision(y + 1, this.map.matrix_height)] === 1) ? 1 : 0;
 
-            neigbours += (this.cells[fixCollision(x)][fixCollision(y - 1)] === 1) ? 1 : 0;
-            neigbours += (this.cells[fixCollision(x)][fixCollision(y + 1)] === 1) ? 1 : 0;
+            neigbours += (this.cells[fixCollision(x, this.map.matrix_width)][fixCollision(y - 1, this.map.matrix_height)] === 1) ? 1 : 0;
+            neigbours += (this.cells[fixCollision(x, this.map.matrix_width)][fixCollision(y + 1, this.map.matrix_height)] === 1) ? 1 : 0;
 
-            neigbours += (this.cells[fixCollision(x + 1)][fixCollision(y - 1)] === 1) ? 1 : 0;
-            neigbours += (this.cells[fixCollision(x + 1)][fixCollision(y)] === 1) ? 1 : 0;
-            neigbours += (this.cells[fixCollision(x + 1)][fixCollision(y + 1)] === 1) ? 1 : 0;
+            neigbours += (this.cells[fixCollision(x + 1, this.map.matrix_width)][fixCollision(y - 1, this.map.matrix_height)] === 1) ? 1 : 0;
+            neigbours += (this.cells[fixCollision(x + 1, this.map.matrix_width)][fixCollision(y, this.map.matrix_height)] === 1) ? 1 : 0;
+            neigbours += (this.cells[fixCollision(x + 1, this.map.matrix_width)][fixCollision(y + 1, this.map.matrix_height)] === 1) ? 1 : 0;
 
             return neigbours;
         };
 
-        for (let x = 0; x < 50; x++) {
-            for (let y = 0; y < 50; y++) {
+        for (let x = 0; x < this.map.matrix_width; x++) {
+            for (let y = 0; y < this.map.matrix_height; y++) {
                 let neigbours = countMooreNeighbours(x, y);
 
                 if (neigbours < 2 || neigbours > 3) {
@@ -322,8 +329,8 @@ class Game {
             };
         };
 
-        for (let x = 0; x < 50; x++) {
-            for (let y = 0; y < 50; y++) {
+        for (let x = 0; x < this.map.matrix_width; x++) {
+            for (let y = 0; y < this.map.matrix_height; y++) {
                 this.cells[x][y] = nextMatrix[x][y];
             };
         };
@@ -372,6 +379,12 @@ class Game {
             this.interval = 0;
         });
 
+        this.configurations.NEXT_BUTTON.addEventListener('click', () => {
+            clearInterval(this.interval);
+            this.interval = 0;
+            this._gameloop();
+        });
+
         this.configurations.CLEAN_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
             this._start();
@@ -411,8 +424,8 @@ class Game {
         });
 
         this.configurations.MAP_WRAPPER.addEventListener('click', (event) => {
-            let x = Math.floor(event.offsetX / 10);
-            let y = Math.floor(event.offsetY / 10);
+            let x = Math.floor(event.offsetX / this.map.cell_width);
+            let y = Math.floor(event.offsetY / this.map.cell_height);
 
             if (this.cells[x][y] === 0) {
                 this.cells[x][y] = 1;

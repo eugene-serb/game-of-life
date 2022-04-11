@@ -104,13 +104,15 @@
             <fieldset class="game-of-life__fieldset">
                 <button class="game-of-life__start">Start</button>
                 <button class="game-of-life__stop">Stop</button>
+                <button class="game-of-life__next">Next step</button>
                 <button class="game-of-life__clean">Clean</button>
                 <button class="game-of-life__randomize">Randomize</button>
                 <select class="game-of-life__speed-menu">
+                    <option value="10">Speed 10 ms</option>
                     <option value="50">Speed 50 ms</option>
-                    <option value="100">Speed 100 ms</option>
+                    <option value="100" selected="selected">Speed 100 ms</option>
                     <option value="250">Speed 250 ms</option>
-                    <option value="500" selected="selected">Speed 500 ms</option>
+                    <option value="500">Speed 500 ms</option>
                     <option value="1000">Speed 1000 ms</option>
                     <option value="2000">Speed 2000 ms</option>
                 </select>
@@ -136,6 +138,7 @@
                     <option value="0">Blinker – 2</option>
                     <option value="1">Toad – 2</option>
                     <option value="2">Beacon – 2</option>
+                    <option value="3">Clock – 2</option>
                     <option value="3">Pulsar – 3</option>
                     <option value="4">Penta-decathlon – 15</option>
                 </select>
