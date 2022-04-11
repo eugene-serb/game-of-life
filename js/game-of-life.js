@@ -27,6 +27,7 @@ class Configurations {
         this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
         this.SAVE_BUTTON = document.querySelector('.game-of-life__save');
+        this.OPEN_BUTTON = document.querySelector('.game-of-life__open');
         this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
 
         this.STILLS_SELECTOR = document.querySelector('.game-of-life__still-menu');

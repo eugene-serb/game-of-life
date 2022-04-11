@@ -35,10 +35,10 @@
 }
 
 .game-of-life__fieldset {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-block-end: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    margin-block-end: 16px;
 }
 
 .game-of-life__figure-menu {
