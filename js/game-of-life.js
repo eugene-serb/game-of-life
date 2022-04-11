@@ -304,27 +304,23 @@ class Game {
             return neigbours;
         };
 
-        const handle = () => {
-            for (let x = 0; x < 50; x++) {
-                for (let y = 0; y < 50; y++) {
-                    let neigbours = countMooreNeighbours(x, y);
+        for (let x = 0; x < 50; x++) {
+            for (let y = 0; y < 50; y++) {
+                let neigbours = countMooreNeighbours(x, y);
 
-                    if (neigbours < 2 || neigbours > 3) {
-                        nextMatrix[x][y] = 0;
-                        continue;
-                    };
-
-                    if (this.cells[x][y] === 0 && neigbours === 3) {
-                        nextMatrix[x][y] = 1;
-                        continue;
-                    };
-
-                    nextMatrix[x][y] = this.cells[x][y];
+                if (neigbours < 2 || neigbours > 3) {
+                    nextMatrix[x][y] = 0;
+                    continue;
                 };
+
+                if (this.cells[x][y] === 0 && neigbours === 3) {
+                    nextMatrix[x][y] = 1;
+                    continue;
+                };
+
+                nextMatrix[x][y] = this.cells[x][y];
             };
         };
-
-        handle();
 
         for (let x = 0; x < 50; x++) {
             for (let y = 0; y < 50; y++) {
