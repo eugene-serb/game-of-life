@@ -26,6 +26,7 @@ class Configurations {
         this.NEXT_BUTTON = document.querySelector('.game-of-life__next');
         this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
+        this.SAVE_BUTTON = document.querySelector('.game-of-life__save');
         this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
 
         this.STILLS_SELECTOR = document.querySelector('.game-of-life__still-menu');
@@ -406,6 +407,14 @@ class Game {
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+        });
+
+        this.configurations.SAVE_BUTTON.addEventListener('click', () => {
+            let blob = new Blob([JSON.stringify(this.map.matrix)], { type: 'application/json' });
+            let link = document.createElement('a');
+            link.setAttribute('href', URL.createObjectURL(blob));
+            link.setAttribute('download', `map-dump-${Date.now()}.json`);
+            link.click();
         });
 
         this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
