@@ -26,8 +26,11 @@ class Configurations {
         this.NEXT_BUTTON = document.querySelector('.game-of-life__next');
         this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
+        
         this.SAVE_BUTTON = document.querySelector('.game-of-life__save');
+        this.OPEN_INPUT = document.querySelector('.game-of-life__open-input');
         this.OPEN_BUTTON = document.querySelector('.game-of-life__open');
+
         this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
 
         this.STILLS_SELECTOR = document.querySelector('.game-of-life__still-menu');
@@ -414,8 +417,42 @@ class Game {
             let blob = new Blob([JSON.stringify(this.map.matrix)], { type: 'application/json' });
             let link = document.createElement('a');
             link.setAttribute('href', URL.createObjectURL(blob));
-            link.setAttribute('download', `map-dump-${Date.now()}.json`);
+            link.setAttribute('download', `save-${Date.now()}.json`);
             link.click();
+        });
+
+        this.configurations.OPEN_BUTTON.addEventListener('click', () => {
+            this.configurations.OPEN_INPUT.click();
+        });
+
+        this.configurations.OPEN_INPUT.addEventListener('input', () => {
+
+            if (this.configurations.OPEN_INPUT.files[0].type !== 'application/json') {
+                return;
+            };
+
+            let file = this.configurations.OPEN_INPUT.files[0];
+            let reader = new FileReader();
+
+            reader.readAsText(file);
+
+            reader.onload = () => {
+                let result = JSON.parse(reader.result);
+
+                for (let x = 0; x < this.map.matrix_width; x++) {
+                    for (let y = 0; y < this.map.matrix_height; y++) {
+                        this.cells[x][y] = result[x][y];
+                    };
+                };
+
+                this._draw();
+            };
+
+            reader.onerror = () => {
+                console.log(reader.error);
+            };
+
+            this.configurations.OPEN_INPUT.value = '';
         });
 
         this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
