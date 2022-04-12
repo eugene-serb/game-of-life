@@ -8,42 +8,39 @@
 /* INTERFACE */
 /* --------- */
 
-.game-of-life {
-    width: 500px;
+.post {
     margin: 0 auto;
 }
 
-.game-of-life__header {
+.post__header {
     text-align: center;
+    margin-block-end: 32px;
+}
+
+/**/
+
+.game-of-life {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 48px;
 }
 
 .game-of-life__map-wrapper {
-    width: 500px;
+    width: 750px;
     height: 500px;
     margin-block-end: 32px;
     outline: 2px dashed var(--color-border);
     border-radius: 4px;
 }
 
-.game-of-life__banner {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    font-size: 24px;
-    margin-block-end: 32px;
-}
-
 .game-of-life__fieldset {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 8px;
     margin-block-end: 16px;
+    text-align: center;
 }
 
-.game-of-life__figure-menu {
-    display: grid;
+.game-of-life__fieldset_2-columns {
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
 }
 

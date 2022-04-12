@@ -95,61 +95,70 @@
 
     <main class="page container">
         <h1 class="visually-hidden">Eugene Serb – Game of Life</h1>
-        <section class="game-of-life">
-            <h2 class="game-of-life__header">Game of Life</h2>
-            <div class="game-of-life__map-wrapper"></div>
-            <div class="game-of-life__banner">
-                <span class="game-of-life__generation">Generation: 0</span>
+        <section class="post">
+            <h2 class="post__header">Game of Life</h2>
+            <div class="game-of-life">
+                <div class="game-of-life__map-wrapper"></div>
+                <div class="game-of-life__controls">
+                    <fieldset class="game-of-life__fieldset">
+                        <span class="game-of-life__generation">Generation: 0</span>
+                        <span class="game-of-life__population">Population: 0</span>
+                    </fieldset>
+                    <fieldset class="game-of-life__fieldset game-of-life__fieldset_2-columns">
+                        <button class="game-of-life__start">Start</button>
+                        <button class="game-of-life__stop">Stop</button>
+                        <button class="game-of-life__randomize">Randomize</button>
+                        <button class="game-of-life__clean">Clean</button>
+                        <button class="game-of-life__next">Step</button>
+                        <select class="game-of-life__speed-menu">
+                            <option value="10">10 ms</option>
+                            <option value="50">50 ms</option>
+                            <option value="100" selected="selected">100 ms</option>
+                            <option value="250">250 ms</option>
+                            <option value="500">500 ms</option>
+                            <option value="1000">1000 ms</option>
+                            <option value="2000">2000 ms</option>
+                        </select>
+                    </fieldset>
+                    <fieldset class="game-of-life__fieldset game-of-life__fieldset_2-columns">
+                        <button class="game-of-life__save" disabled>Save</button>
+                        <button class="game-of-life__open" disabled>Open</button>
+                        <button class="game-of-life__export">Export</button>
+                        <input type="file" accept="application/json" class="game-of-life__import-input hidden" />
+                        <button class="game-of-life__import">Import</button>
+                    </fieldset>
+                    <fieldset class="game-of-life__fieldset">
+                        <select class="game-of-life__still-menu">
+                            <option value="-1" selected="selected">— Still Life —</option>
+                            <option value="0">Block</option>
+                            <option value="1">Bee-hive</option>
+                            <option value="2">Loaf</option>
+                            <option value="3">Boat</option>
+                            <option value="4">Tub</option>
+                        </select>
+                        <select class="game-of-life__spaceships-menu">
+                            <option value="-1" selected="selected">— Spaceships —</option>
+                            <option value="0">Glider</option>
+                            <option value="1">LWSS</option>
+                            <option value="2">MWSS</option>
+                            <option value="3">HWSS</option>
+                        </select>
+                        <select class="game-of-life__oscillator-menu">
+                            <option value="-1" selected="selected">— Oscillators – period —</option>
+                            <option value="0">Blinker – 2</option>
+                            <option value="1">Toad – 2</option>
+                            <option value="2">Beacon – 2</option>
+                            <option value="3">Clock – 2</option>
+                            <option value="4">Pulsar – 3</option>
+                            <option value="5">Penta-decathlon – 15</option>
+                        </select>
+                        <select class="game-of-life__guns-menu">
+                            <option value="-1" selected="selected">— Guns —</option>
+                            <option value="0">Gosper glider gun</option>
+                        </select>
+                    </fieldset>
+                </div>
             </div>
-            <fieldset class="game-of-life__fieldset">
-                <button class="game-of-life__start">Start</button>
-                <button class="game-of-life__stop">Stop</button>
-                <button class="game-of-life__next">Step</button>
-                <button class="game-of-life__clean">Clean</button>
-                <button class="game-of-life__randomize">Randomize</button>
-                <button class="game-of-life__save">Save</button>
-                <input type="file" accept="application/json" class="game-of-life__open-input hidden" />
-                <button class="game-of-life__open">Open</button>
-                <select class="game-of-life__speed-menu">
-                    <option value="10">10 ms</option>
-                    <option value="50">50 ms</option>
-                    <option value="100" selected="selected">100 ms</option>
-                    <option value="250">250 ms</option>
-                    <option value="500">500 ms</option>
-                    <option value="1000">1000 ms</option>
-                    <option value="2000">2000 ms</option>
-                </select>
-            </fieldset>
-            <fieldset class="game-of-life__figure-menu">
-                <select class="game-of-life__still-menu">
-                    <option value="-1" selected="selected">— Still Life —</option>
-                    <option value="0">Block</option>
-                    <option value="1">Bee-hive</option>
-                    <option value="2">Loaf</option>
-                    <option value="3">Boat</option>
-                    <option value="4">Tub</option>
-                </select>
-                <select class="game-of-life__spaceships-menu">
-                    <option value="-1" selected="selected">— Spaceships —</option>
-                    <option value="0">Glider</option>
-                    <option value="1">LWSS</option>
-                    <option value="2">MWSS</option>
-                    <option value="3">HWSS</option>
-                </select>
-                <select class="game-of-life__oscillator-menu">
-                    <option value="-1" selected="selected">— Oscillators – period —</option>
-                    <option value="0">Blinker – 2</option>
-                    <option value="1">Toad – 2</option>
-                    <option value="2">Beacon – 2</option>
-                    <option value="3">Clock – 2</option>
-                    <option value="3">Pulsar – 3</option>
-                    <option value="4">Penta-decathlon – 15</option>
-                </select>
-                <select class="game-of-life__guns-menu">
-                    <option value="-1" selected="selected">— Guns —</option>
-                    <option value="0">Gosper glider gun</option>
-                </select>
-            </fieldset>
         </section>
     </main>
 

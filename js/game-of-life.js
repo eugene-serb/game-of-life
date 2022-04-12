@@ -12,14 +12,15 @@ class Support {
 
 class Configurations {
     constructor() {
-        this.CANVAS_WIDTH = 500;
+        this.CANVAS_WIDTH = 750;
         this.CANVAS_HEIGHT = 500;
-        this.MATRIX_WIDTH = 50;
+        this.MATRIX_WIDTH = 75;
         this.MATRIX_HEIGHT = 50;
         this.SPEED_RATE = 100;
 
         this.MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
         this.GENERATION_WRAPPER = document.querySelector('.game-of-life__generation');
+        this.POPULATION_WRAPPER = document.querySelector('.game-of-life__population');
 
         this.START_BUTTON = document.querySelector('.game-of-life__start');
         this.STOP_BUTTON = document.querySelector('.game-of-life__stop');
@@ -27,9 +28,9 @@ class Configurations {
         this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
         
-        this.SAVE_BUTTON = document.querySelector('.game-of-life__save');
-        this.OPEN_INPUT = document.querySelector('.game-of-life__open-input');
-        this.OPEN_BUTTON = document.querySelector('.game-of-life__open');
+        this.EXPORT_BUTTON = document.querySelector('.game-of-life__export');
+        this.IMPORT_INPUT = document.querySelector('.game-of-life__import-input');
+        this.IMPORT_BUTTON = document.querySelector('.game-of-life__import');
 
         this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
 
@@ -267,15 +268,17 @@ class Game {
 
         this.interval = 0;
         this.generation = 0;
+        this.population = 0;
         this.cells = this.map.matrix;
 
         this._draw();
         this._controls();
     };
 
-    _start = () => {
+    _clean = () => {
         this.interval = 0;
         this.generation = 0;
+        this.population = 0;
         this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
         this.cells = this.map.matrix;
     };
@@ -289,6 +292,7 @@ class Game {
 
     _update = () => {
         let nextMatrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+        let population = 0;
 
         const fixCollision = (n, length) => {
             if (n < 0) {
@@ -337,13 +341,20 @@ class Game {
         for (let x = 0; x < this.map.matrix_width; x++) {
             for (let y = 0; y < this.map.matrix_height; y++) {
                 this.cells[x][y] = nextMatrix[x][y];
+
+                if (nextMatrix[x][y] === 1) {
+                    population++;
+                };
             };
         };
+
+        this.population = population;
     };
 
     _draw = () => {
         this.map.draw();
         this.configurations.GENERATION_WRAPPER.innerText = `Generation: ${this.generation}`;
+        this.configurations.POPULATION_WRAPPER.innerText = `Population: ${this.population}`;
     };
 
     _randomizeMatrix = (cells, min, max) => {
@@ -392,7 +403,7 @@ class Game {
 
         this.configurations.CLEAN_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
-            this._start();
+            this._clean();
             this._draw();
 
             this.configurations.STILLS_SELECTOR.value = '-1';
@@ -403,7 +414,7 @@ class Game {
 
         this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
-            this._start();
+            this._clean();
             this.cells = this._randomizeMatrix(this.cells, 0, 2);
             this._draw();
 
@@ -413,7 +424,7 @@ class Game {
             this.configurations.GUNS_SELECTOR.value = '-1';
         });
 
-        this.configurations.SAVE_BUTTON.addEventListener('click', () => {
+        this.configurations.EXPORT_BUTTON.addEventListener('click', () => {
             let blob = new Blob([JSON.stringify(this.map.matrix)], { type: 'application/json' });
             let link = document.createElement('a');
             link.setAttribute('href', URL.createObjectURL(blob));
@@ -421,17 +432,17 @@ class Game {
             link.click();
         });
 
-        this.configurations.OPEN_BUTTON.addEventListener('click', () => {
-            this.configurations.OPEN_INPUT.click();
+        this.configurations.IMPORT_BUTTON.addEventListener('click', () => {
+            this.configurations.IMPORT_INPUT.click();
         });
 
-        this.configurations.OPEN_INPUT.addEventListener('input', () => {
+        this.configurations.IMPORT_INPUT.addEventListener('input', () => {
 
-            if (this.configurations.OPEN_INPUT.files[0].type !== 'application/json') {
+            if (this.configurations.IMPORT_INPUT.files[0].type !== 'application/json') {
                 return;
             };
 
-            let file = this.configurations.OPEN_INPUT.files[0];
+            let file = this.configurations.IMPORT_INPUT.files[0];
             let reader = new FileReader();
 
             reader.readAsText(file);
@@ -452,7 +463,7 @@ class Game {
                 console.log(reader.error);
             };
 
-            this.configurations.OPEN_INPUT.value = '';
+            this.configurations.IMPORT_INPUT.value = '';
         });
 
         this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
@@ -489,7 +500,7 @@ class Game {
             };
 
             clearInterval(this.interval);
-            this._start();
+            this._clean();
             this._paste(this.cells, this.figures.standing[this.configurations.STILLS_SELECTOR.value])
             this._draw();
 
@@ -504,7 +515,7 @@ class Game {
             };
 
             clearInterval(this.interval);
-            this._start();
+            this._clean();
             this._paste(this.cells, this.figures.spaceships[this.configurations.SPACESHIPS_SELECTOR.value])
             this._draw();
 
@@ -519,7 +530,7 @@ class Game {
             };
 
             clearInterval(this.interval);
-            this._start();
+            this._clean();
             this._paste(this.cells, this.figures.oscillators[this.configurations.OSCILLATORS_SELECTOR.value])
             this._draw();
 
@@ -534,7 +545,7 @@ class Game {
             };
 
             clearInterval(this.interval);
-            this._start();
+            this._clean();
             this._paste(this.cells, this.figures.guns[this.configurations.GUNS_SELECTOR.value])
             this._draw();
 
