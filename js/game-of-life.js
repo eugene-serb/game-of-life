@@ -12,9 +12,9 @@ class Support {
 
 class Configurations {
     constructor() {
-        this.CANVAS_WIDTH = 750;
+        this.CANVAS_WIDTH = 1000;
         this.CANVAS_HEIGHT = 500;
-        this.MATRIX_WIDTH = 75;
+        this.MATRIX_WIDTH = 100;
         this.MATRIX_HEIGHT = 50;
         this.SPEED_RATE = 100;
 
