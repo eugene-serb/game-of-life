@@ -32,8 +32,8 @@ class Configurations {
 
         this.REFLECT_X_BUTTON = document.querySelector('.game-of-life__reflect-x');
         this.REFLECT_Y_BUTTON = document.querySelector('.game-of-life__reflect-y');
-        this.ROTATE_PLUS_BUTTON = document.querySelector('.game-of-life__rotate-plus');
-        this.ROTATE_MINUS_BUTTON = document.querySelector('.game-of-life__rotate-minus');
+        this.ROTATE_LEFT_BUTTON = document.querySelector('.game-of-life__rotate-left');
+        this.ROTATE_RIGHT_BUTTON = document.querySelector('.game-of-life__rotate-right');
 
         this.EXPORT_BUTTON = document.querySelector('.game-of-life__export');
         this.IMPORT_INPUT = document.querySelector('.game-of-life__import-input');
@@ -392,51 +392,65 @@ class Game {
     };
 
     _reflectY = (matrix) => {
-        let reflected = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+        let result = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
 
         for (let x = 0; x < this.map.matrix_width; x++) {
-            reflected[x] = matrix[x].reverse();
+            result[x] = matrix[x].reverse();
         };
 
         for (let x = 0; x < this.map.matrix_width; x++) {
             for (let y = 0; y < this.map.matrix_height; y++) {
-                matrix[x][y] = reflected[x][y];
+                matrix[x][y] = result[x][y];
             };
         };
 
         return matrix;
     };
 
-    _rotatePlus = (matrix) => {
-        let rotated = this.map.generateMatrix(this.map.matrix_width, this.matrix_height);
+    _rotateLeft = (matrix) => {
+        /*        
+            =>      x_1 = 0,                        y_1 = 0
+            =>      x_2 = y_1.length - 1 - y_1,     y_2 = x_1 
+        */
 
-        for (let y = matrix.length - 1; y >= 0; y--) {
-            for (let x = 0; x < matrix.length; x++) {
-                rotated[y][matrix[x].length - 1 - x] = matrix[x][y];
+        let result = this.map.generateMatrix(matrix[0].length, matrix.length);
+
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix[x].length; y++) {
+                let x2 = matrix[x].length - 1 - y;
+                let y2 = x;
+                result[x2][y2] = matrix[x][y];
             };
         };
 
         for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix.length; y++) {
-                matrix[x][y] = rotated[x][y];
+            for (let y = 0; y < matrix[x].length; y++) {
+                matrix[x][y] = result[x][y];
             };
         };
 
         return matrix;
     };
 
-    _rotateMinus = (matrix) => {
-        let rotated = this.map.generateMatrix(this.map.matrix_width, this.matrix_height);
+    _rotateRight = (matrix) => {
+        /*
+            =>      x_1 = 0,        y_1 = 0
+            =>      x_2 = y_1,      y_2 = x_1.length - 1 - x_1
+         */
 
-        for (let x = matrix.length - 1; x >= 0; x--) {
-            for (let y = matrix.length - 1; y >= 0; y--) {
-                rotated[matrix[x].length - 1 - y][x] = matrix[x][y];
+        let result = this.map.generateMatrix(matrix[0].length, matrix.length);
+
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix[x].length; y++) {
+                let x2 = y;
+                let y2 = matrix.length - 1 - x;
+                result[x2][y2] = matrix[x][y];
             };
         };
-        
+
         for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix.length; y++) {
-                matrix[x][y] = rotated[x][y];
+            for (let y = 0; y < matrix[x].length; y++) {
+                matrix[x][y] = result[x][y];
             };
         };
 
@@ -522,13 +536,13 @@ class Game {
             this._draw();
         });
 
-        this.configurations.ROTATE_PLUS_BUTTON.addEventListener('click', () => {
-            this.cells = this._rotatePlus(this.cells);
+        this.configurations.ROTATE_LEFT_BUTTON.addEventListener('click', () => {
+            this.cells = this._rotateRight(this.cells);
             this._draw();
         });
 
-        this.configurations.ROTATE_MINUS_BUTTON.addEventListener('click', () => {
-            this.cells = this._rotateMinus(this.cells);
+        this.configurations.ROTATE_RIGHT_BUTTON.addEventListener('click', () => {
+            this.cells = this._rotateLeft(this.cells);
             this._draw();
         });
 
