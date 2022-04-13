@@ -4,6 +4,269 @@
 
 'use strict'
 
+class Figures {
+    constructor() {
+        this.stable = [
+
+            /* Block */
+            [[1, 1],
+             [1, 1]],
+
+            /* Bee-hive */
+            [[0, 1, 0],
+             [1, 0, 1],
+             [1, 0, 1],
+             [0, 1, 0]],
+
+            /* Loaf */
+            [[0, 0, 1, 0],
+             [0, 1, 0, 1],
+             [1, 0, 0, 1],
+             [0, 1, 1, 0]],
+
+            /* Boat */
+            [[0, 1, 0],
+             [1, 0, 1],
+             [0, 1, 1]],
+
+            /* Ship */
+            [[1, 1, 0],
+             [1, 0, 1],
+             [0, 1, 1]],
+
+            /* Tub */
+            [[0, 1, 0],
+             [1, 0, 1],
+             [0, 1, 0]],
+
+            /* Bell */
+            [[0, 0, 0, 1],
+             [0, 1, 1, 1],
+             [1, 0, 0, 0],
+             [0, 1, 1, 1],
+             [0, 0, 0, 1]],
+
+            /* Bee-garden */
+            [[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+             [1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+             [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]],
+        ];
+
+        this.spaceships = [
+
+            /* Glider */
+            [[0, 0, 1],
+             [1, 0, 1],
+             [0, 1, 1]],
+
+            /* Light-weight spaceship – LWSS */
+            [[1, 0, 1, 0],
+             [0, 0, 0, 1],
+             [0, 0, 0, 1],
+             [1, 0, 0, 1],
+             [0, 1, 1, 1]],
+
+            /* Middle-weight spaceship – MWSS */
+            [[1, 0, 1, 0],
+             [0, 0, 0, 1],
+             [0, 0, 0, 1],
+             [0, 0, 0, 1],
+             [1, 0, 0, 1],
+             [0, 1, 1, 1]],
+
+            /* Heavy-weight spaceship – HWSS */
+            [[1, 0, 1, 0],
+             [0, 0, 0, 1],
+             [0, 0, 0, 1],
+             [0, 0, 0, 1],
+             [0, 0, 0, 1],
+             [1, 0, 0, 1],
+             [0, 1, 1, 1]]
+        ];
+
+        this.oscillators = [
+
+            /* Blinker – period 2 */
+            [[1],
+             [1],
+             [1]],
+
+            /* Toad – period 2 */
+            [[1, 0],
+             [1, 1],
+             [1, 1],
+             [0, 1]],
+
+            /* Beacon – period 2 */
+            [[0, 0, 1, 1],
+             [0, 0, 1, 1],
+             [1, 1, 0, 0],
+             [1, 1, 0, 0]],
+
+            /* Clock – period 2 */
+            [[0, 1, 0, 0],
+             [0, 1, 0, 1],
+             [1, 0, 1, 0],
+             [0, 0, 1, 0]],
+
+            /* Pulsar – period 3 */
+            [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
+             [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+             [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+             [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]],
+
+            /* Penta decanthlon – period 15 */
+            [[1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1],
+             [1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1],
+             [1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1]]
+        ];
+
+        this.guns = [
+
+            /* Gosper's glider gun */
+            [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
+             [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+             [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+             [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+             [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+             [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        ];
+
+        this.mathusalem = [
+
+            /* Pentamino R – 1103 */
+            [[1, 0, 0],
+             [1, 1, 1],
+             [0, 1, 0]],
+
+            /* Acorn – 5206 */
+            [[0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 1, 0, 0, 0],
+             [1, 1, 0, 0, 1, 1, 1]],
+
+            /* Rabbits – 17332 */
+            [[0, 0, 0, 0, 1, 0, 1, 0],
+             [1, 0, 1, 0, 0, 1, 0, 0],
+             [0, 1, 0, 0, 0, 1, 0, 0],
+             [0, 1, 0, 0, 0, 0, 0, 1]],
+
+            /* Toughie – 130 */
+            [[0, 0, 0, 0, 0, 0, 1, 0],
+             [1, 1, 0, 0, 0, 0, 0, 0],
+             [0, 1, 0, 0, 0, 1, 1, 1]],
+
+            /* Rocket – 194 */
+            [[0, 0, 0, 0, 1],
+             [0, 1, 1, 1, 1],
+             [1, 1, 1, 1, 0],
+             [1, 0, 0, 1, 0],
+             [1, 1, 1, 1, 0],
+             [0, 1, 1, 1, 1],
+             [0, 0, 0, 0, 1]],
+        ];
+
+        this.interesting = [
+
+            /* Bell shaped */
+            [[0, 0, 0, 1],
+             [0, 1, 1, 1],
+             [1, 0, 0, 1],
+             [0, 1, 1, 1],
+             [0, 0, 0, 1]],
+
+            /* Boat explosion */
+            [[0, 0, 0, 1, 1],
+             [0, 1, 1, 0, 1],
+             [0, 1, 0, 1, 0],
+             [1, 0, 1, 1, 0],
+             [1, 1, 0, 0, 0]],
+
+            /* Bee defense */
+            [[0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+             [1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+             [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0]],
+
+            /* Bee war */
+            [[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+             [1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+             [0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]],
+        ];
+    };
+};
+
 class Support {
     getRandomInteger = (min, max) => {
         return Math.floor(Math.random() * (max - min) + min);
@@ -39,10 +302,12 @@ class Configurations {
         this.IMPORT_INPUT = document.querySelector('.game-of-life__import-input');
         this.IMPORT_BUTTON = document.querySelector('.game-of-life__import');
 
-        this.STILLS_SELECTOR = document.querySelector('.game-of-life__still-menu');
+        this.STABLE_SELECTOR = document.querySelector('.game-of-life__stable-menu');
         this.SPACESHIPS_SELECTOR = document.querySelector('.game-of-life__spaceships-menu');
         this.OSCILLATORS_SELECTOR = document.querySelector('.game-of-life__oscillator-menu');
         this.GUNS_SELECTOR = document.querySelector('.game-of-life__guns-menu');
+        this.MATHUSALEM_SELECTOR = document.querySelector('.game-of-life__mathusalem-menu');
+        this.INTERESTING_SELECTOR = document.querySelector('.game-of-life__interesting-menu');
     };
 };
 
@@ -168,166 +433,7 @@ class Map {
     };
 };
 
-class Figures {
-
-    constructor() {
-
-        this.standing = [
-
-            /* Block */
-            [[1, 1],
-             [1, 1]],
-
-            /* Bee-hive */
-            [[0, 1, 0],
-             [1, 0, 1],
-             [1, 0, 1],
-             [0, 1, 0]],
-
-            /* Loaf */
-            [[0, 0, 1, 0],
-             [0, 1, 0, 1],
-             [1, 0, 0, 1],
-             [0, 1, 1, 0]],
-
-            /* Boat */
-            [[0, 1, 1],
-             [1, 0, 1],
-             [0, 1, 0]],
-
-            /* Tub */
-            [[0, 1, 0],
-             [1, 0, 1],
-             [0, 1, 0]]
-        ];
-
-        this.oscillators = [
-
-            /* Blinker – period 2 */
-            [[1],
-             [1],
-             [1]],
-
-            /* Toad – period 2 */
-            [[1, 0],
-             [1, 1],
-             [1, 1],
-             [0, 1]],
-
-            /* Beacon – period 2 */
-            [[0, 0, 1, 1],
-             [0, 0, 1, 1],
-             [1, 1, 0, 0],
-             [1, 1, 0, 0]],
-
-            /* Clock – period 2 */
-            [[0, 1, 0, 0],
-             [0, 1, 0, 1],
-             [1, 0, 1, 0],
-             [0, 0, 1, 0]],
-
-            /* Pulsar – period 3 */
-            [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-             [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
-             [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-             [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-             [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
-             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-             [0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]],
-
-            /* Penta decanthlon – period 15 */
-            [[1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1],
-             [1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1],
-             [1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1]]
-        ];
-
-        this.spaceships = [
-
-            /* Glider */
-            [[1, 0, 0],
-            [1, 0, 1],
-            [1, 1, 0]],
-
-            /* Light-weight spaceship – LWSS */
-            [[0, 1, 0, 1],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 1],
-            [1, 1, 1, 0]],
-
-            /* Middle-weight spaceship – MWSS */
-            [[0, 1, 0, 1],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 1],
-            [1, 1, 1, 0]],
-
-            /* Heavy-weight spaceship – HWSS */
-            [[0, 1, 0, 1],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 0],
-            [1, 0, 0, 1],
-            [1, 1, 1, 0]]
-        ];
-
-        this.guns = [
-
-            /* Gosper's glider gun */
-            [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-            [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-        ];
-    };
-};
-
 class Game {
-
     constructor() {
         this._init();
     };
@@ -492,10 +598,12 @@ class Game {
             this._clean();
             this._draw();
 
-            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
         });
 
         this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
@@ -504,10 +612,12 @@ class Game {
             this.cells = this._randomizeMatrix(this.cells, 0, 2);
             this._draw();
 
-            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
         });
 
         this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
@@ -587,19 +697,21 @@ class Game {
             this.configurations.IMPORT_INPUT.value = '';
         });
 
-        this.configurations.STILLS_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.STILLS_SELECTOR.value === '-1') {
+        this.configurations.STABLE_SELECTOR.addEventListener('change', () => {
+            if (this.configurations.STABLE_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
             this._clean();
-            this._paste(this.cells, this.figures.standing[this.configurations.STILLS_SELECTOR.value])
+            this._paste(this.cells, this.figures.stable[this.configurations.STABLE_SELECTOR.value])
             this._draw();
 
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
         });
 
         this.configurations.SPACESHIPS_SELECTOR.addEventListener('change', () => {
@@ -612,9 +724,11 @@ class Game {
             this._paste(this.cells, this.figures.spaceships[this.configurations.SPACESHIPS_SELECTOR.value])
             this._draw();
 
-            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
         });
 
         this.configurations.OSCILLATORS_SELECTOR.addEventListener('change', () => {
@@ -627,9 +741,11 @@ class Game {
             this._paste(this.cells, this.figures.oscillators[this.configurations.OSCILLATORS_SELECTOR.value])
             this._draw();
 
-            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
         });
 
         this.configurations.GUNS_SELECTOR.addEventListener('change', () => {
@@ -642,9 +758,43 @@ class Game {
             this._paste(this.cells, this.figures.guns[this.configurations.GUNS_SELECTOR.value])
             this._draw();
 
-            this.configurations.STILLS_SELECTOR.value = '-1';
+            this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
+        });
+
+        this.configurations.MATHUSALEM_SELECTOR.addEventListener('change', () => {
+            if (this.configurations.MATHUSALEM_SELECTOR.value === '-1') {
+                return;
+            };
+
+            clearInterval(this.interval);
+            this._clean();
+            this._paste(this.cells, this.figures.mathusalem[this.configurations.MATHUSALEM_SELECTOR.value])
+            this._draw();
+
+            this.configurations.STABLE_SELECTOR.value = '-1';
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
+        });
+
+        this.configurations.INTERESTING_SELECTOR.addEventListener('change', () => {
+            if (this.configurations.INTERESTING_SELECTOR.value === '-1') {
+                return;
+            };
+
+            clearInterval(this.interval);
+            this._clean();
+            this._paste(this.cells, this.figures.interesting[this.configurations.INTERESTING_SELECTOR.value])
+            this._draw();
+
+            this.configurations.STABLE_SELECTOR.value = '-1';
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
         });
     };
 };
