@@ -47,7 +47,6 @@ class Configurations {
 };
 
 class Map {
-
     constructor(wrapper, canvas_width, canvas_height, matrix_width, matrix_height) {
         this.container = wrapper;
         this.canvas_width = canvas_width;
@@ -95,6 +94,76 @@ class Map {
                 matrix[x][y] = 0;
             };
         };
+        return matrix;
+    };
+
+    reflectX = (matrix) => {
+        return matrix.reverse();
+    };
+
+    reflectY = (matrix) => {
+        let result = this.generateMatrix(matrix.length, matrix[0].length);
+
+        for (let x = 0; x < matrix.length; x++) {
+            result[x] = matrix[x].reverse();
+        };
+
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix[x].length; y++) {
+                matrix[x][y] = result[x][y];
+            };
+        };
+
+        return matrix;
+    };
+
+    rotateLeft = (matrix) => {
+        /*        
+            =>      x_1 = 0,                        y_1 = 0
+            =>      x_2 = y_1.length - 1 - y_1,     y_2 = x_1 
+        */
+
+        let result = this.generateMatrix(matrix[0].length, matrix.length);
+
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix[x].length; y++) {
+                let x2 = matrix[x].length - 1 - y;
+                let y2 = x;
+                result[x2][y2] = matrix[x][y];
+            };
+        };
+
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix[x].length; y++) {
+                matrix[x][y] = result[x][y];
+            };
+        };
+
+        return matrix;
+    };
+
+    rotateRight = (matrix) => {
+        /*
+            =>      x_1 = 0,        y_1 = 0
+            =>      x_2 = y_1,      y_2 = x_1.length - 1 - x_1
+         */
+
+        let result = this.generateMatrix(matrix[0].length, matrix.length);
+
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix[x].length; y++) {
+                let x2 = y;
+                let y2 = matrix.length - 1 - x;
+                result[x2][y2] = matrix[x][y];
+            };
+        };
+
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix[x].length; y++) {
+                matrix[x][y] = result[x][y];
+            };
+        };
+
         return matrix;
     };
 };
@@ -387,76 +456,6 @@ class Game {
         };
     };
 
-    _reflectX = (matrix) => {
-        return matrix.reverse();
-    };
-
-    _reflectY = (matrix) => {
-        let result = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
-
-        for (let x = 0; x < this.map.matrix_width; x++) {
-            result[x] = matrix[x].reverse();
-        };
-
-        for (let x = 0; x < this.map.matrix_width; x++) {
-            for (let y = 0; y < this.map.matrix_height; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
-    };
-
-    _rotateLeft = (matrix) => {
-        /*        
-            =>      x_1 = 0,                        y_1 = 0
-            =>      x_2 = y_1.length - 1 - y_1,     y_2 = x_1 
-        */
-
-        let result = this.map.generateMatrix(matrix[0].length, matrix.length);
-
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                let x2 = matrix[x].length - 1 - y;
-                let y2 = x;
-                result[x2][y2] = matrix[x][y];
-            };
-        };
-
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
-    };
-
-    _rotateRight = (matrix) => {
-        /*
-            =>      x_1 = 0,        y_1 = 0
-            =>      x_2 = y_1,      y_2 = x_1.length - 1 - x_1
-         */
-
-        let result = this.map.generateMatrix(matrix[0].length, matrix.length);
-
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                let x2 = y;
-                let y2 = matrix.length - 1 - x;
-                result[x2][y2] = matrix[x][y];
-            };
-        };
-
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
-    };
-
     _controls = () => {
         this.configurations.MAP_WRAPPER.addEventListener('click', (event) => {
             let x = Math.floor(event.offsetX / this.map.cell_width);
@@ -527,22 +526,22 @@ class Game {
         });
 
         this.configurations.REFLECT_X_BUTTON.addEventListener('click', () => {
-            this.cells = this._reflectX(this.cells);
+            this.cells = this.map.reflectX(this.cells);
             this._draw();
         });
 
         this.configurations.REFLECT_Y_BUTTON.addEventListener('click', () => {
-            this.cells = this._reflectY(this.cells);
+            this.cells = this.map.reflectY(this.cells);
             this._draw();
         });
 
         this.configurations.ROTATE_LEFT_BUTTON.addEventListener('click', () => {
-            this.cells = this._rotateRight(this.cells);
+            this.cells = this.map.rotateRight(this.cells);
             this._draw();
         });
 
         this.configurations.ROTATE_RIGHT_BUTTON.addEventListener('click', () => {
-            this.cells = this._rotateLeft(this.cells);
+            this.cells = this.map.rotateLeft(this.cells);
             this._draw();
         });
 

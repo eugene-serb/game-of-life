@@ -36,11 +36,11 @@
 }
 
 .game-of-life__information {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
     font-size: 24px;
+    text-align: center;
 }
 
 .game-of-life__controls {
