@@ -12,13 +12,14 @@ class Support {
 
 class Configurations {
     constructor() {
-        this.CANVAS_WIDTH = 1000;
+        this.CANVAS_WIDTH = 500;
         this.CANVAS_HEIGHT = 500;
-        this.MATRIX_WIDTH = 100;
+        this.MATRIX_WIDTH = 50;
         this.MATRIX_HEIGHT = 50;
         this.SPEED_RATE = 100;
 
         this.MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
+
         this.GENERATION_WRAPPER = document.querySelector('.game-of-life__generation');
         this.POPULATION_WRAPPER = document.querySelector('.game-of-life__population');
 
@@ -27,12 +28,16 @@ class Configurations {
         this.NEXT_BUTTON = document.querySelector('.game-of-life__next');
         this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
         this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
-        
+        this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
+
+        this.REFLECT_X_BUTTON = document.querySelector('.game-of-life__reflect-x');
+        this.REFLECT_Y_BUTTON = document.querySelector('.game-of-life__reflect-y');
+        this.ROTATE_PLUS_BUTTON = document.querySelector('.game-of-life__rotate-plus');
+        this.ROTATE_MINUS_BUTTON = document.querySelector('.game-of-life__rotate-minus');
+
         this.EXPORT_BUTTON = document.querySelector('.game-of-life__export');
         this.IMPORT_INPUT = document.querySelector('.game-of-life__import-input');
         this.IMPORT_BUTTON = document.querySelector('.game-of-life__import');
-
-        this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
 
         this.STILLS_SELECTOR = document.querySelector('.game-of-life__still-menu');
         this.SPACESHIPS_SELECTOR = document.querySelector('.game-of-life__spaceships-menu');
@@ -357,17 +362,16 @@ class Game {
         this.configurations.POPULATION_WRAPPER.innerText = `Population: ${this.population}`;
     };
 
-    _randomizeMatrix = (cells, min, max) => {
-        for (let i = 0; i < cells.length; i++) {
-            for (let j = 0; j < cells[i].length; j++) {
-                cells[i][j] = this.support.getRandomInteger(min, max);
+    _randomizeMatrix = (matrix, min, max) => {
+        for (let i = 0; i < matrix.length; i++) {
+            for (let j = 0; j < matrix[i].length; j++) {
+                matrix[i][j] = this.support.getRandomInteger(min, max);
             };
         };
-        return cells;
+        return matrix;
     };
 
     _paste = (matrix, figure) => {
-
         if (matrix.length < figure.length ||
             matrix[0].length < figure[0].length) {
             return;
@@ -383,7 +387,76 @@ class Game {
         };
     };
 
+    _reflectX = (matrix) => {
+        return matrix.reverse();
+    };
+
+    _reflectY = (matrix) => {
+        let reflected = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+
+        for (let x = 0; x < this.map.matrix_width; x++) {
+            reflected[x] = matrix[x].reverse();
+        };
+
+        for (let x = 0; x < this.map.matrix_width; x++) {
+            for (let y = 0; y < this.map.matrix_height; y++) {
+                matrix[x][y] = reflected[x][y];
+            };
+        };
+
+        return matrix;
+    };
+
+    _rotatePlus = (matrix) => {
+        let rotated = this.map.generateMatrix(this.map.matrix_width, this.matrix_height);
+
+        for (let y = matrix.length - 1; y >= 0; y--) {
+            for (let x = 0; x < matrix.length; x++) {
+                rotated[y][matrix[x].length - 1 - x] = matrix[x][y];
+            };
+        };
+
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix.length; y++) {
+                matrix[x][y] = rotated[x][y];
+            };
+        };
+
+        return matrix;
+    };
+
+    _rotateMinus = (matrix) => {
+        let rotated = this.map.generateMatrix(this.map.matrix_width, this.matrix_height);
+
+        for (let x = matrix.length - 1; x >= 0; x--) {
+            for (let y = matrix.length - 1; y >= 0; y--) {
+                rotated[matrix[x].length - 1 - y][x] = matrix[x][y];
+            };
+        };
+        
+        for (let x = 0; x < matrix.length; x++) {
+            for (let y = 0; y < matrix.length; y++) {
+                matrix[x][y] = rotated[x][y];
+            };
+        };
+
+        return matrix;
+    };
+
     _controls = () => {
+        this.configurations.MAP_WRAPPER.addEventListener('click', (event) => {
+            let x = Math.floor(event.offsetX / this.map.cell_width);
+            let y = Math.floor(event.offsetY / this.map.cell_height);
+
+            if (this.cells[x][y] === 0) {
+                this.cells[x][y] = 1;
+            } else {
+                this.cells[x][y] = 0;
+            };
+
+            this._draw();
+        });
+
         this.configurations.START_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
             this.interval = 0;
@@ -422,6 +495,41 @@ class Game {
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+        });
+
+        this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
+            let status = (this.interval !== 0) ? 1 : 0;
+
+            if (status === 1) {
+                clearInterval(this.interval);
+                this.interval = 0;
+            };
+
+            this.configurations.SPEED_RATE = this.configurations.SPEED_SELECTOR.value;
+
+            if (status === 1) {
+                this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
+            };
+        });
+
+        this.configurations.REFLECT_X_BUTTON.addEventListener('click', () => {
+            this.cells = this._reflectX(this.cells);
+            this._draw();
+        });
+
+        this.configurations.REFLECT_Y_BUTTON.addEventListener('click', () => {
+            this.cells = this._reflectY(this.cells);
+            this._draw();
+        });
+
+        this.configurations.ROTATE_PLUS_BUTTON.addEventListener('click', () => {
+            this.cells = this._rotatePlus(this.cells);
+            this._draw();
+        });
+
+        this.configurations.ROTATE_MINUS_BUTTON.addEventListener('click', () => {
+            this.cells = this._rotateMinus(this.cells);
+            this._draw();
         });
 
         this.configurations.EXPORT_BUTTON.addEventListener('click', () => {
@@ -464,34 +572,6 @@ class Game {
             };
 
             this.configurations.IMPORT_INPUT.value = '';
-        });
-
-        this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
-            let status = (this.interval !== 0) ? 1 : 0;
-
-            if (status === 1) {
-                clearInterval(this.interval);
-                this.interval = 0;
-            };
-            
-            this.configurations.SPEED_RATE = this.configurations.SPEED_SELECTOR.value;
-
-            if (status === 1) {
-                this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
-            };
-        });
-
-        this.configurations.MAP_WRAPPER.addEventListener('click', (event) => {
-            let x = Math.floor(event.offsetX / this.map.cell_width);
-            let y = Math.floor(event.offsetY / this.map.cell_height);
-
-            if (this.cells[x][y] === 0) {
-                this.cells[x][y] = 1;
-            } else {
-                this.cells[x][y] = 0;
-            };
-
-            this._draw();
         });
 
         this.configurations.STILLS_SELECTOR.addEventListener('change', () => {

@@ -28,10 +28,19 @@
 }
 
 .game-of-life__map-wrapper {
-    width: 1000px;
+    width: 500px;
     height: 500px;
     outline: 2px dashed var(--color-border);
     border-radius: 4px;
+    margin: 0 auto;
+}
+
+.game-of-life__information {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    font-size: 24px;
 }
 
 .game-of-life__controls {
@@ -43,7 +52,6 @@
 .game-of-life__fieldset {
     display: grid;
     gap: 8px;
-    text-align: center;
 }
 
 .game-of-life__fieldset_2-columns {
