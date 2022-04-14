@@ -104,8 +104,8 @@
                         <legend>Information</legend>
                         <span class="game-of-life__generation">Generation: 0</span>
                         <span class="game-of-life__population">Population: 0</span>
+                        <span class="game-of-life__topology">Topology: wrap</span>
                         <span class="game-of-life__size">Size: 50 x 50</span>
-                        <span class="game-of-life__topology">Topology: Wrap</span>
                     </fieldset>
                     <fieldset class="game-of-life__fieldset game-of-life__fieldset_row">
                         <legend>Controls</legend>
@@ -136,7 +136,7 @@
                     </fieldset>
                     <fieldset class="game-of-life__fieldset game-of-life__fieldset">
                         <legend>Figures</legend>
-                        <select class="game-of-life__stable-menu">
+                        <select class="game-of-life__stables-menu">
                             <option value="-1" selected="selected">— Still Life —</option>
                             <option value="0">Block</option>
                             <option value="1">Bi-Block</option>
@@ -172,7 +172,7 @@
                             <option value="2">MWSS</option>
                             <option value="3">HWSS</option>
                         </select>
-                        <select class="game-of-life__oscillator-menu">
+                        <select class="game-of-life__oscillators-menu">
                             <option value="-1" selected="selected">— Oscillators – period —</option>
                             <option value="0">Blinker – 2</option>
                             <option value="1">Toad – 2</option>
@@ -185,13 +185,27 @@
                             <option value="-1" selected="selected">— Guns —</option>
                             <option value="0">Gosper glider gun</option>
                         </select>
+                        <select class="game-of-life__pentominoes-menu">
+                            <option value="-1" selected="selected">— Pentominoes —</option>
+                            <option value="0">Pentomino O</option>
+                            <option value="1">Pentomino P</option>
+                            <option value="2">Pentomino Q</option>
+                            <option value="3">Pentomino R – 1103</option>
+                            <option value="4">Pentomino S</option>
+                            <option value="5">Pentomino T</option>
+                            <option value="6">Pentomino U</option>
+                            <option value="7">Pentomino V</option>
+                            <option value="8">Pentomino W</option>
+                            <option value="9">Pentomino X</option>
+                            <option value="10">Pentomino Y</option>
+                            <option value="11">Pentomino Z</option>
+                        </select>
                         <select class="game-of-life__mathusalem-menu">
                             <option value="-1" selected="selected">— Mathusalem – age —</option>
-                            <option value="0">Pentamino R – 1103</option>
-                            <option value="1">Acorn – 5206</option>
-                            <option value="2">Rabbits – 17332</option>
-                            <option value="3">Toughie – 130</option>
-                            <option value="4">Rocket – 194</option>
+                            <option value="0">Acorn – 5206</option>
+                            <option value="1">Rabbits – 17332</option>
+                            <option value="2">Toughie – 130</option>
+                            <option value="3">Rocket – 194</option>
                         </select>
                         <select class="game-of-life__interesting-menu">
                             <option value="-1" selected="selected">— Interesting —</option>

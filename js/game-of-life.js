@@ -310,12 +310,65 @@ class Figures {
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
         ];
 
-        this.mathusalem = [
+        this.pentominoes = [
+            /* Pentomino O */
+            [[1, 1, 1, 1, 1]],
 
-            /* Pentamino R – 1103 */
+            /* Pentomino P */
+            [[1, 1, 0],
+             [1, 1, 1]],
+
+            /* Pentomino Q */
+            [[1, 1, 1, 1],
+             [0, 0, 0, 1]],
+
+            /* Pentomino R – 1103 */
             [[1, 0, 0],
              [1, 1, 1],
              [0, 1, 0]],
+
+            /* Pentomino S */
+            [[0, 0, 1, 1],
+             [1, 1, 1, 0]],
+
+            /* Pentomino T */
+            [[1, 0, 0],
+             [1, 1, 1],
+             [1, 0, 0]],
+
+            /* Pentomino U */
+            [[1, 1],
+             [0, 1],
+             [1, 1]],
+
+            /* Pentomino V */
+            [[1, 1, 1],
+             [0, 0, 1],
+             [0, 0, 1]],
+
+            /* Pentomino W */
+            [[1, 1, 0],
+             [0, 1, 1],
+             [0, 0, 1]],
+
+            /* Pentomino X */
+            [[0, 1, 0],
+             [1, 1, 1],
+             [0, 1, 0]],
+
+            /* Pentomino Y */
+            [[0, 1],
+             [1, 1],
+             [0, 1],
+             [0, 1]],
+
+            /* Pentomino X */
+            [[1, 1, 0],
+             [0, 1, 0],
+             [0, 1, 1]],
+        ];
+
+        this.mathusalem = [
 
             /* Acorn – 5206 */
             [[0, 1, 0, 0, 0, 0, 0],
@@ -455,10 +508,11 @@ class Configurations {
         this.IMPORT_INPUT = document.querySelector('.game-of-life__import-input');
         this.IMPORT_BUTTON = document.querySelector('.game-of-life__import');
 
-        this.STABLE_SELECTOR = document.querySelector('.game-of-life__stable-menu');
+        this.STABLE_SELECTOR = document.querySelector('.game-of-life__stables-menu');
         this.SPACESHIPS_SELECTOR = document.querySelector('.game-of-life__spaceships-menu');
-        this.OSCILLATORS_SELECTOR = document.querySelector('.game-of-life__oscillator-menu');
+        this.OSCILLATORS_SELECTOR = document.querySelector('.game-of-life__oscillators-menu');
         this.GUNS_SELECTOR = document.querySelector('.game-of-life__guns-menu');
+        this.PENTOMINO_SELECTOR = document.querySelector('.game-of-life__pentominoes-menu');
         this.MATHUSALEM_SELECTOR = document.querySelector('.game-of-life__mathusalem-menu');
         this.INTERESTING_SELECTOR = document.querySelector('.game-of-life__interesting-menu');
         this.BEE_GARDEN_SELECTOR = document.querySelector('.game-of-life__bee-garden-menu');
@@ -756,6 +810,7 @@ class Game {
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
             this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
@@ -771,8 +826,10 @@ class Game {
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
 
         this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
@@ -865,6 +922,7 @@ class Game {
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
             this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
@@ -883,6 +941,7 @@ class Game {
             this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
             this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
@@ -901,6 +960,7 @@ class Game {
             this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
             this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
@@ -919,6 +979,26 @@ class Game {
             this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+        });
+
+        this.configurations.PENTOMINO_SELECTOR.addEventListener('change', () => {
+            if (this.configurations.PENTOMINO_SELECTOR.value === '-1') {
+                return;
+            };
+
+            clearInterval(this.interval);
+            this._clean();
+            this._paste(this.cells, this.figures.pentominoes[this.configurations.PENTOMINO_SELECTOR.value])
+            this._draw();
+
+            this.configurations.STABLE_SELECTOR.value = '-1';
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
             this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
@@ -938,6 +1018,7 @@ class Game {
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
             this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
@@ -956,6 +1037,7 @@ class Game {
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
@@ -974,6 +1056,7 @@ class Game {
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.GUNS_SELECTOR.value = '-1';
+            this.configurations.PENTOMINO_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
         });
