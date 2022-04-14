@@ -285,8 +285,8 @@ class Support {
 
 class Configurations {
     constructor() {
-        this.CANVAS_WIDTH = 500;
-        this.CANVAS_HEIGHT = 500;
+        this.CANVAS_WIDTH = 750;
+        this.CANVAS_HEIGHT = 750;
         this.MATRIX_WIDTH = 50;
         this.MATRIX_HEIGHT = 50;
         this.SPEED_RATE = 100;

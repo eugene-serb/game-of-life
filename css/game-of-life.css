@@ -8,38 +8,19 @@
 /* INTERFACE */
 /* --------- */
 
-.post {
-    margin: 0 auto;
-}
-
-.post__header {
-    text-align: center;
-    margin-block-end: 32px;
-}
-
-/**/
-
 .game-of-life {
-    width: 1000px;
+    width: 100%;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+    grid-template-columns: 3fr 1fr;
+    gap: 48px;
 }
 
 .game-of-life__map-wrapper {
-    width: 500px;
-    height: 500px;
+    width: 750px;
+    height: 750px;
     outline: 2px dashed var(--color-border);
     border-radius: 4px;
-}
-
-.game-of-life__information {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    font-size: 16px;
-    text-align: center;
 }
 
 .game-of-life__controls {
@@ -48,14 +29,26 @@
     gap: 32px;
 }
 
+.game-of-life__information {
+    font-size: 16px;
+    text-align: center;
+}
+
 .game-of-life__fieldset {
     display: grid;
     gap: 8px;
 }
 
-.game-of-life__fieldset_2-columns {
+.game-of-life__fieldset_row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.game-of-life__fieldset_2-columns {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 8px;
 }
 
