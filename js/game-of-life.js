@@ -751,6 +751,7 @@ class Game {
             this.configurations.GUNS_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
 
         this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
@@ -859,6 +860,7 @@ class Game {
             this.configurations.GUNS_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
 
         this.configurations.SPACESHIPS_SELECTOR.addEventListener('change', () => {
@@ -876,6 +878,7 @@ class Game {
             this.configurations.GUNS_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
 
         this.configurations.OSCILLATORS_SELECTOR.addEventListener('change', () => {
@@ -893,6 +896,7 @@ class Game {
             this.configurations.GUNS_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
 
         this.configurations.GUNS_SELECTOR.addEventListener('change', () => {
@@ -910,6 +914,7 @@ class Game {
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
 
         this.configurations.MATHUSALEM_SELECTOR.addEventListener('change', () => {
@@ -925,7 +930,9 @@ class Game {
             this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
             this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
 
         this.configurations.INTERESTING_SELECTOR.addEventListener('change', () => {
@@ -941,7 +948,9 @@ class Game {
             this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
         });
 
         this.configurations.BEE_GARDEN_SELECTOR.addEventListener('change', () => {
@@ -957,7 +966,9 @@ class Game {
             this.configurations.STABLE_SELECTOR.value = '-1';
             this.configurations.OSCILLATORS_SELECTOR.value = '-1';
             this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.GUNS_SELECTOR.value = '-1';
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+            this.configurations.INTERESTING_SELECTOR.value = '-1';
         });
     };
 };
