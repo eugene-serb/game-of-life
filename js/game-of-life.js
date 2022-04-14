@@ -236,6 +236,17 @@ class Figures {
              [1, 0, 1, 1, 0],
              [1, 1, 0, 0, 0]],
 
+            /* Cheshire Cat */
+            [[0, 0, 1, 1, 1, 0],
+             [1, 1, 0, 0, 0, 1],
+             [0, 1, 0, 1, 0, 1],
+             [0, 1, 0, 1, 0, 1],
+             [1, 1, 0, 0, 0, 1],
+             [0, 0, 1, 1, 1, 0]],
+        ];
+
+        this.beelike = [
+
             /* Bee defense */
             [[0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
@@ -266,13 +277,22 @@ class Figures {
              [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]],
 
-            /* Cheshire Cat */
-            [[0, 0, 1, 1, 1, 0],
-             [1, 1, 0, 0, 0, 1],
-             [0, 1, 0, 1, 0, 1],
-             [0, 1, 0, 1, 0, 1],
-             [1, 1, 0, 0, 0, 1],
-             [0, 0, 1, 1, 1, 0]],
+            /* Bee explosion */
+            [[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
+             [1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1],
+             [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]],
         ];
     };
 };
@@ -318,6 +338,7 @@ class Configurations {
         this.GUNS_SELECTOR = document.querySelector('.game-of-life__guns-menu');
         this.MATHUSALEM_SELECTOR = document.querySelector('.game-of-life__mathusalem-menu');
         this.INTERESTING_SELECTOR = document.querySelector('.game-of-life__interesting-menu');
+        this.BEE_GARDEN_SELECTOR = document.querySelector('.game-of-life__bee-garden-menu');
     };
 };
 
@@ -799,6 +820,22 @@ class Game {
             clearInterval(this.interval);
             this._clean();
             this._paste(this.cells, this.figures.interesting[this.configurations.INTERESTING_SELECTOR.value])
+            this._draw();
+
+            this.configurations.STABLE_SELECTOR.value = '-1';
+            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
+            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
+            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
+        });
+
+        this.configurations.BEE_GARDEN_SELECTOR.addEventListener('click', () => {
+            if (this.configurations.BEE_GARDEN_SELECTOR.value === '-1') {
+                return;
+            };
+
+            clearInterval(this.interval);
+            this._clean();
+            this._paste(this.cells, this.figures.beelike[this.configurations.BEE_GARDEN_SELECTOR.value])
             this._draw();
 
             this.configurations.STABLE_SELECTOR.value = '-1';

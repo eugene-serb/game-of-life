@@ -101,6 +101,7 @@
                 <div class="game-of-life__map-wrapper"></div>
                 <div class="game-of-life__controls">
                     <fieldset class="game-of-life__information game-of-life__fieldset_2-columns">
+                        <legend>Information</legend>
                         <span class="game-of-life__generation">Generation: 0</span>
                         <span class="game-of-life__population">Population: 0</span>
                         <span class="game-of-life__size">Size: 50 x 50</span>
@@ -174,16 +175,29 @@
                         <select class="game-of-life__interesting-menu">
                             <option value="-1" selected="selected">— Interesting —</option>
                             <option value="0">Bell shaped</option>
-                            <option value="1">Boat explosion</option>
-                            <option value="2">Bee defense</option>
-                            <option value="3">Bee war</option>
-                            <option value="4">Cheshire Cat</option>
+                            <option value="1">Bee war</option>
+                            <option value="2">Cheshire Cat</option>
+                        </select>
+                        <select class="game-of-life__bee-garden-menu">
+                            <option value="-1" selected="selected">— Bee like —</option>
+                            <option value="0">Bee defense</option>
+                            <option value="1">Bee war</option>
+                            <option value="2">Bee explosion</option>
                         </select>
                     </fieldset>
                 </div>
             </div>
         </section>
     </main>
+
+    <footer class="footer">
+        <div class="footer-wrapper container">
+            <div class="annotation">
+                <span class="annotation__text">© 2021 – 2022 Eugene Serb. Content licensed under </span><a href="https://eugene-serb.github.io/game-of-life/LICENSE.md" target="_blank">GNU General Public License v3.0</a><br>
+                <span class="annotation__text">This site is open source. </span><a href="https://github.com/eugene-serb/game-of-life/" target="_blank">Improve this page.</a>
+            </div>
+        </div>
+    </footer>
 
     <script src="js/game-of-life.js"></script>
     <script src="https://eugene-serb.github.io/js/scripts.js"></script>
