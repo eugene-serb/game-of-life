@@ -828,7 +828,7 @@ class Game {
             this.configurations.MATHUSALEM_SELECTOR.value = '-1';
         });
 
-        this.configurations.BEE_GARDEN_SELECTOR.addEventListener('click', () => {
+        this.configurations.BEE_GARDEN_SELECTOR.addEventListener('change', () => {
             if (this.configurations.BEE_GARDEN_SELECTOR.value === '-1') {
                 return;
             };
