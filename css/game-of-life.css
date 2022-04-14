@@ -26,17 +26,13 @@
 .game-of-life__controls {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-}
-
-.game-of-life__information {
-    font-size: 16px;
-    text-align: center;
+    gap: 16px;
 }
 
 .game-of-life__fieldset {
     display: grid;
     gap: 8px;
+    text-align: center;
 }
 
 .game-of-life__fieldset_row {
@@ -44,11 +40,5 @@
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
-}
-
-.game-of-life__fieldset_2-columns {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 8px;
 }
 

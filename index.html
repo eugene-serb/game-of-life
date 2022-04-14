@@ -100,7 +100,7 @@
             <div class="game-of-life">
                 <div class="game-of-life__map-wrapper"></div>
                 <div class="game-of-life__controls">
-                    <fieldset class="game-of-life__information game-of-life__fieldset_2-columns">
+                    <fieldset class="game-of-life__fieldset game-of-life__information">
                         <legend>Information</legend>
                         <span class="game-of-life__generation">Generation: 0</span>
                         <span class="game-of-life__population">Population: 0</span>
@@ -108,6 +108,7 @@
                         <span class="game-of-life__type">Type: Torus</span>
                     </fieldset>
                     <fieldset class="game-of-life__fieldset game-of-life__fieldset_row">
+                        <legend>Controls</legend>
                         <button class="game-of-life__start">Start</button>
                         <button class="game-of-life__stop">Stop</button>
                         <button class="game-of-life__randomize">Randomize</button>
@@ -124,6 +125,7 @@
                         </select>
                     </fieldset>
                     <fieldset class="game-of-life__fieldset game-of-life__fieldset_row">
+                        <legend>Tools</legend>
                         <button class="game-of-life__reflect-x">Reflect X</button>
                         <button class="game-of-life__reflect-y">Reflect Y</button>
                         <button class="game-of-life__rotate-left">Rotate Left</button>
@@ -132,7 +134,8 @@
                         <input type="file" accept="application/json" class="game-of-life__import-input hidden" />
                         <button class="game-of-life__import">Import</button>
                     </fieldset>
-                    <fieldset class="game-of-life__fieldset game-of-life__fieldset_2-columns">
+                    <fieldset class="game-of-life__fieldset game-of-life__fieldset">
+                        <legend>Figures</legend>
                         <select class="game-of-life__stable-menu">
                             <option value="-1" selected="selected">— Still Life —</option>
                             <option value="0">Block</option>
