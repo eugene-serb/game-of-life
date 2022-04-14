@@ -99,13 +99,13 @@
             <h2 class="post__header">Game of Life</h2>
             <div class="game-of-life">
                 <div class="game-of-life__map-wrapper"></div>
-                <div class="game-of-life__information">
-                    <span class="game-of-life__generation">Generation: 0</span>
-                    <span class="game-of-life__population">Population: 0</span>
-                    <span class="game-of-life__size">Size: 50 x 50</span>
-                    <span class="game-of-life__type">Type: Torus</span>
-                </div>
                 <div class="game-of-life__controls">
+                    <fieldset class="game-of-life__information">
+                        <span class="game-of-life__generation">Generation: 0</span>
+                        <span class="game-of-life__population">Population: 0</span>
+                        <span class="game-of-life__size">Size: 50 x 50</span>
+                        <span class="game-of-life__type">Type: Torus</span>
+                    </fieldset>
                     <fieldset class="game-of-life__fieldset game-of-life__fieldset_2-columns">
                         <button class="game-of-life__start">Start</button>
                         <button class="game-of-life__stop">Stop</button>
@@ -127,10 +127,6 @@
                         <button class="game-of-life__reflect-y">Reflect Y</button>
                         <button class="game-of-life__rotate-left">Rotate Left</button>
                         <button class="game-of-life__rotate-right">Rotate Right</button>
-                    </fieldset>
-                    <fieldset class="game-of-life__fieldset game-of-life__fieldset_2-columns">
-                        <button class="game-of-life__save" disabled>Save</button>
-                        <button class="game-of-life__open" disabled>Open</button>
                         <button class="game-of-life__export">Export</button>
                         <input type="file" accept="application/json" class="game-of-life__import-input hidden" />
                         <button class="game-of-life__import">Import</button>
@@ -181,6 +177,7 @@
                             <option value="1">Boat explosion</option>
                             <option value="2">Bee defense</option>
                             <option value="3">Bee war</option>
+                            <option value="4">Cheshire Cat</option>
                         </select>
                     </fieldset>
                 </div>
