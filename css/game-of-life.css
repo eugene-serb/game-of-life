@@ -4,46 +4,37 @@
 
 @charset 'UTF-8';
 
-/* --------- */
-/* INTERFACE */
-/* --------- */
-
 .game-of-life {
-    width: 500px;
+    width: 100%;
     margin: 0 auto;
-}
-
-.game-of-life__header {
-    text-align: center;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 48px;
 }
 
 .game-of-life__map-wrapper {
-    width: 500px;
-    height: 500px;
-    margin-block-end: 32px;
+    width: 750px;
+    height: 750px;
     outline: 2px dashed var(--color-border);
     border-radius: 4px;
 }
 
-.game-of-life__banner {
+.game-of-life__controls {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    font-size: 24px;
-    margin-block-end: 32px;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .game-of-life__fieldset {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-block-end: 8px;
+    display: grid;
+    gap: 8px;
+    text-align: center;
 }
 
-.game-of-life__figure-menu {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+.game-of-life__fieldset_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
