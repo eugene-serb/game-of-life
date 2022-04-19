@@ -8,13 +8,15 @@
     width: 100%;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr;
     gap: 48px;
 }
 
 .game-of-life__map-wrapper {
-    width: 750px;
-    height: 750px;
+    width: 100%;
+}
+
+canvas {
     outline: 2px dashed var(--color-border);
     border-radius: 4px;
 }
@@ -36,5 +38,11 @@
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 960px) {
+    .game-of-life {
+        grid-template-columns: 3fr 1fr;
+    }
 }
 

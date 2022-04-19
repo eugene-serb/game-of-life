@@ -574,8 +574,6 @@ class Support {
 
 class Configurations {
     constructor() {
-        this.CANVAS_WIDTH = 750;
-        this.CANVAS_HEIGHT = 750;
         this.MATRIX_WIDTH = 50;
         this.MATRIX_HEIGHT = 50;
         this.SPEED_RATE = 100;
@@ -613,17 +611,13 @@ class Configurations {
 };
 
 class Map {
-    constructor(wrapper, canvas_width, canvas_height, matrix_width, matrix_height) {
+    constructor(wrapper, matrix_width, matrix_height) {
         this.container = wrapper;
-        this.canvas_width = canvas_width;
-        this.canvas_height = canvas_height;
         this.matrix_width = matrix_width;
         this.matrix_height = matrix_height;
-        this.cell_width = this.canvas_width / this.matrix_width;
-        this.cell_height = this.canvas_height / this.matrix_height;
 
-        this._init();
         this.matrix = this.generateMatrix(this.matrix_width, this.matrix_height);
+        this._init();
         this.draw();
     };
 
@@ -631,16 +625,31 @@ class Map {
         this.canvas = document.createElement('canvas');
         this.context = this.canvas.getContext('2d');
 
-        this.canvas.width = this.canvas_width;
-        this.canvas.height = this.canvas_height;
-
         this.container.appendChild(this.canvas);
+        this._updateSizes();
+
+        window.addEventListener('resize', () => {
+            this._updateSizes();
+        });
+    };
+
+    _updateSizes = () => {
+        this.canvas.width = 0;
+        this.canvas.height = 0;
+
+        this.canvas.width = this.container.offsetWidth;
+        this.canvas.height = this.canvas.width;
+
+        this.cell_width = this.canvas.width / this.matrix_width;
+        this.cell_height = this.canvas.height / this.matrix_height;
+
+        this.draw();
     };
 
     draw = () => {
-        this.context.clearRect(0, 0, this.canvas_width, this.canvas_height);
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.fillStyle = '#F5F5F5';
-        this.context.fillRect(0, 0, this.canvas_width, this.canvas_height);
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.fillStyle = '#0DC4D9';
 
         for (let x = 0; x < this.matrix_width; x++) {
@@ -743,9 +752,7 @@ class Game {
         this.configurations = new Configurations();
         this.support = new Support();
         this.figures = new Figures();
-        this.map = new Map(this.configurations.MAP_WRAPPER,
-                           this.configurations.CANVAS_WIDTH, this.configurations.CANVAS_HEIGHT,
-                           this.configurations.MATRIX_WIDTH, this.configurations.MATRIX_HEIGHT);
+        this.map = new Map(this.configurations.MAP_WRAPPER, this.configurations.MATRIX_WIDTH, this.configurations.MATRIX_HEIGHT);
 
         this.interval = 0;
         this.generation = 0;
