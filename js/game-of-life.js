@@ -576,6 +576,21 @@ class Map {
         this.draw();
     };
 
+    draw = () => {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.fillStyle = this.color_canvas;
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.fillStyle = this.color_cells;
+
+        for (let x = 0; x < this.matrix_width; x++) {
+            for (let y = 0; y < this.matrix_height; y++) {
+                if (this.matrix[x][y] !== 0) {
+                    this.context.fillRect(x * this.cell_width, y * this.cell_height, this.cell_width, this.cell_height);
+                };
+            };
+        };
+    };
+
     #init = () => {
         this.canvas = document.createElement('canvas');
         this.context = this.canvas.getContext('2d');
@@ -617,21 +632,6 @@ class Map {
         this.draw();
     };
 
-    draw = () => {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.fillStyle = this.color_canvas;
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.fillStyle = this.color_cells;
-
-        for (let x = 0; x < this.matrix_width; x++) {
-            for (let y = 0; y < this.matrix_height; y++) {
-                if (this.matrix[x][y] !== 0) {
-                    this.context.fillRect(x * this.cell_width, y * this.cell_height, this.cell_width, this.cell_height);
-                };
-            };
-        };
-    };
-
     generateMatrix = (matrix_width, matrix_height) => {
         let matrix = new Array();
         for (let x = 0; x < matrix_width; x++) {
@@ -641,6 +641,14 @@ class Map {
             };
         };
         return matrix;
+    };
+    copyMatrix = (matrixIn, matrixOut) => {
+        for (let x = 0; x < matrixOut.length; x++) {
+            for (let y = 0; y < matrixOut[x].length; y++) {
+                matrixIn[x][y] = matrixOut[x][y];
+            };
+        };
+        return matrixIn;
     };
     reflectX = (matrix) => {
         return matrix.reverse();
@@ -652,13 +660,7 @@ class Map {
             result[x] = matrix[x].reverse();
         };
 
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
+        return this.copyMatrix(matrix, result);
     };
     rotateLeft = (matrix) => {
         /*        
@@ -676,13 +678,7 @@ class Map {
             };
         };
 
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
+        return this.copyMatrix(matrix, result);
     };
     rotateRight = (matrix) => {
         /*
@@ -700,13 +696,7 @@ class Map {
             };
         };
 
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
+        return this.copyMatrix(matrix, result);
     };
 };
 
