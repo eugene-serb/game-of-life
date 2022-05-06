@@ -5,9 +5,7 @@
 'use strict'
 
 class Figures {
-
     constructor() {
-
         this.stable = [
 
             /* Block */
@@ -186,7 +184,6 @@ class Figures {
              [1, 1, 0, 1, 1, 1, 0],
              [1, 1, 0, 1, 0, 0, 0]],
         ];
-
         this.spaceships = [
 
             /* Glider */
@@ -218,7 +215,6 @@ class Figures {
              [1, 0, 0, 1],
              [0, 1, 1, 1]],
         ];
-
         this.oscillators = [
 
             /* Blinker – period 2 */
@@ -348,7 +344,6 @@ class Figures {
              [0, 1, 1, 1, 0, 0, 1],
              [0, 0, 0, 0, 0, 1, 1]],
         ];
-
         this.guns = [
 
             /* Gosper's glider gun */
@@ -389,7 +384,6 @@ class Figures {
              [0, 0, 1, 1, 0, 0, 0, 0, 0],
              [0, 0, 1, 1, 0, 0, 0, 0, 0]]
         ];
-
         this.pentominoes = [
             /* Pentomino O */
             [[1, 1, 1, 1, 1]],
@@ -447,7 +441,6 @@ class Figures {
              [0, 1, 0],
              [0, 1, 1]],
         ];
-
         this.mathusalem = [
 
             /* Acorn – 5206 */
@@ -488,7 +481,6 @@ class Figures {
              [0, 1, 1, 1, 1],
              [0, 0, 0, 0, 1]],
         ];
-
         this.interesting = [
 
             /* Cheshire Cat */
@@ -513,7 +505,6 @@ class Figures {
              [1, 0, 1, 1, 0],
              [1, 1, 0, 0, 0]],
         ];
-
         this.beelike = [
 
             /* Bee defense */
@@ -567,81 +558,29 @@ class Figures {
 };
 
 class Support {
-    getRandomInteger = (min, max) => {
-        return Math.floor(Math.random() * (max - min) + min);
-    };
-};
-
-class Configurations {
     constructor() {
-        this.CANVAS_WIDTH = 750;
-        this.CANVAS_HEIGHT = 750;
-        this.MATRIX_WIDTH = 50;
-        this.MATRIX_HEIGHT = 50;
-        this.SPEED_RATE = 100;
-
-        this.MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
-
-        this.GENERATION_WRAPPER = document.querySelector('.game-of-life__generation');
-        this.POPULATION_WRAPPER = document.querySelector('.game-of-life__population');
-
-        this.START_BUTTON = document.querySelector('.game-of-life__start');
-        this.STOP_BUTTON = document.querySelector('.game-of-life__stop');
-        this.NEXT_BUTTON = document.querySelector('.game-of-life__next');
-        this.CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
-        this.RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
-        this.SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
-
-        this.REFLECT_X_BUTTON = document.querySelector('.game-of-life__reflect-x');
-        this.REFLECT_Y_BUTTON = document.querySelector('.game-of-life__reflect-y');
-        this.ROTATE_LEFT_BUTTON = document.querySelector('.game-of-life__rotate-left');
-        this.ROTATE_RIGHT_BUTTON = document.querySelector('.game-of-life__rotate-right');
-
-        this.EXPORT_BUTTON = document.querySelector('.game-of-life__export');
-        this.IMPORT_INPUT = document.querySelector('.game-of-life__import-input');
-        this.IMPORT_BUTTON = document.querySelector('.game-of-life__import');
-
-        this.STABLE_SELECTOR = document.querySelector('.game-of-life__stables-menu');
-        this.SPACESHIPS_SELECTOR = document.querySelector('.game-of-life__spaceships-menu');
-        this.OSCILLATORS_SELECTOR = document.querySelector('.game-of-life__oscillators-menu');
-        this.GUNS_SELECTOR = document.querySelector('.game-of-life__guns-menu');
-        this.PENTOMINO_SELECTOR = document.querySelector('.game-of-life__pentominoes-menu');
-        this.MATHUSALEM_SELECTOR = document.querySelector('.game-of-life__mathusalem-menu');
-        this.INTERESTING_SELECTOR = document.querySelector('.game-of-life__interesting-menu');
-        this.BEE_GARDEN_SELECTOR = document.querySelector('.game-of-life__bee-garden-menu');
+        this.getRandomInteger = (min, max) => {
+            return Math.floor(Math.random() * (max - min) + min);
+        };
     };
 };
 
 class Map {
-    constructor(wrapper, canvas_width, canvas_height, matrix_width, matrix_height) {
-        this.container = wrapper;
-        this.canvas_width = canvas_width;
-        this.canvas_height = canvas_height;
+    constructor(container, matrix_width, matrix_height) {
+        this.$container = container;
         this.matrix_width = matrix_width;
         this.matrix_height = matrix_height;
-        this.cell_width = this.canvas_width / this.matrix_width;
-        this.cell_height = this.canvas_height / this.matrix_height;
 
-        this._init();
         this.matrix = this.generateMatrix(this.matrix_width, this.matrix_height);
+        this.#init();
         this.draw();
     };
 
-    _init = () => {
-        this.canvas = document.createElement('canvas');
-        this.context = this.canvas.getContext('2d');
-
-        this.canvas.width = this.canvas_width;
-        this.canvas.height = this.canvas_height;
-
-        this.container.appendChild(this.canvas);
-    };
-
     draw = () => {
-        this.context.clearRect(0, 0, this.canvas_width, this.canvas_height);
-        this.context.fillStyle = '#F5F5F5';
-        this.context.fillRect(0, 0, this.canvas_width, this.canvas_height);
-        this.context.fillStyle = '#0DC4D9';
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.fillStyle = this.color_canvas;
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.fillStyle = this.color_cells;
 
         for (let x = 0; x < this.matrix_width; x++) {
             for (let y = 0; y < this.matrix_height; y++) {
@@ -650,6 +589,47 @@ class Map {
                 };
             };
         };
+    };
+
+    #init = () => {
+        this.canvas = document.createElement('canvas');
+        this.context = this.canvas.getContext('2d');
+
+        this.$container.appendChild(this.canvas);
+        this.#updateSizes();
+
+        window.addEventListener('resize', () => {
+            this.#updateSizes();
+        });
+
+        this.media = window.matchMedia('(prefers-color-scheme: dark)');
+        this.#updateColours(this.media);
+
+        this.media.addEventListener('change', () => {
+            this.#updateColours(this.media);
+        });
+    };
+    #updateSizes = () => {
+        this.canvas.width = 0;
+        this.canvas.height = 0;
+
+        this.canvas.width = this.$container.offsetWidth;
+        this.canvas.height = this.canvas.width;
+
+        this.cell_width = this.canvas.width / this.matrix_width;
+        this.cell_height = this.canvas.height / this.matrix_height;
+
+        this.draw();
+    };
+    #updateColours = (media) => {
+        if (media.matches) {
+            this.color_canvas = '#055159';
+            this.color_cells = '#0DC4D9';
+        } else {
+            this.color_canvas = '#F5F5F5';
+            this.color_cells = '#0DC4D9';
+        };
+        this.draw();
     };
 
     generateMatrix = (matrix_width, matrix_height) => {
@@ -662,11 +642,17 @@ class Map {
         };
         return matrix;
     };
-
+    copyMatrix = (matrixIn, matrixOut) => {
+        for (let x = 0; x < matrixOut.length; x++) {
+            for (let y = 0; y < matrixOut[x].length; y++) {
+                matrixIn[x][y] = matrixOut[x][y];
+            };
+        };
+        return matrixIn;
+    };
     reflectX = (matrix) => {
         return matrix.reverse();
     };
-
     reflectY = (matrix) => {
         let result = this.generateMatrix(matrix.length, matrix[0].length);
 
@@ -674,15 +660,8 @@ class Map {
             result[x] = matrix[x].reverse();
         };
 
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
+        return this.copyMatrix(matrix, result);
     };
-
     rotateLeft = (matrix) => {
         /*        
             =>      x_1 = 0,                        y_1 = 0
@@ -699,15 +678,8 @@ class Map {
             };
         };
 
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
+        return this.copyMatrix(matrix, result);
     };
-
     rotateRight = (matrix) => {
         /*
             =>      x_1 = 0,        y_1 = 0
@@ -724,28 +696,19 @@ class Map {
             };
         };
 
-        for (let x = 0; x < matrix.length; x++) {
-            for (let y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = result[x][y];
-            };
-        };
-
-        return matrix;
+        return this.copyMatrix(matrix, result);
     };
 };
 
 class Game {
     constructor() {
-        this._init();
-    };
+        this.#configurations();
+        this.#DOMs();
+        this.#eventListeners();
 
-    _init = () => {
-        this.configurations = new Configurations();
         this.support = new Support();
         this.figures = new Figures();
-        this.map = new Map(this.configurations.MAP_WRAPPER,
-                           this.configurations.CANVAS_WIDTH, this.configurations.CANVAS_HEIGHT,
-                           this.configurations.MATRIX_WIDTH, this.configurations.MATRIX_HEIGHT);
+        this.map = new Map(this.$MAP_WRAPPER, this.MATRIX_WIDTH, this.MATRIX_HEIGHT);
 
         this.interval = 0;
         this.generation = 0;
@@ -755,26 +718,16 @@ class Game {
         this.allocate = false;
         this.allocateCoordinates = [];
 
-        this._draw();
-        this._controls();
+        this.#draw();
     };
 
-    _clean = () => {
-        this.interval = 0;
-        this.generation = 0;
-        this.population = 0;
-        this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
-        this.cells = this.map.matrix;
-    };
-
-    _gameloop = () => {
+    #eventLoop = () => {
         this.generation++;
 
-        this._update();
-        this._draw();
+        this.#update();
+        this.#draw();
     };
-
-    _update = () => {
+    #update = () => {
         let nextMatrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
         let population = 0;
 
@@ -786,7 +739,6 @@ class Game {
             };
             return n;
         };
-
         const countMooreNeighbours = (x, y) => {
             let neigbours = 0;
 
@@ -834,14 +786,13 @@ class Game {
 
         this.population = population;
     };
-
-    _draw = () => {
+    #draw = () => {
         this.map.draw();
-        this.configurations.GENERATION_WRAPPER.innerText = `Generation: ${this.generation}`;
-        this.configurations.POPULATION_WRAPPER.innerText = `Population: ${this.population}`;
+        this.$GENERATION_WRAPPER.innerText = `Generation: ${this.generation}`;
+        this.$POPULATION_WRAPPER.innerText = `Population: ${this.population}`;
     };
 
-    _randomizeMatrix = (matrix, min, max) => {
+    #randomizeMatrix = (matrix, min, max) => {
         for (let i = 0; i < matrix.length; i++) {
             for (let j = 0; j < matrix[i].length; j++) {
                 matrix[i][j] = this.support.getRandomInteger(min, max);
@@ -849,24 +800,14 @@ class Game {
         };
         return matrix;
     };
-
-    _paste = (matrix, figure) => {
-        if (matrix.length < figure.length ||
-            matrix[0].length < figure[0].length) {
-            return;
-        };
-
-        let startX = Math.floor(matrix.length / 2) - Math.floor(figure.length / 2);
-        let startY = Math.floor(matrix[0].length / 2) - Math.floor(figure[0].length / 2);
-
-        for (let x = 0; x < figure.length; x++) {
-            for (let y = 0; y < figure[x].length; y++) {
-                this.cells[startX + x][startY + y] = figure[x][y];
-            };
-        };
+    #clean = () => {
+        this.interval = 0;
+        this.generation = 0;
+        this.population = 0;
+        this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
+        this.cells = this.map.matrix;
     };
-
-    _copy = () => {
+    #copy = () => {
         let width = Math.abs(this.allocateCoordinates[1][0] - this.allocateCoordinates[0][0]) + 1;
         let height = Math.abs(this.allocateCoordinates[1][1] - this.allocateCoordinates[0][1]) + 1;
 
@@ -883,9 +824,60 @@ class Game {
         console.log(`width = ${width}, height = ${height}`);
         console.log(result);
     };
+    #paste = (matrix, figure) => {
+        if (matrix.length < figure.length ||
+            matrix[0].length < figure[0].length) {
+            return;
+        };
 
-    _controls = () => {
-        this.configurations.MAP_WRAPPER.addEventListener('click', (event) => {
+        let startX = Math.floor(matrix.length / 2) - Math.floor(figure.length / 2);
+        let startY = Math.floor(matrix[0].length / 2) - Math.floor(figure[0].length / 2);
+
+        for (let x = 0; x < figure.length; x++) {
+            for (let y = 0; y < figure[x].length; y++) {
+                this.cells[startX + x][startY + y] = figure[x][y];
+            };
+        };
+    };
+
+    #configurations = () => {
+        this.MATRIX_WIDTH = 50;
+        this.MATRIX_HEIGHT = 50;
+        this.SPEED_RATE = 100;
+    };
+    #DOMs = () => {
+        this.$MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
+
+        this.$GENERATION_WRAPPER = document.querySelector('.game-of-life__generation');
+        this.$POPULATION_WRAPPER = document.querySelector('.game-of-life__population');
+
+        this.$START_BUTTON = document.querySelector('.game-of-life__start');
+        this.$STOP_BUTTON = document.querySelector('.game-of-life__stop');
+        this.$NEXT_BUTTON = document.querySelector('.game-of-life__next');
+        this.$CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
+        this.$RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
+        this.$SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
+
+        this.$REFLECT_X_BUTTON = document.querySelector('.game-of-life__reflect-x');
+        this.$REFLECT_Y_BUTTON = document.querySelector('.game-of-life__reflect-y');
+        this.$ROTATE_LEFT_BUTTON = document.querySelector('.game-of-life__rotate-left');
+        this.$ROTATE_RIGHT_BUTTON = document.querySelector('.game-of-life__rotate-right');
+
+        this.$EXPORT_BUTTON = document.querySelector('.game-of-life__export');
+        this.$IMPORT_INPUT = document.querySelector('.game-of-life__import-input');
+        this.$IMPORT_BUTTON = document.querySelector('.game-of-life__import');
+
+        this.$STABLE_SELECTOR = document.querySelector('.game-of-life__stables-menu');
+        this.$SPACESHIPS_SELECTOR = document.querySelector('.game-of-life__spaceships-menu');
+        this.$OSCILLATORS_SELECTOR = document.querySelector('.game-of-life__oscillators-menu');
+        this.$GUNS_SELECTOR = document.querySelector('.game-of-life__guns-menu');
+        this.$PENTOMINO_SELECTOR = document.querySelector('.game-of-life__pentominoes-menu');
+        this.$MATHUSALEM_SELECTOR = document.querySelector('.game-of-life__mathusalem-menu');
+        this.$INTERESTING_SELECTOR = document.querySelector('.game-of-life__interesting-menu');
+        this.$BEE_GARDEN_SELECTOR = document.querySelector('.game-of-life__bee-garden-menu');
+    };
+    #eventListeners = () => {
+        this.$MAP_WRAPPER.addEventListener('click', (event) => {
             let x = Math.floor(event.offsetX / this.map.cell_width);
             let y = Math.floor(event.offsetY / this.map.cell_height);
 
@@ -898,7 +890,7 @@ class Game {
                 this.allocateCoordinates.push(new Array(x, y));
 
                 if (this.allocateCoordinates.length >= 2) {
-                    this._copy();
+                    this.#copy();
                     this.allocateCoordinates = [];
                 };
 
@@ -911,10 +903,9 @@ class Game {
                 this.cells[x][y] = 0;
             };
 
-            this._draw();
+            this.#draw();
         });
-
-        this.configurations.MAP_WRAPPER.addEventListener('contextmenu', (event) => {
+        this.$MAP_WRAPPER.addEventListener('contextmenu', (event) => {
             event.preventDefault();
 
             if (this.allocate === true) {
@@ -922,58 +913,52 @@ class Game {
                 this.allocateCoordinates = [];
             };
 
-            this._draw();
+            this.#draw();
         });
-
-        this.configurations.START_BUTTON.addEventListener('click', () => {
+        this.$START_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
             this.interval = 0;
-            this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
+            this.interval = setInterval(this.#eventLoop, this.SPEED_RATE);
         });
-
-        this.configurations.STOP_BUTTON.addEventListener('click', () => {
+        this.$STOP_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
             this.interval = 0;
         });
-
-        this.configurations.NEXT_BUTTON.addEventListener('click', () => {
+        this.$NEXT_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
             this.interval = 0;
-            this._gameloop();
+            this.#eventLoop();
         });
-
-        this.configurations.CLEAN_BUTTON.addEventListener('click', () => {
+        this.$CLEAN_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
-            this._clean();
-            this._draw();
+            this.#clean();
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$MATHUSALEM_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.RANDOMIZE_BUTTON.addEventListener('click', () => {
+        this.$RANDOMIZE_BUTTON.addEventListener('click', () => {
             clearInterval(this.interval);
-            this._clean();
-            this.cells = this._randomizeMatrix(this.cells, 0, 2);
-            this._draw();
+            this.#clean();
+            this.cells = this.#randomizeMatrix(this.cells, 0, 2);
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$MATHUSALEM_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.SPEED_SELECTOR.addEventListener('input', () => {
+        this.$SPEED_SELECTOR.addEventListener('input', () => {
             let status = (this.interval !== 0) ? 1 : 0;
 
             if (status === 1) {
@@ -981,52 +966,45 @@ class Game {
                 this.interval = 0;
             };
 
-            this.configurations.SPEED_RATE = this.configurations.SPEED_SELECTOR.value;
+            this.SPEED_RATE = this.$SPEED_SELECTOR.value;
 
             if (status === 1) {
-                this.interval = setInterval(this._gameloop, this.configurations.SPEED_RATE);
+                this.interval = setInterval(this.#eventLoop, this.SPEED_RATE);
             };
         });
-
-        this.configurations.REFLECT_X_BUTTON.addEventListener('click', () => {
+        this.$REFLECT_X_BUTTON.addEventListener('click', () => {
             this.cells = this.map.reflectX(this.cells);
-            this._draw();
+            this.#draw();
         });
-
-        this.configurations.REFLECT_Y_BUTTON.addEventListener('click', () => {
+        this.$REFLECT_Y_BUTTON.addEventListener('click', () => {
             this.cells = this.map.reflectY(this.cells);
-            this._draw();
+            this.#draw();
         });
-
-        this.configurations.ROTATE_LEFT_BUTTON.addEventListener('click', () => {
+        this.$ROTATE_LEFT_BUTTON.addEventListener('click', () => {
             this.cells = this.map.rotateRight(this.cells);
-            this._draw();
+            this.#draw();
         });
-
-        this.configurations.ROTATE_RIGHT_BUTTON.addEventListener('click', () => {
+        this.$ROTATE_RIGHT_BUTTON.addEventListener('click', () => {
             this.cells = this.map.rotateLeft(this.cells);
-            this._draw();
+            this.#draw();
         });
-
-        this.configurations.EXPORT_BUTTON.addEventListener('click', () => {
+        this.$EXPORT_BUTTON.addEventListener('click', () => {
             let blob = new Blob([JSON.stringify(this.map.matrix)], { type: 'application/json' });
-            let link = document.createElement('a');
-            link.setAttribute('href', URL.createObjectURL(blob));
-            link.setAttribute('download', `save-${Date.now()}.json`);
-            link.click();
+            let $link = document.createElement('a');
+            $link.setAttribute('href', URL.createObjectURL(blob));
+            $link.setAttribute('download', `save-${Date.now()}.json`);
+            $link.click();
         });
-
-        this.configurations.IMPORT_BUTTON.addEventListener('click', () => {
-            this.configurations.IMPORT_INPUT.click();
+        this.$IMPORT_BUTTON.addEventListener('click', () => {
+            this.$IMPORT_INPUT.click();
         });
+        this.$IMPORT_INPUT.addEventListener('input', () => {
 
-        this.configurations.IMPORT_INPUT.addEventListener('input', () => {
-
-            if (this.configurations.IMPORT_INPUT.files[0].type !== 'application/json') {
+            if (this.$IMPORT_INPUT.files[0].type !== 'application/json') {
                 return;
             };
 
-            let file = this.configurations.IMPORT_INPUT.files[0];
+            let file = this.$IMPORT_INPUT.files[0];
             let reader = new FileReader();
 
             reader.readAsText(file);
@@ -1040,166 +1018,158 @@ class Game {
                     };
                 };
 
-                this._draw();
+                this.#draw();
             };
 
             reader.onerror = () => {
                 console.log(reader.error);
             };
 
-            this.configurations.IMPORT_INPUT.value = '';
+            this.$IMPORT_INPUT.value = '';
         });
-
-        this.configurations.STABLE_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.STABLE_SELECTOR.value === '-1') {
+        this.$STABLE_SELECTOR.addEventListener('change', () => {
+            if (this.$STABLE_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
-            this._clean();
-            this._paste(this.cells, this.figures.stable[this.configurations.STABLE_SELECTOR.value])
-            this._draw();
+            this.#clean();
+            this.#paste(this.cells, this.figures.stable[this.$STABLE_SELECTOR.value])
+            this.#draw();
 
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$MATHUSALEM_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.SPACESHIPS_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.SPACESHIPS_SELECTOR.value === '-1') {
+        this.$SPACESHIPS_SELECTOR.addEventListener('change', () => {
+            if (this.$SPACESHIPS_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
-            this._clean();
-            this._paste(this.cells, this.figures.spaceships[this.configurations.SPACESHIPS_SELECTOR.value])
-            this._draw();
+            this.#clean();
+            this.#paste(this.cells, this.figures.spaceships[this.$SPACESHIPS_SELECTOR.value])
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$MATHUSALEM_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.OSCILLATORS_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.OSCILLATORS_SELECTOR.value === '-1') {
+        this.$OSCILLATORS_SELECTOR.addEventListener('change', () => {
+            if (this.$OSCILLATORS_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
-            this._clean();
-            this._paste(this.cells, this.figures.oscillators[this.configurations.OSCILLATORS_SELECTOR.value])
-            this._draw();
+            this.#clean();
+            this.#paste(this.cells, this.figures.oscillators[this.$OSCILLATORS_SELECTOR.value])
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$MATHUSALEM_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.GUNS_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.GUNS_SELECTOR.value === '-1') {
+        this.$GUNS_SELECTOR.addEventListener('change', () => {
+            if (this.$GUNS_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
-            this._clean();
-            this._paste(this.cells, this.figures.guns[this.configurations.GUNS_SELECTOR.value])
-            this._draw();
+            this.#clean();
+            this.#paste(this.cells, this.figures.guns[this.$GUNS_SELECTOR.value])
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$MATHUSALEM_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.PENTOMINO_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.PENTOMINO_SELECTOR.value === '-1') {
+        this.$PENTOMINO_SELECTOR.addEventListener('change', () => {
+            if (this.$PENTOMINO_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
-            this._clean();
-            this._paste(this.cells, this.figures.pentominoes[this.configurations.PENTOMINO_SELECTOR.value])
-            this._draw();
+            this.#clean();
+            this.#paste(this.cells, this.figures.pentominoes[this.$PENTOMINO_SELECTOR.value])
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$.MATHUSALEM_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.MATHUSALEM_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.MATHUSALEM_SELECTOR.value === '-1') {
+        this.$MATHUSALEM_SELECTOR.addEventListener('change', () => {
+            if (this.$MATHUSALEM_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
-            this._clean();
-            this._paste(this.cells, this.figures.mathusalem[this.configurations.MATHUSALEM_SELECTOR.value])
-            this._draw();
+            this.#clean();
+            this.#paste(this.cells, this.figures.mathusalem[this.$MATHUSALEM_SELECTOR.value])
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.INTERESTING_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.INTERESTING_SELECTOR.value === '-1') {
+        this.$INTERESTING_SELECTOR.addEventListener('change', () => {
+            if (this.$INTERESTING_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
-            this._clean();
-            this._paste(this.cells, this.figures.interesting[this.configurations.INTERESTING_SELECTOR.value])
-            this._draw();
+            this.#clean();
+            this.#paste(this.cells, this.figures.interesting[this.$INTERESTING_SELECTOR.value])
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.BEE_GARDEN_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$MATHUSALEM_SELECTOR.value = '-1';
+            this.$BEE_GARDEN_SELECTOR.value = '-1';
         });
-
-        this.configurations.BEE_GARDEN_SELECTOR.addEventListener('change', () => {
-            if (this.configurations.BEE_GARDEN_SELECTOR.value === '-1') {
+        this.$BEE_GARDEN_SELECTOR.addEventListener('change', () => {
+            if (this.$BEE_GARDEN_SELECTOR.value === '-1') {
                 return;
             };
 
             clearInterval(this.interval);
-            this._clean();
-            this._paste(this.cells, this.figures.beelike[this.configurations.BEE_GARDEN_SELECTOR.value])
-            this._draw();
+            this.#clean();
+            this.#paste(this.cells, this.figures.beelike[this.$BEE_GARDEN_SELECTOR.value])
+            this.#draw();
 
-            this.configurations.STABLE_SELECTOR.value = '-1';
-            this.configurations.OSCILLATORS_SELECTOR.value = '-1';
-            this.configurations.SPACESHIPS_SELECTOR.value = '-1';
-            this.configurations.GUNS_SELECTOR.value = '-1';
-            this.configurations.PENTOMINO_SELECTOR.value = '-1';
-            this.configurations.MATHUSALEM_SELECTOR.value = '-1';
-            this.configurations.INTERESTING_SELECTOR.value = '-1';
+            this.$STABLE_SELECTOR.value = '-1';
+            this.$OSCILLATORS_SELECTOR.value = '-1';
+            this.$SPACESHIPS_SELECTOR.value = '-1';
+            this.$GUNS_SELECTOR.value = '-1';
+            this.$PENTOMINO_SELECTOR.value = '-1';
+            this.$MATHUSALEM_SELECTOR.value = '-1';
+            this.$INTERESTING_SELECTOR.value = '-1';
         });
     };
 };
