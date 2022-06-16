@@ -1,5 +1,5 @@
-# game-of-life
-Game of Life in JavaScript, HTML and CSS.
+# Game of Life
+Game of Life in ***JavaScript***, ***HTML*** and ***CSS***. **[[rep](https://github.com/eugene-serb/game-of-life/), [site](https://eugene-serb.github.io/game-of-life/)]**
 
 This is a cellular automaton that implements Conway's Game of Life. Contains a library of figurines and tools.
 
