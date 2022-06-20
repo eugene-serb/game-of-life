@@ -17,7 +17,7 @@
 }
 
 canvas {
-    outline: 2px dashed var(--color-border);
+    outline: 2px solid var(--color-border);
     border-radius: 4px;
 }
 
