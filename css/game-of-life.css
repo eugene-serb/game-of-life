@@ -16,11 +16,6 @@
     width: 100%;
 }
 
-canvas {
-    outline: 2px dashed var(--color-border);
-    border-radius: 4px;
-}
-
 .game-of-life__controls {
     display: flex;
     flex-direction: column;

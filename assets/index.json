@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Still Lives",
+    "url": "https://eugene-serb.github.io/game-of-life/assets/still-lives.json"
+  },
+  {
+    "name": "Oscillators",
+    "url": "https://eugene-serb.github.io/game-of-life/assets/oscillators.json"
+  },
+  {
+    "name": "Spaceships",
+    "url": "https://eugene-serb.github.io/game-of-life/assets/spaceships.json"
+  },
+  {
+    "name": "Guns",
+    "url": "https://eugene-serb.github.io/game-of-life/assets/guns.json"
+  },
+  {
+    "name": "Pentominoes",
+    "url": "https://eugene-serb.github.io/game-of-life/assets/pentominoes.json"
+  },
+  {
+    "name": "Mathusalems",
+    "url": "https://eugene-serb.github.io/game-of-life/assets/mathusalems.json"
+  },
+  {
+    "name": "Symmetrics",
+    "url": "https://eugene-serb.github.io/game-of-life/assets/symmetrics.json"
+  },
+  {
+    "name": "Others",
+    "url": "https://eugene-serb.github.io/game-of-life/assets/others.json"
+  }
+]
