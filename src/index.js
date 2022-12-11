@@ -1,7 +1,3 @@
-/* ------------ */
-/* GAME OF LIFE */
-/* ------------ */
-
 'use strict';
 
 class Figures {
@@ -554,16 +550,16 @@ class Figures {
       [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]],
     ];
-  };
-};
+  }
+}
 
 class Support {
   constructor() {
     this.getRandomInteger = (min, max) => {
       return Math.floor(Math.random() * (max - min) + min);
     };
-  };
-};
+  }
+}
 
 class Map {
   constructor(container, matrix_width, matrix_height) {
@@ -574,7 +570,7 @@ class Map {
     this.matrix = this.generateMatrix(this.matrix_width, this.matrix_height);
     this.#init();
     this.draw();
-  };
+  }
 
   draw = () => {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -586,9 +582,9 @@ class Map {
       for (let y = 0; y < this.matrix_height; y++) {
         if (this.matrix[x][y] !== 0) {
           this.context.fillRect(x * this.cell_width, y * this.cell_height, this.cell_width, this.cell_height);
-        };
-      };
-    };
+        }
+      }
+    }
   };
 
   #init = () => {
@@ -628,7 +624,7 @@ class Map {
     } else {
       this.color_canvas = '#F5F5F5';
       this.color_cells = '#0DC4D9';
-    };
+    }
     this.draw();
   };
 
@@ -638,16 +634,16 @@ class Map {
       matrix[x] = new Array();
       for (let y = 0; y < matrix_height; y++) {
         matrix[x][y] = 0;
-      };
-    };
+      }
+    }
     return matrix;
   };
   copyMatrix = (matrixIn, matrixOut) => {
     for (let x = 0; x < matrixOut.length; x++) {
       for (let y = 0; y < matrixOut[x].length; y++) {
         matrixIn[x][y] = matrixOut[x][y];
-      };
-    };
+      }
+    }
     return matrixIn;
   };
   reflectX = (matrix) => {
@@ -658,7 +654,7 @@ class Map {
 
     for (let x = 0; x < matrix.length; x++) {
       result[x] = matrix[x].reverse();
-    };
+    }
 
     return this.copyMatrix(matrix, result);
   };
@@ -675,8 +671,8 @@ class Map {
         let x2 = matrix[x].length - 1 - y;
         let y2 = x;
         result[x2][y2] = matrix[x][y];
-      };
-    };
+      }
+    }
 
     return this.copyMatrix(matrix, result);
   };
@@ -693,12 +689,12 @@ class Map {
         let x2 = y;
         let y2 = matrix.length - 1 - x;
         result[x2][y2] = matrix[x][y];
-      };
-    };
+      }
+    }
 
     return this.copyMatrix(matrix, result);
   };
-};
+}
 
 class Game {
   constructor() {
@@ -719,7 +715,7 @@ class Game {
     this.allocateCoordinates = [];
 
     this.#draw();
-  };
+  }
 
   #eventLoop = () => {
     this.generation++;
@@ -736,7 +732,7 @@ class Game {
         return length - 1;
       } else if (n > length - 1) {
         return 0;
-      };
+      }
       return n;
     };
     const countMooreNeighbours = (x, y) => {
@@ -763,16 +759,16 @@ class Game {
         if (neigbours < 2 || neigbours > 3) {
           nextMatrix[x][y] = 0;
           continue;
-        };
+        }
 
         if (this.cells[x][y] === 0 && neigbours === 3) {
           nextMatrix[x][y] = 1;
           continue;
-        };
+        }
 
         nextMatrix[x][y] = this.cells[x][y];
-      };
-    };
+      }
+    }
 
     for (let x = 0; x < this.map.matrix_width; x++) {
       for (let y = 0; y < this.map.matrix_height; y++) {
@@ -780,9 +776,9 @@ class Game {
 
         if (nextMatrix[x][y] === 1) {
           population++;
-        };
-      };
-    };
+        }
+      }
+    }
 
     this.population = population;
   };
@@ -796,8 +792,8 @@ class Game {
     for (let i = 0; i < matrix.length; i++) {
       for (let j = 0; j < matrix[i].length; j++) {
         matrix[i][j] = this.support.getRandomInteger(min, max);
-      };
-    };
+      }
+    }
     return matrix;
   };
   #clean = () => {
@@ -818,8 +814,8 @@ class Game {
         let x2 = this.allocateCoordinates[0][0] + x;
         let y2 = this.allocateCoordinates[0][1] + y;
         result[x][y] = this.cells[x2][y2];
-      };
-    };
+      }
+    }
 
     console.log(`width = ${width}, height = ${height}`);
     console.log(result);
@@ -828,7 +824,7 @@ class Game {
     if (matrix.length < figure.length ||
       matrix[0].length < figure[0].length) {
       return;
-    };
+    }
 
     let startX = Math.floor(matrix.length / 2) - Math.floor(figure.length / 2);
     let startY = Math.floor(matrix[0].length / 2) - Math.floor(figure[0].length / 2);
@@ -836,8 +832,8 @@ class Game {
     for (let x = 0; x < figure.length; x++) {
       for (let y = 0; y < figure[x].length; y++) {
         this.cells[startX + x][startY + y] = figure[x][y];
-      };
-    };
+      }
+    }
   };
 
   #configurations = () => {
@@ -885,23 +881,23 @@ class Game {
 
         if (this.allocate === false) {
           this.allocate = true;
-        };
+        }
 
         this.allocateCoordinates.push(new Array(x, y));
 
         if (this.allocateCoordinates.length >= 2) {
           this.#copy();
           this.allocateCoordinates = [];
-        };
+        }
 
         return;
-      };
+      }
 
       if (this.cells[x][y] === 0) {
         this.cells[x][y] = 1;
       } else {
         this.cells[x][y] = 0;
-      };
+      }
 
       this.#draw();
     });
@@ -911,7 +907,7 @@ class Game {
       if (this.allocate === true) {
         this.allocate = false;
         this.allocateCoordinates = [];
-      };
+      }
 
       this.#draw();
     });
@@ -964,13 +960,13 @@ class Game {
       if (status === 1) {
         clearInterval(this.interval);
         this.interval = 0;
-      };
+      }
 
       this.SPEED_RATE = this.$SPEED_SELECTOR.value;
 
       if (status === 1) {
         this.interval = setInterval(this.#eventLoop, this.SPEED_RATE);
-      };
+      }
     });
     this.$REFLECT_X_BUTTON.addEventListener('click', () => {
       this.cells = this.map.reflectX(this.cells);
@@ -1002,7 +998,7 @@ class Game {
 
       if (this.$IMPORT_INPUT.files[0].type !== 'application/json') {
         return;
-      };
+      }
 
       let file = this.$IMPORT_INPUT.files[0];
       let reader = new FileReader();
@@ -1015,8 +1011,8 @@ class Game {
         for (let x = 0; x < this.map.matrix_width; x++) {
           for (let y = 0; y < this.map.matrix_height; y++) {
             this.cells[x][y] = result[x][y];
-          };
-        };
+          }
+        }
 
         this.#draw();
       };
@@ -1030,7 +1026,7 @@ class Game {
     this.$STABLE_SELECTOR.addEventListener('change', () => {
       if (this.$STABLE_SELECTOR.value === '-1') {
         return;
-      };
+      }
 
       clearInterval(this.interval);
       this.#clean();
@@ -1048,7 +1044,7 @@ class Game {
     this.$SPACESHIPS_SELECTOR.addEventListener('change', () => {
       if (this.$SPACESHIPS_SELECTOR.value === '-1') {
         return;
-      };
+      }
 
       clearInterval(this.interval);
       this.#clean();
@@ -1066,7 +1062,7 @@ class Game {
     this.$OSCILLATORS_SELECTOR.addEventListener('change', () => {
       if (this.$OSCILLATORS_SELECTOR.value === '-1') {
         return;
-      };
+      }
 
       clearInterval(this.interval);
       this.#clean();
@@ -1084,7 +1080,7 @@ class Game {
     this.$GUNS_SELECTOR.addEventListener('change', () => {
       if (this.$GUNS_SELECTOR.value === '-1') {
         return;
-      };
+      }
 
       clearInterval(this.interval);
       this.#clean();
@@ -1102,7 +1098,7 @@ class Game {
     this.$PENTOMINO_SELECTOR.addEventListener('change', () => {
       if (this.$PENTOMINO_SELECTOR.value === '-1') {
         return;
-      };
+      }
 
       clearInterval(this.interval);
       this.#clean();
@@ -1120,7 +1116,7 @@ class Game {
     this.$MATHUSALEM_SELECTOR.addEventListener('change', () => {
       if (this.$MATHUSALEM_SELECTOR.value === '-1') {
         return;
-      };
+      }
 
       clearInterval(this.interval);
       this.#clean();
@@ -1138,7 +1134,7 @@ class Game {
     this.$INTERESTING_SELECTOR.addEventListener('change', () => {
       if (this.$INTERESTING_SELECTOR.value === '-1') {
         return;
-      };
+      }
 
       clearInterval(this.interval);
       this.#clean();
@@ -1156,7 +1152,7 @@ class Game {
     this.$BEE_GARDEN_SELECTOR.addEventListener('change', () => {
       if (this.$BEE_GARDEN_SELECTOR.value === '-1') {
         return;
-      };
+      }
 
       clearInterval(this.interval);
       this.#clean();
@@ -1172,11 +1168,6 @@ class Game {
       this.$INTERESTING_SELECTOR.value = '-1';
     });
   };
-};
+}
 
-/* -------------- */
-/* INITIALIZATION */
-/* -------------- */
-
-const GAME = new Game();
-
+new Game();

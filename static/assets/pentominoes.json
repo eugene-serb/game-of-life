@@ -1,0 +1,94 @@
+[
+  {
+    "name": "Pentomino O",
+    "figure": [
+      [ 1, 1, 1, 1, 1 ]
+    ]
+  },
+  {
+    "name": "Pentomino P",
+    "figure": [
+      [ 1, 1, 0 ],
+      [ 1, 1, 1 ]
+    ]
+  },
+  {
+    "name": "Pentomino Q",
+    "figure": [
+      [ 1, 1, 1, 1 ],
+      [ 0, 0, 0, 1 ]
+    ]
+  },
+  {
+    "name": "Pentomino R – 1103",
+    "figure": [
+      [ 1, 0, 0 ],
+      [ 1, 1, 1 ],
+      [ 0, 1, 0 ]
+    ]
+  },
+  {
+    "name": "Pentomino S",
+    "figure": [
+      [ 0, 0, 1, 1 ],
+      [ 1, 1, 1, 0 ]
+    ]
+  },
+  {
+    "name": "Pentomino T",
+    "figure": [
+      [ 1, 0, 0 ],
+      [ 1, 1, 1 ],
+      [ 1, 0, 0 ]
+    ]
+  },
+  {
+    "name": "Pentomino U",
+    "figure": [
+      [ 1, 1 ],
+      [ 0, 1 ],
+      [ 1, 1 ]
+    ]
+  },
+  {
+    "name": "Pentomino V",
+    "figure": [
+      [ 1, 1, 1 ],
+      [ 0, 0, 1 ],
+      [ 0, 0, 1 ]
+    ]
+  },
+  {
+    "name": "Pentomino W",
+    "figure": [
+      [ 1, 1, 0 ],
+      [ 0, 1, 1 ],
+      [ 0, 0, 1 ]
+    ]
+  },
+  {
+    "name": "Pentomino X",
+    "figure": [
+      [ 0, 1, 0 ],
+      [ 1, 1, 1 ],
+      [ 0, 1, 0 ]
+    ]
+  },
+  {
+    "name": "Pentomino Y",
+    "figure": [
+      [ 0, 1 ],
+      [ 1, 1 ],
+      [ 0, 1 ],
+      [ 0, 1 ]
+    ]
+  },
+  {
+    "name": "Pentomino X",
+    "figure": [
+      [ 1, 1, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 1 ]
+    ]
+  }
+]

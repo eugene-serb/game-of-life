@@ -1,0 +1,38 @@
+@charset 'UTF-8';
+
+.game-of-life {
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+.game-of-life__map-wrapper {
+  width: 100%;
+}
+
+.game-of-life__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.game-of-life__fieldset {
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+
+.game-of-life__fieldset_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 960px) {
+  .game-of-life {
+    grid-template-columns: 3fr 1fr;
+  }
+}
