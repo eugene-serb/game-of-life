@@ -36,3 +36,16 @@
     grid-template-columns: 3fr 1fr;
   }
 }
+
+@media only screen and (min-width: 1440px) {
+  .game-of-life__fieldset {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .game-of-life {
+    grid-template-columns: 3fr 2fr;
+  }
+}
