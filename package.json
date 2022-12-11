@@ -1,0 +1,29 @@
+{
+  "name": "game-of-life",
+  "version": "1.1.0",
+  "description": "This is a cellular automaton that implements Conway's Game of Life. Contains a library of figurines and tools.",
+  "keywords": [
+    "game-of-life",
+    "conway's game of life",
+    "cellular automaton",
+    "game"
+  ],
+  "license": "GNU GPL v3",
+  "author": {
+    "name": "Eugene Serb",
+    "email": "eugene.serb@gmail.com",
+    "url": "https://eugene-serb.github.io/"
+  },
+  "homepage": "https://eugene-serb.github.io/game-of-life/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugene-serb/game-of-life.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eugene-serb/game-of-life/issues"
+  },
+  "private": "true",
+  "scripts": {
+    "test": "exit 0"
+  }
+}
