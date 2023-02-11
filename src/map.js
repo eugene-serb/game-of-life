@@ -11,7 +11,7 @@ export class Map {
     this.draw();
   }
 
-  draw = () => {
+  draw() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.context.fillStyle = this.color_canvas;
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -24,9 +24,9 @@ export class Map {
         }
       }
     }
-  };
+  }
 
-  #init = () => {
+  #init() {
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
 
@@ -43,8 +43,9 @@ export class Map {
     this.media.addEventListener('change', () => {
       this.#updateColours(this.media);
     });
-  };
-  #updateSizes = () => {
+  }
+
+  #updateSizes() {
     this.canvas.width = 0;
     this.canvas.height = 0;
 
@@ -55,8 +56,9 @@ export class Map {
     this.cell_height = this.canvas.height / this.matrix_height;
 
     this.draw();
-  };
-  #updateColours = (media) => {
+  }
+
+  #updateColours(media) {
     if (media.matches) {
       this.color_canvas = '#055159';
       this.color_cells = '#0DC4D9';
@@ -65,9 +67,9 @@ export class Map {
       this.color_cells = '#0DC4D9';
     }
     this.draw();
-  };
+  }
 
-  generateMatrix = (matrix_width, matrix_height) => {
+  generateMatrix(matrix_width, matrix_height) {
     let matrix = new Array();
     for (let x = 0; x < matrix_width; x++) {
       matrix[x] = new Array();
@@ -76,19 +78,22 @@ export class Map {
       }
     }
     return matrix;
-  };
-  copyMatrix = (matrixIn, matrixOut) => {
+  }
+
+  copyMatrix(matrixIn, matrixOut) {
     for (let x = 0; x < matrixOut.length; x++) {
       for (let y = 0; y < matrixOut[x].length; y++) {
         matrixIn[x][y] = matrixOut[x][y];
       }
     }
     return matrixIn;
-  };
-  reflectX = (matrix) => {
+  }
+
+  reflectX(matrix) {
     return matrix.reverse();
-  };
-  reflectY = (matrix) => {
+  }
+
+  reflectY(matrix) {
     let result = this.generateMatrix(matrix.length, matrix[0].length);
 
     for (let x = 0; x < matrix.length; x++) {
@@ -96,13 +101,9 @@ export class Map {
     }
 
     return this.copyMatrix(matrix, result);
-  };
-  rotateLeft = (matrix) => {
-    /*        
-        =>      x_1 = 0,                        y_1 = 0
-        =>      x_2 = y_1.length - 1 - y_1,     y_2 = x_1 
-    */
+  }
 
+  rotateLeft(matrix) {
     let result = this.generateMatrix(matrix[0].length, matrix.length);
 
     for (let x = 0; x < matrix.length; x++) {
@@ -114,13 +115,9 @@ export class Map {
     }
 
     return this.copyMatrix(matrix, result);
-  };
-  rotateRight = (matrix) => {
-    /*
-        =>      x_1 = 0,        y_1 = 0
-        =>      x_2 = y_1,      y_2 = x_1.length - 1 - x_1
-     */
+  }
 
+  rotateRight(matrix) {
     let result = this.generateMatrix(matrix[0].length, matrix.length);
 
     for (let x = 0; x < matrix.length; x++) {
@@ -132,7 +129,7 @@ export class Map {
     }
 
     return this.copyMatrix(matrix, result);
-  };
+  }
 }
 
 export default Map;

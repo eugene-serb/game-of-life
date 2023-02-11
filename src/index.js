@@ -25,13 +25,14 @@ class Game {
     this.#draw();
   }
 
-  #eventLoop = () => {
+  #eventLoop() {
     this.generation++;
 
     this.#update();
     this.#draw();
-  };
-  #update = () => {
+  }
+
+  #update() {
     let nextMatrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
     let population = 0;
 
@@ -43,6 +44,7 @@ class Game {
       }
       return n;
     };
+
     const countMooreNeighbours = (x, y) => {
       let neigbours = 0;
 
@@ -89,29 +91,32 @@ class Game {
     }
 
     this.population = population;
-  };
-  #draw = () => {
+  }
+
+  #draw() {
     this.map.draw();
     this.$GENERATION_WRAPPER.innerText = `Generation: ${this.generation}`;
     this.$POPULATION_WRAPPER.innerText = `Population: ${this.population}`;
-  };
+  }
 
-  #randomizeMatrix = (matrix, min, max) => {
+  #randomizeMatrix(matrix, min, max) {
     for (let i = 0; i < matrix.length; i++) {
       for (let j = 0; j < matrix[i].length; j++) {
         matrix[i][j] = this.support.getRandomInteger(min, max);
       }
     }
     return matrix;
-  };
-  #clean = () => {
+  }
+
+  #clean() {
     this.interval = 0;
     this.generation = 0;
     this.population = 0;
     this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
     this.cells = this.map.matrix;
-  };
-  #copy = () => {
+  }
+
+  #copy() {
     let width = Math.abs(this.allocateCoordinates[1][0] - this.allocateCoordinates[0][0]) + 1;
     let height = Math.abs(this.allocateCoordinates[1][1] - this.allocateCoordinates[0][1]) + 1;
 
@@ -127,8 +132,9 @@ class Game {
 
     console.log(`width = ${width}, height = ${height}`);
     console.log(result);
-  };
-  #paste = (matrix, figure) => {
+  }
+
+  #paste(matrix, figure) {
     if (matrix.length < figure.length ||
       matrix[0].length < figure[0].length) {
       return;
@@ -142,15 +148,16 @@ class Game {
         this.cells[startX + x][startY + y] = figure[x][y];
       }
     }
-  };
+  }
 
-  #configurations = () => {
+  #configurations() {
     this.MATRIX_WIDTH = 50;
     this.MATRIX_HEIGHT = 50;
     this.SPEED_RATE = 100;
-  };
-  #DOMs = () => {
-    this.$MAP_WRAPPER = document.querySelector('.game-of-life__map-wrapper');
+  }
+
+  #DOMs() {
+    this.$MAP_WRAPPER = document.querySelector('#map');
 
     this.$GENERATION_WRAPPER = document.querySelector('.game-of-life__generation');
     this.$POPULATION_WRAPPER = document.querySelector('.game-of-life__population');
@@ -179,8 +186,9 @@ class Game {
     this.$MATHUSALEM_SELECTOR = document.querySelector('.game-of-life__mathusalem-menu');
     this.$INTERESTING_SELECTOR = document.querySelector('.game-of-life__interesting-menu');
     this.$BEE_GARDEN_SELECTOR = document.querySelector('.game-of-life__bee-garden-menu');
-  };
-  #eventListeners = () => {
+}
+
+  #eventListeners() {
     this.$MAP_WRAPPER.addEventListener('click', (event) => {
       let x = Math.floor(event.offsetX / this.map.cell_width);
       let y = Math.floor(event.offsetY / this.map.cell_height);
@@ -222,7 +230,7 @@ class Game {
     this.$START_BUTTON.addEventListener('click', () => {
       clearInterval(this.interval);
       this.interval = 0;
-      this.interval = setInterval(this.#eventLoop, this.SPEED_RATE);
+      this.interval = setInterval(this.#eventLoop.bind(this), this.SPEED_RATE);
     });
     this.$STOP_BUTTON.addEventListener('click', () => {
       clearInterval(this.interval);
@@ -273,7 +281,7 @@ class Game {
       this.SPEED_RATE = this.$SPEED_SELECTOR.value;
 
       if (status === 1) {
-        this.interval = setInterval(this.#eventLoop, this.SPEED_RATE);
+        this.interval = setInterval(this.#eventLoop.bind(this), this.SPEED_RATE);
       }
     });
     this.$REFLECT_X_BUTTON.addEventListener('click', () => {
@@ -475,7 +483,7 @@ class Game {
       this.$MATHUSALEM_SELECTOR.value = '-1';
       this.$INTERESTING_SELECTOR.value = '-1';
     });
-  };
+  }
 }
 
 new Game();
