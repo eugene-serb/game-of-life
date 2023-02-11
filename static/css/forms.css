@@ -12,17 +12,16 @@ legend {
 
 fieldset {
   border: var(--number-form-border-size) solid var(--color-fieldset-border);
-  border-radius: var(--number-form-border-radius);
   padding: 8px;
 }
 
 button, textarea, select, input {
   padding: 4px 8px;
   border: var(--number-form-border-size) solid var(--color-link);
-  border-radius: var(--number-form-border-radius);
   background: var(--color-background);
   color: var(--color-text);
-  font-size: 16px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
   line-height: 1.382em;
   white-space: nowrap;
 }
@@ -36,7 +35,7 @@ button, textarea, select, input {
 option {
   background: var(--color-background);
   color: var(--color-text);
-  font-size: 16px;
+  font-size: 10px;
   line-height: 1.382em;
 }
 
