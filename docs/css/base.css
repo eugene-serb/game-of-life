@@ -1,4 +1,4 @@
-@charset 'UTF-8';
+﻿@charset 'UTF-8';
 
 *, ::after, ::before {
   margin: 0;
@@ -7,9 +7,9 @@
 }
 
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Press Start 2P', cursive;
   direction: ltr;
-  font-size: 16px;
+  font-size: 10px;
   line-height: 1.382em;
 }
 
@@ -119,4 +119,12 @@ dd {
   font-size: 16px;
   font-weight: 300;
   font-style: normal;
+}
+
+kbd {
+  padding: 0 0.5ch;
+  border: 2px solid var(--color-d-monocromatic-d);
+  border-radius: 2px;
+  line-height: 24px;
+  font-size: 14px;
 }
