@@ -1,8 +1,8 @@
 'use strict';
 
-import Figures from '@/figures.js';
-import Support from '@/support.js';
 import Map from '@/map.js';
+import Figures from '@/figures.js';
+import { getRandomInteger } from '@/helpers.js';
 
 class Game {
   constructor() {
@@ -10,7 +10,6 @@ class Game {
     this.#DOMs();
     this.#eventListeners();
 
-    this.support = new Support();
     this.figures = new Figures();
     this.map = new Map(this.$MAP_WRAPPER, this.MATRIX_WIDTH, this.MATRIX_HEIGHT);
 
@@ -102,7 +101,7 @@ class Game {
   #randomizeMatrix(matrix, min, max) {
     for (let i = 0; i < matrix.length; i++) {
       for (let j = 0; j < matrix[i].length; j++) {
-        matrix[i][j] = this.support.getRandomInteger(min, max);
+        matrix[i][j] = getRandomInteger(min, max);
       }
     }
     return matrix;
