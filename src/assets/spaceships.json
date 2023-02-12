@@ -1,15 +1,15 @@
 [
   {
     "name": "Glider",
-    "figure": [
+    "matrix": [
       [ 0, 0, 1 ],
       [ 1, 0, 1 ],
       [ 0, 1, 1 ]
     ]
   },
   {
-    "name": "Light-weight spaceship – LWSS",
-    "figure": [
+    "name": "Light-weight spaceship â€“ LWSS",
+    "matrix": [
       [ 1, 0, 1, 0 ],
       [ 0, 0, 0, 1 ],
       [ 0, 0, 0, 1 ],
@@ -18,8 +18,8 @@
     ]
   },
   {
-    "name": "Middle-weight spaceship – MWSS",
-    "figure": [
+    "name": "Middle-weight spaceship â€“ MWSS",
+    "matrix": [
       [ 1, 0, 1, 0 ],
       [ 0, 0, 0, 1 ],
       [ 0, 0, 0, 1 ],
@@ -29,8 +29,8 @@
     ]
   },
   {
-    "name": "Heavy-weight spaceship – HWSS",
-    "figure": [
+    "name": "Heavy-weight spaceship â€“ HWSS",
+    "matrix": [
       [ 1, 0, 1, 0 ],
       [ 0, 0, 0, 1 ],
       [ 0, 0, 0, 1 ],

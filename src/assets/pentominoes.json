@@ -1,27 +1,27 @@
 [
   {
     "name": "Pentomino O",
-    "figure": [
+    "matrix": [
       [ 1, 1, 1, 1, 1 ]
     ]
   },
   {
     "name": "Pentomino P",
-    "figure": [
+    "matrix": [
       [ 1, 1, 0 ],
       [ 1, 1, 1 ]
     ]
   },
   {
     "name": "Pentomino Q",
-    "figure": [
+    "matrix": [
       [ 1, 1, 1, 1 ],
       [ 0, 0, 0, 1 ]
     ]
   },
   {
     "name": "Pentomino R – 1103",
-    "figure": [
+    "matrix": [
       [ 1, 0, 0 ],
       [ 1, 1, 1 ],
       [ 0, 1, 0 ]
@@ -29,14 +29,14 @@
   },
   {
     "name": "Pentomino S",
-    "figure": [
+    "matrix": [
       [ 0, 0, 1, 1 ],
       [ 1, 1, 1, 0 ]
     ]
   },
   {
     "name": "Pentomino T",
-    "figure": [
+    "matrix": [
       [ 1, 0, 0 ],
       [ 1, 1, 1 ],
       [ 1, 0, 0 ]
@@ -44,7 +44,7 @@
   },
   {
     "name": "Pentomino U",
-    "figure": [
+    "matrix": [
       [ 1, 1 ],
       [ 0, 1 ],
       [ 1, 1 ]
@@ -52,7 +52,7 @@
   },
   {
     "name": "Pentomino V",
-    "figure": [
+    "matrix": [
       [ 1, 1, 1 ],
       [ 0, 0, 1 ],
       [ 0, 0, 1 ]
@@ -60,7 +60,7 @@
   },
   {
     "name": "Pentomino W",
-    "figure": [
+    "matrix": [
       [ 1, 1, 0 ],
       [ 0, 1, 1 ],
       [ 0, 0, 1 ]
@@ -68,7 +68,7 @@
   },
   {
     "name": "Pentomino X",
-    "figure": [
+    "matrix": [
       [ 0, 1, 0 ],
       [ 1, 1, 1 ],
       [ 0, 1, 0 ]
@@ -76,7 +76,7 @@
   },
   {
     "name": "Pentomino Y",
-    "figure": [
+    "matrix": [
       [ 0, 1 ],
       [ 1, 1 ],
       [ 0, 1 ],
@@ -85,7 +85,7 @@
   },
   {
     "name": "Pentomino X",
-    "figure": [
+    "matrix": [
       [ 1, 1, 0 ],
       [ 0, 1, 0 ],
       [ 0, 1, 1 ]
