@@ -1,11 +1,5 @@
 @charset 'UTF-8';
 
-.game-of-life__controls {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .game-of-life__fieldset {
   display: grid;
   gap: 8px;
@@ -25,9 +19,5 @@
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     text-align: center;
-  }
-
-  .game-of-life {
-    grid-template-columns: 3fr 2fr;
   }
 }
