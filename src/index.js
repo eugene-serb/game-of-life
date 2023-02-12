@@ -345,7 +345,7 @@ class Game {
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.stable[this.$STABLE_SELECTOR.value]);
+      this.#paste(this.cells, this.figures.stable[this.$STABLE_SELECTOR.value].matrix);
       this.#draw();
 
       this.$OSCILLATORS_SELECTOR.value = '-1';
@@ -363,7 +363,7 @@ class Game {
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.spaceships[this.$SPACESHIPS_SELECTOR.value]);
+      this.#paste(this.cells, this.figures.spaceships[this.$SPACESHIPS_SELECTOR.value].matrix);
       this.#draw();
 
       this.$STABLE_SELECTOR.value = '-1';
@@ -381,7 +381,7 @@ class Game {
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.oscillators[this.$OSCILLATORS_SELECTOR.value]);
+      this.#paste(this.cells, this.figures.oscillators[this.$OSCILLATORS_SELECTOR.value].matrix);
       this.#draw();
 
       this.$STABLE_SELECTOR.value = '-1';
@@ -399,7 +399,7 @@ class Game {
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.guns[this.$GUNS_SELECTOR.value]);
+      this.#paste(this.cells, this.figures.guns[this.$GUNS_SELECTOR.value].matrix);
       this.#draw();
 
       this.$STABLE_SELECTOR.value = '-1';
@@ -417,7 +417,7 @@ class Game {
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.pentominoes[this.$PENTOMINO_SELECTOR.value]);
+      this.#paste(this.cells, this.figures.pentominoes[this.$PENTOMINO_SELECTOR.value].matrix);
       this.#draw();
 
       this.$STABLE_SELECTOR.value = '-1';
@@ -435,7 +435,7 @@ class Game {
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.mathusalem[this.$MATHUSALEM_SELECTOR.value]);
+      this.#paste(this.cells, this.figures.mathusalem[this.$MATHUSALEM_SELECTOR.value].matrix);
       this.#draw();
 
       this.$STABLE_SELECTOR.value = '-1';
@@ -453,7 +453,7 @@ class Game {
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.interesting[this.$INTERESTING_SELECTOR.value]);
+      this.#paste(this.cells, this.figures.interesting[this.$INTERESTING_SELECTOR.value].matrix);
       this.#draw();
 
       this.$STABLE_SELECTOR.value = '-1';
@@ -471,7 +471,7 @@ class Game {
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.beelike[this.$BEE_GARDEN_SELECTOR.value]);
+      this.#paste(this.cells, this.figures.beelike[this.$BEE_GARDEN_SELECTOR.value].matrix);
       this.#draw();
 
       this.$STABLE_SELECTOR.value = '-1';
