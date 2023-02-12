@@ -94,8 +94,9 @@ export class GameOfLife {
 
   #draw() {
     this.map.draw();
-    this.$GENERATION_WRAPPER.innerText = `Generation: ${this.generation}`;
-    this.$POPULATION_WRAPPER.innerText = `Population: ${this.population}`;
+
+    this.$GENERATION.innerText = `Generation: ${this.generation}`;
+    this.$POPULATION.innerText = `Population: ${this.population}`;
   }
 
   #randomizeMatrix(matrix, min, max) {
@@ -158,33 +159,33 @@ export class GameOfLife {
   #DOMs() {
     this.$MAP = document.querySelector('#map');
 
-    this.$GENERATION_WRAPPER = document.querySelector('.game-of-life__generation');
-    this.$POPULATION_WRAPPER = document.querySelector('.game-of-life__population');
+    this.$GENERATION = document.querySelector('#generation');
+    this.$POPULATION = document.querySelector('#population');
 
-    this.$START_BUTTON = document.querySelector('.game-of-life__start');
-    this.$STOP_BUTTON = document.querySelector('.game-of-life__stop');
-    this.$NEXT_BUTTON = document.querySelector('.game-of-life__next');
-    this.$CLEAN_BUTTON = document.querySelector('.game-of-life__clean');
-    this.$RANDOMIZE_BUTTON = document.querySelector('.game-of-life__randomize');
-    this.$SPEED_SELECTOR = document.querySelector('.game-of-life__speed-menu');
+    this.$START = document.querySelector('#start');
+    this.$STOP = document.querySelector('#stop');
+    this.$STEP = document.querySelector('#step');
+    this.$CLEAN = document.querySelector('#clean');
+    this.$RANDOMIZE = document.querySelector('#randomize');
+    this.$SPEED = document.querySelector('#speed-menu');
 
-    this.$REFLECT_X_BUTTON = document.querySelector('.game-of-life__reflect-x');
-    this.$REFLECT_Y_BUTTON = document.querySelector('.game-of-life__reflect-y');
-    this.$ROTATE_LEFT_BUTTON = document.querySelector('.game-of-life__rotate-left');
-    this.$ROTATE_RIGHT_BUTTON = document.querySelector('.game-of-life__rotate-right');
+    this.$REFLECT_X = document.querySelector('#reflect-x');
+    this.$REFLECT_Y = document.querySelector('#reflect-y');
+    this.$ROTATE_LEFT = document.querySelector('#rotate-left');
+    this.$ROTATE_RIGHT = document.querySelector('#rotate-right');
 
-    this.$EXPORT_BUTTON = document.querySelector('.game-of-life__export');
-    this.$IMPORT_INPUT = document.querySelector('.game-of-life__import-input');
-    this.$IMPORT_BUTTON = document.querySelector('.game-of-life__import');
+    this.$EXPORT = document.querySelector('#export');
+    this.$IMPORT = document.querySelector('#import');
+    this.$IMPORT_INPUT = document.querySelector('#import-input');
 
-    this.$STABLE_SELECTOR = document.querySelector('.game-of-life__stables-menu');
-    this.$SPACESHIPS_SELECTOR = document.querySelector('.game-of-life__spaceships-menu');
-    this.$OSCILLATORS_SELECTOR = document.querySelector('.game-of-life__oscillators-menu');
-    this.$GUNS_SELECTOR = document.querySelector('.game-of-life__guns-menu');
-    this.$PENTOMINO_SELECTOR = document.querySelector('.game-of-life__pentominoes-menu');
-    this.$MATHUSALEM_SELECTOR = document.querySelector('.game-of-life__mathusalem-menu');
-    this.$INTERESTING_SELECTOR = document.querySelector('.game-of-life__interesting-menu');
-    this.$BEE_GARDEN_SELECTOR = document.querySelector('.game-of-life__bee-garden-menu');
+    this.$SELECTOR_STILL_LIFE = document.querySelector('.game-of-life__still-life-menu');
+    this.$SELECTOR_SPACESHIPS = document.querySelector('.game-of-life__spaceships-menu');
+    this.$SELECTOR_OSCILLATORS = document.querySelector('.game-of-life__oscillators-menu');
+    this.$SELECTOR_GUNS = document.querySelector('.game-of-life__guns-menu');
+    this.$SELECTOR_PENTOMINO = document.querySelector('.game-of-life__pentominoes-menu');
+    this.$SELECTOR_MATHUSALEM = document.querySelector('.game-of-life__mathusalem-menu');
+    this.$SELECTOR_INTERESTING = document.querySelector('.game-of-life__interesting-menu');
+    this.$SELECTOR_BEE_GARDEN = document.querySelector('.game-of-life__bee-garden-menu');
   }
 
   #eventListeners() {
@@ -226,50 +227,50 @@ export class GameOfLife {
 
       this.#draw();
     });
-    this.$START_BUTTON.addEventListener('click', () => {
+    this.$START.addEventListener('click', () => {
       clearInterval(this.interval);
       this.interval = 0;
       this.interval = setInterval(this.#eventLoop.bind(this), this.SPEED_RATE);
     });
-    this.$STOP_BUTTON.addEventListener('click', () => {
+    this.$STOP.addEventListener('click', () => {
       clearInterval(this.interval);
       this.interval = 0;
     });
-    this.$NEXT_BUTTON.addEventListener('click', () => {
+    this.$STEP.addEventListener('click', () => {
       clearInterval(this.interval);
       this.interval = 0;
       this.#eventLoop();
     });
-    this.$CLEAN_BUTTON.addEventListener('click', () => {
+    this.$CLEAN.addEventListener('click', () => {
       clearInterval(this.interval);
       this.#clean();
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$MATHUSALEM_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$RANDOMIZE_BUTTON.addEventListener('click', () => {
+    this.$RANDOMIZE.addEventListener('click', () => {
       clearInterval(this.interval);
       this.#clean();
       this.cells = this.#randomizeMatrix(this.cells, 0, 2);
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$MATHUSALEM_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$SPEED_SELECTOR.addEventListener('input', () => {
+    this.$SPEED.addEventListener('input', () => {
       let status = (this.interval !== 0) ? 1 : 0;
 
       if (status === 1) {
@@ -277,36 +278,36 @@ export class GameOfLife {
         this.interval = 0;
       }
 
-      this.SPEED_RATE = this.$SPEED_SELECTOR.value;
+      this.SPEED_RATE = this.$SPEED.value;
 
       if (status === 1) {
         this.interval = setInterval(this.#eventLoop.bind(this), this.SPEED_RATE);
       }
     });
-    this.$REFLECT_X_BUTTON.addEventListener('click', () => {
+    this.$REFLECT_X.addEventListener('click', () => {
       this.cells = this.map.reflectX(this.cells);
       this.#draw();
     });
-    this.$REFLECT_Y_BUTTON.addEventListener('click', () => {
+    this.$REFLECT_Y.addEventListener('click', () => {
       this.cells = this.map.reflectY(this.cells);
       this.#draw();
     });
-    this.$ROTATE_LEFT_BUTTON.addEventListener('click', () => {
+    this.$ROTATE_LEFT.addEventListener('click', () => {
       this.cells = this.map.rotateRight(this.cells);
       this.#draw();
     });
-    this.$ROTATE_RIGHT_BUTTON.addEventListener('click', () => {
+    this.$ROTATE_RIGHT.addEventListener('click', () => {
       this.cells = this.map.rotateLeft(this.cells);
       this.#draw();
     });
-    this.$EXPORT_BUTTON.addEventListener('click', () => {
+    this.$EXPORT.addEventListener('click', () => {
       let blob = new Blob([JSON.stringify(this.map.matrix)], { type: 'application/json' });
       let $link = document.createElement('a');
       $link.setAttribute('href', URL.createObjectURL(blob));
       $link.setAttribute('download', `save-${Date.now()}.json`);
       $link.click();
     });
-    this.$IMPORT_BUTTON.addEventListener('click', () => {
+    this.$IMPORT.addEventListener('click', () => {
       this.$IMPORT_INPUT.click();
     });
     this.$IMPORT_INPUT.addEventListener('input', () => {
@@ -338,149 +339,149 @@ export class GameOfLife {
 
       this.$IMPORT_INPUT.value = '';
     });
-    this.$STABLE_SELECTOR.addEventListener('change', () => {
-      if (this.$STABLE_SELECTOR.value === '-1') {
+    this.$SELECTOR_STILL_LIFE.addEventListener('change', () => {
+      if (this.$SELECTOR_STILL_LIFE.value === '-1') {
         return;
       }
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.stable[this.$STABLE_SELECTOR.value].matrix);
+      this.#paste(this.cells, this.figures.stable[this.$SELECTOR_STILL_LIFE.value].matrix);
       this.#draw();
 
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$MATHUSALEM_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$SPACESHIPS_SELECTOR.addEventListener('change', () => {
-      if (this.$SPACESHIPS_SELECTOR.value === '-1') {
+    this.$SELECTOR_SPACESHIPS.addEventListener('change', () => {
+      if (this.$SELECTOR_SPACESHIPS.value === '-1') {
         return;
       }
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.spaceships[this.$SPACESHIPS_SELECTOR.value].matrix);
+      this.#paste(this.cells, this.figures.spaceships[this.$SELECTOR_SPACESHIPS.value].matrix);
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$MATHUSALEM_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$OSCILLATORS_SELECTOR.addEventListener('change', () => {
-      if (this.$OSCILLATORS_SELECTOR.value === '-1') {
+    this.$SELECTOR_OSCILLATORS.addEventListener('change', () => {
+      if (this.$SELECTOR_OSCILLATORS.value === '-1') {
         return;
       }
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.oscillators[this.$OSCILLATORS_SELECTOR.value].matrix);
+      this.#paste(this.cells, this.figures.oscillators[this.$SELECTOR_OSCILLATORS.value].matrix);
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$MATHUSALEM_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$GUNS_SELECTOR.addEventListener('change', () => {
-      if (this.$GUNS_SELECTOR.value === '-1') {
+    this.$SELECTOR_GUNS.addEventListener('change', () => {
+      if (this.$SELECTOR_GUNS.value === '-1') {
         return;
       }
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.guns[this.$GUNS_SELECTOR.value].matrix);
+      this.#paste(this.cells, this.figures.guns[this.$SELECTOR_GUNS.value].matrix);
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$MATHUSALEM_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$PENTOMINO_SELECTOR.addEventListener('change', () => {
-      if (this.$PENTOMINO_SELECTOR.value === '-1') {
+    this.$SELECTOR_PENTOMINO.addEventListener('change', () => {
+      if (this.$SELECTOR_PENTOMINO.value === '-1') {
         return;
       }
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.pentominoes[this.$PENTOMINO_SELECTOR.value].matrix);
+      this.#paste(this.cells, this.figures.pentominoes[this.$SELECTOR_PENTOMINO.value].matrix);
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$.MATHUSALEM_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$MATHUSALEM_SELECTOR.addEventListener('change', () => {
-      if (this.$MATHUSALEM_SELECTOR.value === '-1') {
+    this.$SELECTOR_MATHUSALEM.addEventListener('change', () => {
+      if (this.$SELECTOR_MATHUSALEM.value === '-1') {
         return;
       }
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.mathusalem[this.$MATHUSALEM_SELECTOR.value].matrix);
+      this.#paste(this.cells, this.figures.mathusalem[this.$SELECTOR_MATHUSALEM.value].matrix);
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$INTERESTING_SELECTOR.addEventListener('change', () => {
-      if (this.$INTERESTING_SELECTOR.value === '-1') {
+    this.$SELECTOR_INTERESTING.addEventListener('change', () => {
+      if (this.$SELECTOR_INTERESTING.value === '-1') {
         return;
       }
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.interesting[this.$INTERESTING_SELECTOR.value].matrix);
+      this.#paste(this.cells, this.figures.interesting[this.$SELECTOR_INTERESTING.value].matrix);
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$MATHUSALEM_SELECTOR.value = '-1';
-      this.$BEE_GARDEN_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
-    this.$BEE_GARDEN_SELECTOR.addEventListener('change', () => {
-      if (this.$BEE_GARDEN_SELECTOR.value === '-1') {
+    this.$SELECTOR_BEE_GARDEN.addEventListener('change', () => {
+      if (this.$SELECTOR_BEE_GARDEN.value === '-1') {
         return;
       }
 
       clearInterval(this.interval);
       this.#clean();
-      this.#paste(this.cells, this.figures.beelike[this.$BEE_GARDEN_SELECTOR.value].matrix);
+      this.#paste(this.cells, this.figures.beelike[this.$SELECTOR_BEE_GARDEN.value].matrix);
       this.#draw();
 
-      this.$STABLE_SELECTOR.value = '-1';
-      this.$OSCILLATORS_SELECTOR.value = '-1';
-      this.$SPACESHIPS_SELECTOR.value = '-1';
-      this.$GUNS_SELECTOR.value = '-1';
-      this.$PENTOMINO_SELECTOR.value = '-1';
-      this.$MATHUSALEM_SELECTOR.value = '-1';
-      this.$INTERESTING_SELECTOR.value = '-1';
+      this.$SELECTOR_STILL_LIFE.value = '-1';
+      this.$SELECTOR_OSCILLATORS.value = '-1';
+      this.$SELECTOR_SPACESHIPS.value = '-1';
+      this.$SELECTOR_GUNS.value = '-1';
+      this.$SELECTOR_PENTOMINO.value = '-1';
+      this.$SELECTOR_MATHUSALEM.value = '-1';
+      this.$SELECTOR_INTERESTING.value = '-1';
     });
   }
 }

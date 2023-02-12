@@ -86,21 +86,21 @@
       <div id="map" class="game__map-wrapper"></div>
       <div class="game__right-column">
         <h2 class="game__title">Game of Life</h2>
-        <fieldset class="game-of-life__fieldset game-of-life__information">
+        <fieldset class="game-of-life__fieldset">
           <legend>Information</legend>
-          <span class="game-of-life__generation">Generation: 0</span>
-          <span class="game-of-life__population">Population: 0</span>
-          <span class="game-of-life__topology">Topology: Torus</span>
-          <span class="game-of-life__size">Size: 50 x 50</span>
+          <span id="generation">Generation: 0</span>
+          <span id="population">Population: 0</span>
+          <span id="topology">Topology: Torus</span>
+          <span id="size">Size: 50 x 50</span>
         </fieldset>
         <fieldset class="game-of-life__fieldset game-of-life__fieldset_row">
           <legend>Controls</legend>
-          <button class="game-of-life__start">Start</button>
-          <button class="game-of-life__stop">Stop</button>
-          <button class="game-of-life__randomize">Randomize</button>
-          <button class="game-of-life__clean">Clean</button>
-          <button class="game-of-life__next">Step</button>
-          <select class="game-of-life__speed-menu">
+          <button id="start">Start</button>
+          <button id="stop">Stop</button>
+          <button id="randomize">Randomize</button>
+          <button id="clean">Clean</button>
+          <button id="step">Step</button>
+          <select id="speed-menu">
             <option value="10">10 ms</option>
             <option value="50">50 ms</option>
             <option value="100" selected="selected">100 ms</option>
@@ -114,17 +114,17 @@
       <div class="game__left-column">
         <fieldset class="game-of-life__fieldset game-of-life__fieldset_row">
           <legend>Tools</legend>
-          <button class="game-of-life__reflect-x">Reflect X</button>
-          <button class="game-of-life__reflect-y">Reflect Y</button>
-          <button class="game-of-life__rotate-left">Rotate Left</button>
-          <button class="game-of-life__rotate-right">Rotate Right</button>
-          <button class="game-of-life__export">Export</button>
-          <input type="file" accept="application/json" class="game-of-life__import-input hidden" />
-          <button class="game-of-life__import">Import</button>
+          <button id="reflect-x">Reflect X</button>
+          <button id="reflect-y">Reflect Y</button>
+          <button id="rotate-left">Rotate Left</button>
+          <button id="rotate-right">Rotate Right</button>
+          <button id="export">Export</button>
+          <input id="import-input" type="file" accept="application/json" class="hidden" />
+          <button id="import">Import</button>
         </fieldset>
         <fieldset class="game-of-life__fieldset game-of-life__fieldset">
           <legend>Figures</legend>
-          <select class="game-of-life__stables-menu">
+          <select class="game-of-life__still-life-menu">
             <option value="-1" selected="selected">— Still Life —</option>
             <option value="0">Block</option>
             <option value="1">Bi-Block</option>
