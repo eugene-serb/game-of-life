@@ -30,6 +30,7 @@ export class Map {
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d');
 
+    this.$container.innerHTML = '';
     this.$container.appendChild(this.canvas);
     this.#updateSizes();
 

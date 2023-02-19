@@ -1,14 +1,43 @@
 ﻿'use strict';
 
+import Gameloop from '@/gameloop.js';
 import Map from '@/map.js';
 import Figures from '@/figures.js';
 import { getRandomInteger } from '@/helpers.js';
 
-export class GameOfLife {
+export class GameOfLife extends Gameloop {
   constructor() {
-    this.#configurations();
+    super();
     this.#DOMs();
+    this.#configurations();
     this.#eventListeners();
+    this.#init();
+  }
+
+  resetForms() {
+    this.$SELECTOR_STILL_LIFE.value = '-1';
+    this.$SELECTOR_OSCILLATORS.value = '-1';
+    this.$SELECTOR_SPACESHIPS.value = '-1';
+    this.$SELECTOR_GUNS.value = '-1';
+    this.$SELECTOR_PENTOMINO.value = '-1';
+    this.$SELECTOR_MATHUSALEM.value = '-1';
+    this.$SELECTOR_INTERESTING.value = '-1';
+    this.$SELECTOR_BEE_GARDEN.value = '-1';
+  }
+
+  start() {
+    super.start();
+    this.stop();
+    this.interval = setInterval(this.#eventLoop.bind(this), this.SPEED_RATE);
+  }
+
+  clear() {
+    super.clear();
+    this.#init();
+  }
+
+  #init() {
+    this.resetForms();
 
     this.figures = new Figures();
     this.map = new Map(this.$MAP, this.MATRIX_WIDTH, this.MATRIX_HEIGHT);
@@ -25,13 +54,13 @@ export class GameOfLife {
   }
 
   #eventLoop() {
-    this.generation++;
-
     this.#update();
     this.#draw();
   }
 
   #update() {
+    this.generation++;
+
     let nextMatrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
     let population = 0;
 
@@ -106,14 +135,6 @@ export class GameOfLife {
       }
     }
     return matrix;
-  }
-
-  #clean() {
-    this.interval = 0;
-    this.generation = 0;
-    this.population = 0;
-    this.map.matrix = this.map.generateMatrix(this.map.matrix_width, this.map.matrix_height);
-    this.cells = this.map.matrix;
   }
 
   #copy() {
@@ -227,63 +248,25 @@ export class GameOfLife {
 
       this.#draw();
     });
-    this.$START.addEventListener('click', () => {
-      clearInterval(this.interval);
-      this.interval = 0;
-      this.interval = setInterval(this.#eventLoop.bind(this), this.SPEED_RATE);
-    });
-    this.$STOP.addEventListener('click', () => {
-      clearInterval(this.interval);
-      this.interval = 0;
-    });
+
+    this.$START.addEventListener('click', () => this.start());
+    this.$STOP.addEventListener('click', () => this.stop());
+    this.$CLEAN.addEventListener('click', () => this.clear());
     this.$STEP.addEventListener('click', () => {
       clearInterval(this.interval);
-      this.interval = 0;
       this.#eventLoop();
     });
-    this.$CLEAN.addEventListener('click', () => {
-      clearInterval(this.interval);
-      this.#clean();
-      this.#draw();
-
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
-    });
     this.$RANDOMIZE.addEventListener('click', () => {
-      clearInterval(this.interval);
-      this.#clean();
+      this.clear();
       this.cells = this.#randomizeMatrix(this.cells, 0, 2);
       this.#draw();
-
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
     });
     this.$SPEED.addEventListener('input', () => {
-      let status = (this.interval !== 0) ? 1 : 0;
-
-      if (status === 1) {
-        clearInterval(this.interval);
-        this.interval = 0;
-      }
-
+      this.stop();
       this.SPEED_RATE = this.$SPEED.value;
-
-      if (status === 1) {
-        this.interval = setInterval(this.#eventLoop.bind(this), this.SPEED_RATE);
-      }
+      this.start();
     });
+
     this.$REFLECT_X.addEventListener('click', () => {
       this.cells = this.map.reflectX(this.cells);
       this.#draw();
@@ -339,149 +322,110 @@ export class GameOfLife {
 
       this.$IMPORT_INPUT.value = '';
     });
+
     this.$SELECTOR_STILL_LIFE.addEventListener('change', () => {
       if (this.$SELECTOR_STILL_LIFE.value === '-1') {
         return;
       }
 
-      clearInterval(this.interval);
-      this.#clean();
-      this.#paste(this.cells, this.figures.stable[this.$SELECTOR_STILL_LIFE.value].matrix);
+      const value = this.$SELECTOR_STILL_LIFE.value;
+
+      this.clear();
+      this.#paste(this.cells, this.figures.stable[value].matrix);
       this.#draw();
 
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
+      this.resetForms();
     });
     this.$SELECTOR_SPACESHIPS.addEventListener('change', () => {
       if (this.$SELECTOR_SPACESHIPS.value === '-1') {
         return;
       }
 
-      clearInterval(this.interval);
-      this.#clean();
-      this.#paste(this.cells, this.figures.spaceships[this.$SELECTOR_SPACESHIPS.value].matrix);
+      const value = this.$SELECTOR_SPACESHIPS.value;
+
+      this.clear();
+      this.#paste(this.cells, this.figures.spaceships[value].matrix);
       this.#draw();
 
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
+      this.resetForms();
     });
     this.$SELECTOR_OSCILLATORS.addEventListener('change', () => {
       if (this.$SELECTOR_OSCILLATORS.value === '-1') {
         return;
       }
 
-      clearInterval(this.interval);
-      this.#clean();
-      this.#paste(this.cells, this.figures.oscillators[this.$SELECTOR_OSCILLATORS.value].matrix);
+      const value = this.$SELECTOR_OSCILLATORS.value;
+
+      this.clear();
+      this.#paste(this.cells, this.figures.oscillators[value].matrix);
       this.#draw();
 
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
+      this.resetForms();
     });
     this.$SELECTOR_GUNS.addEventListener('change', () => {
       if (this.$SELECTOR_GUNS.value === '-1') {
         return;
       }
 
-      clearInterval(this.interval);
-      this.#clean();
-      this.#paste(this.cells, this.figures.guns[this.$SELECTOR_GUNS.value].matrix);
+      const value = this.$SELECTOR_GUNS.value;
+
+      this.clear();
+      this.#paste(this.cells, this.figures.guns[value].matrix);
       this.#draw();
 
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
+      this.resetForms();
     });
     this.$SELECTOR_PENTOMINO.addEventListener('change', () => {
       if (this.$SELECTOR_PENTOMINO.value === '-1') {
         return;
       }
 
-      clearInterval(this.interval);
-      this.#clean();
-      this.#paste(this.cells, this.figures.pentominoes[this.$SELECTOR_PENTOMINO.value].matrix);
+      const value = this.$SELECTOR_PENTOMINO.value;
+
+      this.clear();
+      this.#paste(this.cells, this.figures.pentominoes[value].matrix);
       this.#draw();
 
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
+      this.resetForms();
     });
     this.$SELECTOR_MATHUSALEM.addEventListener('change', () => {
       if (this.$SELECTOR_MATHUSALEM.value === '-1') {
         return;
       }
 
-      clearInterval(this.interval);
-      this.#clean();
-      this.#paste(this.cells, this.figures.mathusalem[this.$SELECTOR_MATHUSALEM.value].matrix);
+      const value = this.$SELECTOR_MATHUSALEM.value;
+
+      this.clear();
+      this.#paste(this.cells, this.figures.mathusalem[value].matrix);
       this.#draw();
 
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
+      this.resetForms();
     });
     this.$SELECTOR_INTERESTING.addEventListener('change', () => {
       if (this.$SELECTOR_INTERESTING.value === '-1') {
         return;
       }
 
-      clearInterval(this.interval);
-      this.#clean();
-      this.#paste(this.cells, this.figures.interesting[this.$SELECTOR_INTERESTING.value].matrix);
+      const value = this.$SELECTOR_INTERESTING.value;
+
+      this.clear();
+      this.#paste(this.cells, this.figures.interesting[value].matrix);
       this.#draw();
 
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_BEE_GARDEN.value = '-1';
+      this.resetForms();
     });
     this.$SELECTOR_BEE_GARDEN.addEventListener('change', () => {
       if (this.$SELECTOR_BEE_GARDEN.value === '-1') {
         return;
       }
 
-      clearInterval(this.interval);
-      this.#clean();
-      this.#paste(this.cells, this.figures.beelike[this.$SELECTOR_BEE_GARDEN.value].matrix);
+      const value = this.$SELECTOR_BEE_GARDEN.value;
+
+      this.clear();
+      this.#paste(this.cells, this.figures.beelike[value].matrix);
       this.#draw();
 
-      this.$SELECTOR_STILL_LIFE.value = '-1';
-      this.$SELECTOR_OSCILLATORS.value = '-1';
-      this.$SELECTOR_SPACESHIPS.value = '-1';
-      this.$SELECTOR_GUNS.value = '-1';
-      this.$SELECTOR_PENTOMINO.value = '-1';
-      this.$SELECTOR_MATHUSALEM.value = '-1';
-      this.$SELECTOR_INTERESTING.value = '-1';
+      this.resetForms();
     });
   }
 }
