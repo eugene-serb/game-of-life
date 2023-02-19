@@ -1,6 +1,6 @@
 {
   "name": "game-of-life",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "This is a cellular automaton that implements Conway's Game of Life. Contains a library of figurines and tools.",
   "keywords": [
     "game-of-life",
