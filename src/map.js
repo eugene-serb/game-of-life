@@ -20,7 +20,12 @@ export class Map {
     for (let x = 0; x < this.matrix_width; x++) {
       for (let y = 0; y < this.matrix_height; y++) {
         if (this.matrix[x][y] !== 0) {
-          this.context.fillRect(x * this.cell_width, y * this.cell_height, this.cell_width, this.cell_height);
+          this.context.fillRect(
+            x * this.cell_width,
+            y * this.cell_height,
+            this.cell_width,
+            this.cell_height,
+          );
         }
       }
     }
