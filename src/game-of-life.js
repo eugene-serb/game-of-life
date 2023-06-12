@@ -76,16 +76,56 @@ export class GameOfLife extends Gameloop {
     const countMooreNeighbours = (x, y) => {
       let neigbours = 0;
 
-      neigbours += (this.cells[fixCollision(x - 1, this.map.matrix_width)][fixCollision(y - 1, this.map.matrix_height)] === 1) ? 1 : 0;
-      neigbours += (this.cells[fixCollision(x - 1, this.map.matrix_width)][fixCollision(y, this.map.matrix_height)] === 1) ? 1 : 0;
-      neigbours += (this.cells[fixCollision(x - 1, this.map.matrix_width)][fixCollision(y + 1, this.map.matrix_height)] === 1) ? 1 : 0;
+      neigbours +=
+        this.cells[fixCollision(x - 1, this.map.matrix_width)][
+          fixCollision(y - 1, this.map.matrix_height)
+        ] === 1
+          ? 1
+          : 0;
+      neigbours +=
+        this.cells[fixCollision(x - 1, this.map.matrix_width)][
+          fixCollision(y, this.map.matrix_height)
+        ] === 1
+          ? 1
+          : 0;
+      neigbours +=
+        this.cells[fixCollision(x - 1, this.map.matrix_width)][
+          fixCollision(y + 1, this.map.matrix_height)
+        ] === 1
+          ? 1
+          : 0;
 
-      neigbours += (this.cells[fixCollision(x, this.map.matrix_width)][fixCollision(y - 1, this.map.matrix_height)] === 1) ? 1 : 0;
-      neigbours += (this.cells[fixCollision(x, this.map.matrix_width)][fixCollision(y + 1, this.map.matrix_height)] === 1) ? 1 : 0;
+      neigbours +=
+        this.cells[fixCollision(x, this.map.matrix_width)][
+          fixCollision(y - 1, this.map.matrix_height)
+        ] === 1
+          ? 1
+          : 0;
+      neigbours +=
+        this.cells[fixCollision(x, this.map.matrix_width)][
+          fixCollision(y + 1, this.map.matrix_height)
+        ] === 1
+          ? 1
+          : 0;
 
-      neigbours += (this.cells[fixCollision(x + 1, this.map.matrix_width)][fixCollision(y - 1, this.map.matrix_height)] === 1) ? 1 : 0;
-      neigbours += (this.cells[fixCollision(x + 1, this.map.matrix_width)][fixCollision(y, this.map.matrix_height)] === 1) ? 1 : 0;
-      neigbours += (this.cells[fixCollision(x + 1, this.map.matrix_width)][fixCollision(y + 1, this.map.matrix_height)] === 1) ? 1 : 0;
+      neigbours +=
+        this.cells[fixCollision(x + 1, this.map.matrix_width)][
+          fixCollision(y - 1, this.map.matrix_height)
+        ] === 1
+          ? 1
+          : 0;
+      neigbours +=
+        this.cells[fixCollision(x + 1, this.map.matrix_width)][
+          fixCollision(y, this.map.matrix_height)
+        ] === 1
+          ? 1
+          : 0;
+      neigbours +=
+        this.cells[fixCollision(x + 1, this.map.matrix_width)][
+          fixCollision(y + 1, this.map.matrix_height)
+        ] === 1
+          ? 1
+          : 0;
 
       return neigbours;
     };
@@ -156,8 +196,7 @@ export class GameOfLife extends Gameloop {
   }
 
   #paste(matrix, figure) {
-    if (matrix.length < figure.length ||
-      matrix[0].length < figure[0].length) {
+    if (matrix.length < figure.length || matrix[0].length < figure[0].length) {
       return;
     }
 
@@ -215,7 +254,6 @@ export class GameOfLife extends Gameloop {
       let y = Math.floor(event.offsetY / this.map.cell_height);
 
       if (event.ctrlKey === true && this.interval === 0) {
-
         if (this.allocate === false) {
           this.allocate = true;
         }
@@ -294,7 +332,6 @@ export class GameOfLife extends Gameloop {
       this.$IMPORT_INPUT.click();
     });
     this.$IMPORT_INPUT.addEventListener('input', () => {
-
       if (this.$IMPORT_INPUT.files[0].type !== 'application/json') {
         return;
       }
