@@ -1,9 +1,9 @@
 ﻿'use strict';
 
-import Gameloop from '@/gameloop.js';
-import Map from '@/map.js';
-import Figures from '@/figures.js';
-import { getRandomInteger } from '@/helpers.js';
+import Gameloop from '@/engine/gameloop.js';
+import Map from '@/game/map.js';
+import Figures from '@/game/figures.js';
+import { getRandomInteger } from '@/engine/helpers.js';
 
 export class GameOfLife extends Gameloop {
   constructor() {
