@@ -1,5 +1,9 @@
 'use strict';
 
-import GameOfLife from '@/game-of-life.js';
+const ENTRIES = require('./entries.js');
+const PAGES = require('./pages.js');
 
-new GameOfLife();
+module.exports = {
+  ENTRIES,
+  PAGES,
+};
