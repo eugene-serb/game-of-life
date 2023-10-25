@@ -1,0 +1,23 @@
+@charset 'UTF-8';
+
+.game-of-life__fieldset {
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+
+.game-of-life__fieldset_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 1440px) {
+  .game-of-life__fieldset {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    text-align: center;
+  }
+}
